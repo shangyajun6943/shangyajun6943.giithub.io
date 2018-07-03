@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Python | My Octopress Blog]]></title>
+  <link href="http://shangyajun6943.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://shangyajun6943.github.io/"/>
+  <updated>2018-07-03T16:03:16+08:00</updated>
+  <id>http://shangyajun6943.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog</id>
+    <content type="html"><![CDATA[<h1>初识octopress</h1>
+
+<h2>1.    Octopress的基础知识</h2>
+
+<h3>1.1Octopress是什么？</h3>
+
+<h4>Octopress是一个基于Jekyll的静态的博客站点生成系统，它很大程度上简化了Jekyll的搭建博客的过程</h4>
+
+<h2>2.    Octopress的目录结构</h2>
+
+<h2>3.    Octopress的使用流程</h2>
+]]></content>
+  </entry>
+  
+</feed>
