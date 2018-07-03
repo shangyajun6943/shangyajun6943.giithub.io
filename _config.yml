@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://shangyajun6943.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
-simple_search: https://www.google.com/search
+title: 夕阳还是很红
+subtitle: 向前一小步，文明一大步
+author: 尚亚军
+simple_search: https://www.baidu.com
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -99,3 +99,7 @@ google_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: false
+
+# duoshuo comments
+duoshuo_comments: false
+duoshuo_short_name: superqq
