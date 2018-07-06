@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Dajngo | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/dajngo/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-06T19:26:57+08:00</updated>
+  <updated>2018-07-06T19:40:33+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -104,10 +104,7 @@ class NoteIndex(indexes.SearchIndex, indexes.Indexable):
 
 <h6>并且，haystack提供了use_template=True在text字段，这样就允许我们使用数据模板去建立搜索引擎索引的文件，使用方便（官方推荐，当然还有其他复杂的建立索引文件的方式，目前我还不知道），数据模板的路径为yourapp/templates/search/indexes/yourapp/note_text.txt，例如本例子为blog/templates/search/indexes/blog/note_text.txt文件名必须为要索引的类名_text.txt,其内容为</h6>
 
-<pre><code>
-
-
-</code></pre>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"></pre></td><td class='code'><pre><code class=''></code></pre></td></tr></table></div></figure></p>
 
 <h6>这个数据模板的作用是对Note.title, Note.user.get_full_name,Note.body这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配。</h6>
 
@@ -137,7 +134,7 @@ urlpatterns = [
 
 <h2>6. 使用jieba分词</h2>
 
-<h3>1.将文件whoosh_backend.py（该文件路径为python路径/lib/python3.4/site-packages/haystack/backends/whoosh_backend.py）拷贝到app下面，并重命名为whoosh_cn_backend.py，例如blog/whoosh_cn_backend.py。修改如下添加from jieba.analyse import ChineseAnalyzer修改为如下</h3>
+<h6># 1.将文件whoosh_backend.py（该文件路径为python路径/lib/python3.4/site-packages/haystack/backends/whoosh_backend.py）拷贝到app下面，并重命名为whoosh_cn_backend.py，例如blog/whoosh_cn_backend.py。修改如下添加from jieba.analyse import ChineseAnalyzer修改为如下</h6>
 
 <pre><code>schema_fields[field_class.index_fieldname] =
     TEXT(stored=True, analyzer=ChineseAnalyzer(),

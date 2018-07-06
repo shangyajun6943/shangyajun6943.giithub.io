@@ -216,10 +216,8 @@
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>
-</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\{\{ object.title \}\}\{\{ object.user.get_full_name \}\}
+</span><span class='line'>  \{\{ object.body \}\}</span></code></pre></td></tr></table></div></figure>
 
 
 <h6>这个数据模板的作用是对Note.title, Note.user.get_full_name,Note.body这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配。</h6>
@@ -256,7 +254,7 @@
 
 <h2>6. 使用jieba分词</h2>
 
-<h3>1.将文件whoosh_backend.py（该文件路径为python路径/lib/python3.4/site-packages/haystack/backends/whoosh_backend.py）拷贝到app下面，并重命名为whoosh_cn_backend.py，例如blog/whoosh_cn_backend.py。修改如下添加from jieba.analyse import ChineseAnalyzer修改为如下</h3>
+<h6># 1.将文件whoosh_backend.py（该文件路径为python路径/lib/python3.4/site-packages/haystack/backends/whoosh_backend.py）拷贝到app下面，并重命名为whoosh_cn_backend.py，例如blog/whoosh_cn_backend.py。修改如下添加from jieba.analyse import ChineseAnalyzer修改为如下</h6>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
