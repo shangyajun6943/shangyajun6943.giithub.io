@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-06T17:03:14+08:00</updated>
+  <updated>2018-07-06T19:24:05+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Octopress环境的搭建]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/"/>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2/"/>
     <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2 - 副本</id>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2</id>
     <content type="html"><![CDATA[<h1>octopress环境的搭建</h1>
 
 <h3>git、ruby、Devkit、markdownPad的安装与配置</h3>

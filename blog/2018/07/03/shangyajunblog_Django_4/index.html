@@ -131,17 +131,20 @@ class &hellip;">
 
 <p><strong>常用参数</strong></p>
 
-<p>model  必须指定模型，但会是这个模型下的所有的数据
-queryset=？  指定的通过模型语言返回指定的QuerySet集合
-template_name 指定返回的模板的地址
-context_object_name 指定模板语言中返回的变量名称，默认是object_list
-slug_url_kwarg = &lsquo;slug&rsquo; 指定url中的(?P<sulg>）的名称
-pk_url_kwarg = &lsquo;pk'指定url中的(?P<pk>）的名称
-<strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong>
-query_pk_and_slug = False 是否使用上面两个名称
-http_method_names   http访问方式。包含了GET、POST等
-<strong>常重写的方法</strong>
-- 额外的添加数据get_context_data方法</p>
+<ul>
+<li>model  必须指定模型，但会是这个模型下的所有的数据</li>
+<li>queryset=？  指定的通过模型语言返回指定的QuerySet集合</li>
+<li>template_name 指定返回的模板的地址</li>
+<li>context_object_name 指定模板语言中返回的变量名称，默认是object_list</li>
+<li>slug_url_kwarg = &lsquo;slug&rsquo; 指定url中配置中的名称</li>
+<li>pk_url_kwarg = &lsquo;pk'指定url配置中的的名称</li>
+<li><strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong></li>
+<li>query_pk_and_slug = False 是否使用上面两个名称</li>
+<li>http_method_names   http访问方式。包含了GET、POST等
+<strong>常重写的方法</strong></li>
+<li>额外的添加数据get_context_data方法</li>
+</ul>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -246,7 +249,7 @@ http_method_names   http访问方式。包含了GET、POST等
         <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_Django_3/" title="Previous Post: Django-通用视图ListView">&laquo; Django-通用视图ListView</a>
       
       
-        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/" title="Next Post: octopress环境的搭建">octopress环境的搭建 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_Django_5/" title="Next Post: Django-request对象">Django-request对象 &raquo;</a>
       
     </p>
   </footer>
@@ -261,23 +264,23 @@ http_method_names   http访问方式。包含了GET、POST等
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a>
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_octopress2/">Octopress环境的搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_5/">Django-request对象</a>
       </li>
     
       <li class="post">
         <a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a>
       </li>
     
   </ul>

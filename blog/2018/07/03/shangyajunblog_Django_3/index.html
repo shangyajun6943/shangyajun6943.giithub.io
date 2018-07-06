@@ -153,15 +153,9 @@ http_method_names   http访问方式。包含了GET、POST等
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
-</span><span class='line'>        
 </span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
-</span><span class='line'>
 </span><span class='line'>        context['author_list']=Author.authors.all()
-</span><span class='line'>
 </span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
 
 
@@ -198,17 +192,14 @@ http_method_names   http访问方式。包含了GET、POST等
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>class ProductOne(ListView):
 </span><span class='line'>    # model=Product
 </span><span class='line'>    template_name='product/Onepro1.html'
-</span><span class='line'>    context_object_name='pro_one'
-</span><span class='line'>    
+</span><span class='line'>    context_object_name='pro_one' 
 </span><span class='line'>    def get_queryset(self):
 </span><span class='line'>        print(self.args)
 </span><span class='line'>        print(int(self.args[0]))
-</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))</span></code></pre></td></tr></table></div></figure>
 
 
 <p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
@@ -283,23 +274,23 @@ http_method_names   http访问方式。包含了GET、POST等
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a>
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_octopress2/">Octopress环境的搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_5/">Django-request对象</a>
       </li>
     
       <li class="post">
         <a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a>
       </li>
     
   </ul>

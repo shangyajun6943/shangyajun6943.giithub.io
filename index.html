@@ -9,9 +9,7 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="octopress环境的搭建 git、ruby、Devkit、markdownPad的安装与配置 git：版本管理工具，将代码托管到github上
-Ruby+Devkit：生成静态的页面
-MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &hellip;">
+  <meta name="description" content="Django-Django全文搜索haystack haystack官网：http://django-haystack.readthedocs.io/en/master/ 使用的工具 haystack是django的开源搜索框架，该框架支持Solr, Elasticsearch, Whoosh, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +72,287 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-Django全文搜索haystack</h1>
+
+<h4>haystack官网：<a href="http://django-haystack.readthedocs.io/en/master/">http://django-haystack.readthedocs.io/en/master/</a></h4>
+
+<h1>使用的工具</h1>
+
+<ul>
+<li>haystack是django的开源搜索框架，该框架支持Solr, Elasticsearch, Whoosh, Xapian搜索引擎，不用更改代码，直接切换引擎，减少代码量。</li>
+<li>搜索引擎使用Whoosh，这是一个由纯Python实现的全文搜索引擎，没有二进制文件等，比较小巧，配置比较简单，当然性能自然略低。</li>
+<li>中文分词Jieba，由于Whoosh自带的是英文分词，对中文的分词支持不是太好，故用jieba替换whoosh的分词组件。
+
+<h1>配置说明</h1>
+
+<h3>现在假设我们的项目叫做Project,有一个myapp的app，简略的目录结构如下。</h3>
+
+<h3>此models.py的内容假设如下：</h3></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from django.db import models
+</span><span class='line'>from django.contrib.auth.models import User
+</span><span class='line'>class Note(models.Model):
+</span><span class='line'>    user = models.ForeignKey(User)
+</span><span class='line'>    pub_date = models.DateTimeField()
+</span><span class='line'>    title = models.CharField(max_length=200)
+</span><span class='line'>    body = models.TextField()
+</span><span class='line'>    def __str__(self):
+</span><span class='line'>        return self.title</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>1.首先安装各工具</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install whoosh django-haystack jieba</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>2.添加 Haystack 到Django的 INSTALLED_APPS</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>INSTALLED_APPS = [ 
+</span><span class='line'>        'django.contrib.admin',
+</span><span class='line'>        'django.contrib.auth', 
+</span><span class='line'>        'django.contrib.contenttypes', 
+</span><span class='line'>        'django.contrib.sessions', 
+</span><span class='line'>        'django.contrib.sites',
+</span><span class='line'>          # Added. haystack先添加，
+</span><span class='line'>          'haystack', 
+</span><span class='line'>          # Then your usual apps... 自己的app要写在haystakc后面
+</span><span class='line'>          'blog',
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>3.修改 你的 settings.py，以配置引擎</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HAYSTACK_CONNECTIONS = {
+</span><span class='line'>    'default': {
+</span><span class='line'>        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+</span><span class='line'>        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+</span><span class='line'>    },
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>其中顾名思义，ENGINE为使用的引擎必须要有，如果引擎是Whoosh，则PATH必须要填写，其为Whoosh 索引文件的存放文件夹。其他引擎的配置见官方文档<a href="http://django-haystack.readthedocs.io/en/master/">http://django-haystack.readthedocs.io/en/master/</a></h3>
+
+<h2>4.创建索引</h2>
+
+<h3>如果你想针对某个app例如mainapp做全文检索，则必须在mainapp的目录下面建立search_indexes.py文件，文件名不能修改。内容如下：</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import datetime
+</span><span class='line'>from haystack import indexes
+</span><span class='line'>from myapp.models import Note
+</span><span class='line'>class NoteIndex(indexes.SearchIndex, indexes.Indexable):
+</span><span class='line'>    text = indexes.CharField(document=True, use_template=True)
+</span><span class='line'>    author = indexes.CharField(model_attr='user')
+</span><span class='line'>    pub_date = indexes.DateTimeField(model_attr='pub_date')
+</span><span class='line'>    def get_model(self):
+</span><span class='line'>        return Note
+</span><span class='line'>    def index_queryset(self, using=None):
+</span><span class='line'>        """Used when the entire index for model is updated."""
+</span><span class='line'>        return self.get_model().objects.filter(pub_date__lte=datetime.datetime.now())</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>每个索引里面必须有且只能有一个字段为document=True，这代表haystack 和搜索引擎将使用此字段的内容作为索引进行检索(primary field)。其他的字段只是附属的属性，方便调用，并不作为检索数据。</h3>
+
+<h3>注意：如果使用一个字段设置了document=True，则一般约定此字段名为text，这是在SearchIndex类里面一贯的命名，以防止后台混乱，当然名字你也可以随便改，不过不建议改。</h3>
+
+<h6>并且，haystack提供了use_template=True在text字段，这样就允许我们使用数据模板去建立搜索引擎索引的文件，使用方便（官方推荐，当然还有其他复杂的建立索引文件的方式，目前我还不知道），数据模板的路径为yourapp/templates/search/indexes/yourapp/note_text.txt，例如本例子为blog/templates/search/indexes/blog/note_text.txt文件名必须为要索引的类名_text.txt,其内容为</h6>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+
+<h3>这个数据模板的作用是对Note.title, Note.user.get_full_name,Note.body这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配。</h3>
+
+<h3>在urls.py中配置如下url信息，当然url路由可以随意写。</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(r'^search/', include('haystack.urls')),</span></code></pre></td></tr></table></div></figure>
+
+
+<h6>其实haystack.urls的内容为，</h6>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from django.conf.urls import url
+</span><span class='line'>from haystack.views import SearchView
+</span><span class='line'>urlpatterns = [
+</span><span class='line'>    url(r'^$', SearchView(), name='haystack_search'),
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>SearchView()视图函数默认使用的html模板为当前app目录下，路径为myapp/templates/search/search.html</h3>
+
+<h3>所以需要在blog/templates/search/下添加search.html文件，自带了分页,内容为</h3>
+
+<h6><a href="http://django-haystack.readthedocs.io/en/master/tutorial.html#handling-data">http://django-haystack.readthedocs.io/en/master/tutorial.html#handling-data</a></h6>
+
+<h2>5.重建索引文件</h2>
+
+<h3>使用python manage.py rebuild_index或者使用update_index命令。</h3>
+
+<h2>6. 使用jieba分词</h2>
+
+<h3>1.将文件whoosh_backend.py（该文件路径为python路径/lib/python3.4/site-packages/haystack/backends/whoosh_backend.py）拷贝到app下面，并重命名为whoosh_cn_backend.py，例如blog/whoosh_cn_backend.py。修改如下添加from jieba.analyse import ChineseAnalyzer修改为如下</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>schema_fields[field_class.index_fieldname] =
+</span><span class='line'>    TEXT(stored=True, analyzer=ChineseAnalyzer(),
+</span><span class='line'>            field_boost=field_class.boost)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2. 在settings.py中修改引擎，如下</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HAYSTACK_CONNECTIONS = {
+</span><span class='line'>    'default': {
+</span><span class='line'>        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+</span><span class='line'>        'PATH': os.path.join(BASE_DIR, 'whoosh_index'
+</span><span class='line'>    },
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3.重建索引，在进行搜索中文试试吧。</h3>
+
+<h1>索引自动更新</h1>
+
+<h3>如果没有索引自动更新，那么每当有新数据添加到数据库，就要手动执行update_index命令是不科学的。自动更新索引的最简单方法在settings.py添加一个信号。</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HAYSTACK_SIGNAL_PROCESSOR =
+</span><span class='line'>            "haystack.signals.RealtimeSignalProcesso"</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-全文检索概念</h1>
+
+<p>-概念</p>
+
+<h6>全文检索是指计算机索引程序通过扫描文章中的每一个词，对每一个词建立一个索引，指明该词在文章中出现的次数和位置，当用户查询时，检索程序就根据事先建立的索引进行查找，并将查找的结果反馈给用户的检索方式。这个过程类似于通过字典中的检索字表查字的过程。全文搜索搜索引擎数据库中的数据。</h6>
+
+<ul>
+<li>方法
+
+<h6>主要分为按字检索和按词检索两种。按字检索是指对于文章中的每一个字都建立索引，检索时将词分解为字的组合。按词检索指对文章中的词，即语义单位建立索引，检索时按词检索，并且可以处理同义项等。</h6></li>
+</ul>
+
+
+<p>-搜索引擎分类</p>
+
+<h3>全文搜索、目录搜索、元搜索、垂直搜索</h3>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_octopress2/">Octopress环境的搭建</a></h1>
     
     
       <p class="meta">
@@ -111,6 +389,36 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
 <h2>4.    Ruby与Devkit关联</h2>
 
 <h2>5.安装octopress并设置默认主题</h2>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_5/">Django-request对象</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-Django-request对象属性</h1>
 </div>
   
   
@@ -176,17 +484,20 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
 
 <p><strong>常用参数</strong></p>
 
-<p>model  必须指定模型，但会是这个模型下的所有的数据
-queryset=？  指定的通过模型语言返回指定的QuerySet集合
-template_name 指定返回的模板的地址
-context_object_name 指定模板语言中返回的变量名称，默认是object_list
-slug_url_kwarg = &lsquo;slug&rsquo; 指定url中的(?P<sulg>）的名称
-pk_url_kwarg = &lsquo;pk'指定url中的(?P<pk>）的名称
-<strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong>
-query_pk_and_slug = False 是否使用上面两个名称
-http_method_names   http访问方式。包含了GET、POST等
-<strong>常重写的方法</strong>
-- 额外的添加数据get_context_data方法</p>
+<ul>
+<li>model  必须指定模型，但会是这个模型下的所有的数据</li>
+<li>queryset=？  指定的通过模型语言返回指定的QuerySet集合</li>
+<li>template_name 指定返回的模板的地址</li>
+<li>context_object_name 指定模板语言中返回的变量名称，默认是object_list</li>
+<li>slug_url_kwarg = &lsquo;slug&rsquo; 指定url中配置中的名称</li>
+<li>pk_url_kwarg = &lsquo;pk'指定url配置中的的名称</li>
+<li><strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong></li>
+<li>query_pk_and_slug = False 是否使用上面两个名称</li>
+<li>http_method_names   http访问方式。包含了GET、POST等
+<strong>常重写的方法</strong></li>
+<li>额外的添加数据get_context_data方法</li>
+</ul>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -335,15 +646,9 @@ http_method_names   http访问方式。包含了GET、POST等
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
-</span><span class='line'>        
 </span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
-</span><span class='line'>
 </span><span class='line'>        context['author_list']=Author.authors.all()
-</span><span class='line'>
 </span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
 
 
@@ -380,17 +685,14 @@ http_method_names   http访问方式。包含了GET、POST等
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>class ProductOne(ListView):
 </span><span class='line'>    # model=Product
 </span><span class='line'>    template_name='product/Onepro1.html'
-</span><span class='line'>    context_object_name='pro_one'
-</span><span class='line'>    
+</span><span class='line'>    context_object_name='pro_one' 
 </span><span class='line'>    def get_queryset(self):
 </span><span class='line'>        print(self.args)
 </span><span class='line'>        print(int(self.args[0]))
-</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))</span></code></pre></td></tr></table></div></figure>
 
 
 <p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
@@ -820,23 +1122,23 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a>
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_octopress2/">Octopress环境的搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_5/">Django-request对象</a>
       </li>
     
       <li class="post">
         <a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a>
       </li>
     
   </ul>

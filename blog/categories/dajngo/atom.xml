@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Dajngo | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/dajngo/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-06T17:03:14+08:00</updated>
+  <updated>2018-07-06T19:24:05+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -14,16 +14,188 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Django-Django全文搜索]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_quanwen_2/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_quanwen_2</id>
+    <content type="html"><![CDATA[<h1>Django-Django全文搜索haystack</h1>
+
+<h4>haystack官网：<a href="http://django-haystack.readthedocs.io/en/master/">http://django-haystack.readthedocs.io/en/master/</a></h4>
+
+<h1>使用的工具</h1>
+
+<ul>
+<li>haystack是django的开源搜索框架，该框架支持Solr, Elasticsearch, Whoosh, Xapian搜索引擎，不用更改代码，直接切换引擎，减少代码量。</li>
+<li>搜索引擎使用Whoosh，这是一个由纯Python实现的全文搜索引擎，没有二进制文件等，比较小巧，配置比较简单，当然性能自然略低。</li>
+<li>中文分词Jieba，由于Whoosh自带的是英文分词，对中文的分词支持不是太好，故用jieba替换whoosh的分词组件。
+
+<h1>配置说明</h1>
+
+<h3>现在假设我们的项目叫做Project,有一个myapp的app，简略的目录结构如下。</h3>
+
+<h3>此models.py的内容假设如下：</h3>
+
+<pre><code>from django.db import models
+from django.contrib.auth.models import User
+class Note(models.Model):
+  user = models.ForeignKey(User)
+  pub_date = models.DateTimeField()
+  title = models.CharField(max_length=200)
+  body = models.TextField()
+  def __str__(self):
+      return self.title
+</code></pre></li>
+</ul>
+
+
+<h2>1.首先安装各工具</h2>
+
+<pre><code>pip install whoosh django-haystack jieba
+</code></pre>
+
+<h2>2.添加 Haystack 到Django的 INSTALLED_APPS</h2>
+
+<pre><code>INSTALLED_APPS = [ 
+        'django.contrib.admin',
+        'django.contrib.auth', 
+        'django.contrib.contenttypes', 
+        'django.contrib.sessions', 
+        'django.contrib.sites',
+          # Added. haystack先添加，
+          'haystack', 
+          # Then your usual apps... 自己的app要写在haystakc后面
+          'blog',
+]
+</code></pre>
+
+<h2>3.修改 你的 settings.py，以配置引擎</h2>
+
+<pre><code>HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+</code></pre>
+
+<h3>其中顾名思义，ENGINE为使用的引擎必须要有，如果引擎是Whoosh，则PATH必须要填写，其为Whoosh 索引文件的存放文件夹。其他引擎的配置见官方文档<a href="http://django-haystack.readthedocs.io/en/master/">http://django-haystack.readthedocs.io/en/master/</a></h3>
+
+<h2>4.创建索引</h2>
+
+<h3>如果你想针对某个app例如mainapp做全文检索，则必须在mainapp的目录下面建立search_indexes.py文件，文件名不能修改。内容如下：</h3>
+
+<pre><code>import datetime
+from haystack import indexes
+from myapp.models import Note
+class NoteIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    author = indexes.CharField(model_attr='user')
+    pub_date = indexes.DateTimeField(model_attr='pub_date')
+    def get_model(self):
+        return Note
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        return self.get_model().objects.filter(pub_date__lte=datetime.datetime.now())
+</code></pre>
+
+<h3>每个索引里面必须有且只能有一个字段为document=True，这代表haystack 和搜索引擎将使用此字段的内容作为索引进行检索(primary field)。其他的字段只是附属的属性，方便调用，并不作为检索数据。</h3>
+
+<h3>注意：如果使用一个字段设置了document=True，则一般约定此字段名为text，这是在SearchIndex类里面一贯的命名，以防止后台混乱，当然名字你也可以随便改，不过不建议改。</h3>
+
+<h6>并且，haystack提供了use_template=True在text字段，这样就允许我们使用数据模板去建立搜索引擎索引的文件，使用方便（官方推荐，当然还有其他复杂的建立索引文件的方式，目前我还不知道），数据模板的路径为yourapp/templates/search/indexes/yourapp/note_text.txt，例如本例子为blog/templates/search/indexes/blog/note_text.txt文件名必须为要索引的类名_text.txt,其内容为</h6>
+
+<pre><code>
+
+
+</code></pre>
+
+<h3>这个数据模板的作用是对Note.title, Note.user.get_full_name,Note.body这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配。</h3>
+
+<h3>在urls.py中配置如下url信息，当然url路由可以随意写。</h3>
+
+<pre><code>(r'^search/', include('haystack.urls')),
+</code></pre>
+
+<h6>其实haystack.urls的内容为，</h6>
+
+<pre><code>from django.conf.urls import url
+from haystack.views import SearchView
+urlpatterns = [
+    url(r'^$', SearchView(), name='haystack_search'),
+]
+</code></pre>
+
+<h3>SearchView()视图函数默认使用的html模板为当前app目录下，路径为myapp/templates/search/search.html</h3>
+
+<h3>所以需要在blog/templates/search/下添加search.html文件，自带了分页,内容为</h3>
+
+<h6><a href="http://django-haystack.readthedocs.io/en/master/tutorial.html#handling-data">http://django-haystack.readthedocs.io/en/master/tutorial.html#handling-data</a></h6>
+
+<h2>5.重建索引文件</h2>
+
+<h3>使用python manage.py rebuild_index或者使用update_index命令。</h3>
+
+<h2>6. 使用jieba分词</h2>
+
+<h3>1.将文件whoosh_backend.py（该文件路径为python路径/lib/python3.4/site-packages/haystack/backends/whoosh_backend.py）拷贝到app下面，并重命名为whoosh_cn_backend.py，例如blog/whoosh_cn_backend.py。修改如下添加from jieba.analyse import ChineseAnalyzer修改为如下</h3>
+
+<pre><code>schema_fields[field_class.index_fieldname] =
+    TEXT(stored=True, analyzer=ChineseAnalyzer(),
+            field_boost=field_class.boost)
+</code></pre>
+
+<h3>2. 在settings.py中修改引擎，如下</h3>
+
+<pre><code>HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'
+    },
+}
+</code></pre>
+
+<h3>3.重建索引，在进行搜索中文试试吧。</h3>
+
+<h1>索引自动更新</h1>
+
+<h3>如果没有索引自动更新，那么每当有新数据添加到数据库，就要手动执行update_index命令是不科学的。自动更新索引的最简单方法在settings.py添加一个信号。</h3>
+
+<pre><code>HAYSTACK_SIGNAL_PROCESSOR =
+            "haystack.signals.RealtimeSignalProcesso"
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Django-全文检索]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_quanwen_1/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_quanwen_1</id>
+    <content type="html"><![CDATA[<h1>Django-全文检索概念</h1>
+
+<p>-概念</p>
+
+<h6>全文检索是指计算机索引程序通过扫描文章中的每一个词，对每一个词建立一个索引，指明该词在文章中出现的次数和位置，当用户查询时，检索程序就根据事先建立的索引进行查找，并将查找的结果反馈给用户的检索方式。这个过程类似于通过字典中的检索字表查字的过程。全文搜索搜索引擎数据库中的数据。</h6>
+
+<ul>
+<li>方法
+
+<h6>主要分为按字检索和按词检索两种。按字检索是指对于文章中的每一个字都建立索引，检索时将词分解为字的组合。按词检索指对文章中的词，即语义单位建立索引，检索时按词检索，并且可以处理同义项等。</h6></li>
+</ul>
+
+
+<p>-搜索引擎分类</p>
+
+<h3>全文搜索、目录搜索、元搜索、垂直搜索</h3>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Django-request对象]]></title>
     <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_5/"/>
     <updated>2018-07-03T15:11:11+08:00</updated>
     <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_5</id>
     <content type="html"><![CDATA[<h1>Django-Django-request对象属性</h1>
-
-<ul>
-<li></li>
-</ul>
-
 ]]></content>
   </entry>
   
@@ -68,30 +240,50 @@ class GetOneProduct(DetailView):
 <li>http_method_names   http访问方式。包含了GET、POST等
 <strong>常重写的方法</strong></li>
 <li><p>额外的添加数据get_context_data方法
-```
-def  get_context_data(self,**kwargs):</p>
-
-<pre><code>  context=super(ProductList,self).get_context_data(**kwargs)
-
-  context['author_list']=Author.authors.all()
-
-  return context
-</code></pre>
-
-<p>```</p></li>
-<li><p>返回的数据集get_queryset（如果想快速查找必须重写这个方法，若果你看了get_object源码你就必须重写）
-<code>
-def get_queryset(self):
-       return Product.products.filter(pk__gt=3)
-</code>
-这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p></li>
-<li><p>从url中获取参数，返回指定的数据集
-<strong>url.py</strong>
-<code>
-re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),
-</code>
-<strong>view.py</strong>
-```
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;  context=super(ProductList,self).get_context_data(**kwargs)
+</span><span class='line'>
+</span><span class='line'>  context['author_list']=Author.authors.all()
+</span><span class='line'>
+</span><span class='line'>  return context
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;```&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;返回的数据集get_queryset（如果想快速查找必须重写这个方法，若果你看了get_object源码你就必须重写）
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>def get_queryset(self):
+</span><span class='line'>       return Product.products.filter(pk__gt=3)
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;从url中获取参数，返回指定的数据集
+</span><span class='line'>&lt;strong&gt;url.py&lt;/strong&gt;
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>&lt;strong&gt;view.py&lt;/strong&gt;</span></code></pre></td></tr></table></div></figure>
 def get_queryset(self):
   print(self.args)
   return Product.products.get(pk=int(self.args[0]))</p></li>
@@ -156,46 +348,41 @@ paginate_by 分页的参数，指定后会返回指定数量的数据
 http_method_names   http访问方式。包含了GET、POST等
 <strong>常重写的方法</strong>
 - 额外的添加数据get_context_data方法
-```
-def  get_context_data(self,**kwargs):</p>
-
-<pre><code>    context=super(ProductList,self).get_context_data(**kwargs)
-
-    context['author_list']=Author.authors.all()
-
-    return context
-</code></pre>
-
-<pre><code>- 返回的数据集get_queryset
-</code></pre>
-
-<p>def get_queryset(self):
+<code>
+def  get_context_data(self,**kwargs):
+        context=super(ProductList,self).get_context_data(**kwargs)
+        context['author_list']=Author.authors.all()
+        return context
+</code>
+- 返回的数据集get_queryset
+<code>
+def get_queryset(self):
          return Product.products.filter(pk__gt=3)
-```
+</code>
 这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
 
 <ul>
-<li><p>从url中获取参数，返回指定的数据集
+<li>从url中获取参数，返回指定的数据集
 <strong>url.py</strong>
 <code>
 re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),
-</code>
-<strong>view.py</strong>
-```
-class ProductOne(ListView):
-  # model=Product
-  template_name=&lsquo;product/Onepro1.html&rsquo;
-  context_object_name=&lsquo;pro_one&rsquo;</p>
-
-<p>  def get_queryset(self):
-      print(self.args)
-      print(int(self.args[0]))
-      return Product.products.filter(pk__gt=int(self.args[0]))</p></li>
+</code></li>
 </ul>
 
 
-<p>```
-其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
+<p><strong>view.py</strong></p>
+
+<pre><code>class ProductOne(ListView):
+    # model=Product
+    template_name='product/Onepro1.html'
+    context_object_name='pro_one' 
+    def get_queryset(self):
+        print(self.args)
+        print(int(self.args[0]))
+        return Product.products.filter(pk__gt=int(self.args[0]))
+</code></pre>
+
+<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
 
 <ul>
 <li>get_ordering 方法重写
@@ -211,207 +398,6 @@ class ProductOne(ListView):
 
 <p>-render_to_response
 调用response_class返回渲染后的模板。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[搭建一个Django项目]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_2/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_2</id>
-    <content type="html"><![CDATA[<h1>搭建一个Django项目</h1>
-
-<h2>1.下载Django</h2>
-
-<pre><code>pip install django==1.8.13   此版本太低
-pip install django==2.0.1
-
-pip install django  按炸U给最新版本
-</code></pre>
-
-<ul>
-<li>没有pip（*python自带了pip）
-<code>
-python -m pip install -U pip
-</code></li>
-<li>在网上下载<a href="https://www.djangoproject.com/download/">https://www.djangoproject.com/download/</a>
-Django-2.0.1.tar.gz</li>
-</ul>
-
-
-<h2>2.安装虚拟环境virtualenv</h2>
-
-<ul>
-<li>安装    pip install virtualenv</li>
-<li>创建工作区  virtualenv venv（任意名字）
-
-<ul>
-<li>可以在系统的任意目录下创建工作区（virtualenv 会切换默认的工作区）</li>
-<li><p>选择使用一个Python解释器：</p></li>
-<li><p>virtualenv -p F:\python\Python36 venv</p></li>
-<li>-p参数指定Python解释器程序路径</li>
-</ul>
-</li>
-<li>进入工作区后dir或ls
-
-<ul>
-<li>Scripts\activate</li>
-<li>退出工作区：Scripts\deactivate</li>
-</ul>
-</li>
-<li>创建项目
-
-<ul>
-<li>django-admin startproject [项目名]</li>
-</ul>
-</li>
-<li>创建应用
-
-<ul>
-<li>进入项目</li>
-<li>Python manage.py startapp [应用名]</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>3.使用模块</h2>
-
-<ul>
-<li>在项目的settings中添加自己的应用</li>
-<li>编写自己应用的模块文件（models.py）中
-<code>
-class User(models.Model):
-  username=models.CharField(max_length=40,unique=True)
-  passwd=models.CharField(max_length=40)
-  gender_choice=((0,'男'),(1,'女'))
-  gender=models.IntegerField(default=0,choices=gender_choice)
-  def __str__(self):
-      return self.username
-  class Meta:
-      db_table='user'
-</code></li>
-<li>生成迁移
-<code>
-python manage.py makemigrations
-</code></li>
-<li>执行迁移
-<code>
-python manage.py migrate
-</code></li>
-<li>进入python解析器测试数据库
-```
-python manage.py shell</li>
-</ul>
-
-
-<pre><code>
-##4.使用后台管理系统
-### Django是做CMS系统出生，也是做CMS有优势，所以我们要使用Django中自带的后台，必须创建用户
-- 命令行
-</code></pre>
-
-<p>python manage.py createsuperuser
-```</p>
-
-<ul>
-<li>输入用户名、邮箱、密码2次</li>
-<li><p>启动服务器
-<code>
-pyhton manage.py runserver
-</code></p></li>
-<li><p>在浏览器输入网址进入后台管理系统</p></li>
-<li><a href="http://localhost:8000/admin/">http://localhost:8000/admin/</a>
-或<a href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a></li>
-</ul>
-
-
-<h3>此时进入后台系统什么也看不到，因为我们没有关联models</h3>
-
-<ul>
-<li>在应用的admin.py中，先导入model，在编写models在后台显示的格式
-```
-from .models import UserInfo</li>
-</ul>
-
-
-<p>class UserInfoAdmin(admin.ModelAdmin):
-list_display = [&lsquo;username&rsquo;, &lsquo;passwd&rsquo;, &lsquo;birthday&rsquo;,&lsquo;gender&rsquo;] 显示数据库中的数据的时候显示什么字段，可以点击列头进行排序
-list_filter = [&lsquo;username&rsquo;]过滤字段，过滤框会出现在右侧
-search_fields = [&lsquo;birthday&rsquo;]搜索字段，搜索框会出现在上侧
-list_per_page = 10 分页，分页框会出现在下侧
-fieldsets = [
-        (&lsquo;basic&rsquo;, {&lsquo;fields&rsquo;: [&lsquo;username&rsquo;,&lsquo;birthdate&rsquo;]}),
-        (&lsquo;more&rsquo;, {&lsquo;fields&rsquo;: [&lsquo;gender&rsquo;]}),
-    ]</p>
-
-<p>admin.site.register(UserInfo,UserInfoAdmin)把model注册到后台中能显示</p>
-
-<p>```</p>
-
-<ul>
-<li>可以在settings.py中修改中文LANGUAGE_CODE = &lsquo;zh-hans或zh-hant‘</li>
-<li>涉及到后台管理时间时，可以在Settings.py中设置时区
-TIME_ZONE = &lsquo;Asia/Shanghai’</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Django-视图url]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_1/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_1</id>
-    <content type="html"><![CDATA[<h1>Django-视图与url</h1>
-
-<p>在把Django项目创建完成之后</p>
-
-<p>1.打开settings文件，把应用配置到项目上去</p>
-
-<p>2.在应用中创建一个urls.py文件</p>
-
-<p>3.在项目的urls文件中导入应用的urls文件，如下：
-```
-    from django.contrib import admin
-    from django.urls import path,include</p>
-
-<pre><code>urlpatterns = [
- path('admin/', admin.site.urls),
-     path('food/', include('food.urls')),  #这一行
-]
-</code></pre>
-
-<pre><code>4.编入应用自己的urls文件，如下：
-from django.urls import path
-from food.views import *
-
-urlpatterns = [
-    path('hello/',hello,name='hello'),
-    path('time/',time,name='time'),
-]
-
-5.编写应用自己的views文件，
-</code></pre>
-
-<p>from django.shortcuts import render,HttpResponse</p>
-
-<h1>Create your views here.</h1>
-
-<p>def hello(request):
-    return HttpResponse(&lsquo;1234&rsquo;)</p>
-
-<p>```
-render,HttpResponse？</p>
-
-<p>render是在使用模板渲染html的时候使用，例如我们把从数据库中取到的数据显示到页面上，java使用的JSP技术
-Django使用的模板（template），最总render还是调用HttpResponse，把html读取出来返回到浏览器（也可以说
-render是HttpResponse的封装，功能强大而已），HttpResponse只能返回字符串，不能循环数据放到html中
-所以使用render。</p>
-
-<p>render为什么？一定要传入request呢？
-1.request中存储的浏览器请求的数据类型
-2.我们在模板中使用request这个对象，如：{{ request.path}}</p>
 ]]></content>
   </entry>
   
