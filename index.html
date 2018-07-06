@@ -9,8 +9,9 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="初识octopress 1. Octopress的基础知识 1.1Octopress是什么？ Octopress是一个基于Jekyll的静态的博客站点生成系统，它很大程度上简化了Jekyll的搭建博客的过程 为什么要使用Octopress？ 我们说一下WordPress的缺点
-我们得买主机（空间 &hellip;">
+  <meta name="description" content="octopress环境的搭建 git、ruby、Devkit、markdownPad的安装与配置 git：版本管理工具，将代码托管到github上
+Ruby+Devkit：生成静态的页面
+MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +68,671 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>octopress环境的搭建</h1>
+
+<h3>git、ruby、Devkit、markdownPad的安装与配置</h3>
+
+<ul>
+<li>git：版本管理工具，将代码托管到github上</li>
+<li>Ruby+Devkit：生成静态的页面</li>
+<li>MarkdwonPad:z在window下Markdown语法编辑器</li>
+</ul>
+
+
+<h2>1.    git安装与配置</h2>
+
+<h2>2.    ruby安装与配置</h2>
+
+<h2>3.    Devkit安装与配置</h2>
+
+<h2>4.    Ruby与Devkit关联</h2>
+
+<h2>5.安装octopress并设置默认主题</h2>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-通用视图DetailView</h1>
+
+<h3>类图</h3>
+
+<ul>
+<li>url.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>urlpatterns = [
+</span><span class='line'>    re_path('getone/(?P&lt;id3&gt;[0-9]{1,10})',GetOneProduct.as_view()),
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>view.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class GetOneProduct(DetailView):
+</span><span class='line'>    model=Product
+</span><span class='line'>    template_name='product/showone.html'
+</span><span class='line'>    context_object_name='pro_one'
+</span><span class='line'>    pk_url_kwarg='id3'</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>常用参数</strong></p>
+
+<p>model  必须指定模型，但会是这个模型下的所有的数据
+queryset=？  指定的通过模型语言返回指定的QuerySet集合
+template_name 指定返回的模板的地址
+context_object_name 指定模板语言中返回的变量名称，默认是object_list
+slug_url_kwarg = &lsquo;slug&rsquo; 指定url中的(?P<sulg>）的名称
+pk_url_kwarg = &lsquo;pk'指定url中的(?P<pk>）的名称
+<strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong>
+query_pk_and_slug = False 是否使用上面两个名称
+http_method_names   http访问方式。包含了GET、POST等
+<strong>常重写的方法</strong>
+- 额外的添加数据get_context_data方法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
+</span><span class='line'>        
+</span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
+</span><span class='line'>
+</span><span class='line'>        context['author_list']=Author.authors.all()
+</span><span class='line'>
+</span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>返回的数据集get_queryset（如果想快速查找必须重写这个方法，若果你看了get_object源码你就必须重写）</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
+</span><span class='line'>         return Product.products.filter(pk__gt=3)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
+
+<ul>
+<li>从url中获取参数，返回指定的数据集
+<strong>url.py</strong></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>view.py</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
+</span><span class='line'>  print(self.args)
+</span><span class='line'>  return Product.products.get(pk=int(self.args[0]))
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
+
+<ul>
+<li>get_context_object_name
+返回上下文的名称，context_object_name的值。默认为’数据对象’_list
+-dispatch
+返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
+</ul>
+
+
+<p>-render_to_response
+调用response_class返回渲染后的模板。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-通用视图ListView</h1>
+
+<h3>类图</h3>
+
+<p><img src="/images/lsitviewimage.png" alt="image" /></p>
+
+<ul>
+<li>url.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>urlpatterns = [
+</span><span class='line'>    path('list/',ProductList.as_view()),
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>view.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductList(ListView):
+</span><span class='line'>    model=Product
+</span><span class='line'>    queryset=Product.products.filter(pk__lt=3)
+</span><span class='line'>    template_name='product/listpro1.html'
+</span><span class='line'>    context_object_name='pro_lists'
+</span><span class='line'>    ordering=('-id',)
+</span><span class='line'>    paginate_by=2</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>常用参数</strong></p>
+
+<p>model  必须指定模型，但会是这个模型下的所有的数据
+queryset=？  指定的通过模型语言返回指定的QuerySet集合
+template_name 指定返回的模板的地址
+context_object_name 指定模板语言中返回的变量名称，默认是object_list
+ording 返回的数据集合按照什么排序（元组数据）
+paginate_by 分页的参数，指定后会返回指定数量的数据
+http_method_names   http访问方式。包含了GET、POST等
+<strong>常重写的方法</strong>
+- 额外的添加数据get_context_data方法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
+</span><span class='line'>        
+</span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
+</span><span class='line'>
+</span><span class='line'>        context['author_list']=Author.authors.all()
+</span><span class='line'>
+</span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>返回的数据集get_queryset</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
+</span><span class='line'>         return Product.products.filter(pk__gt=3)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
+
+<ul>
+<li>从url中获取参数，返回指定的数据集
+<strong>url.py</strong></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>view.py</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductOne(ListView):
+</span><span class='line'>    # model=Product
+</span><span class='line'>    template_name='product/Onepro1.html'
+</span><span class='line'>    context_object_name='pro_one'
+</span><span class='line'>    
+</span><span class='line'>    def get_queryset(self):
+</span><span class='line'>        print(self.args)
+</span><span class='line'>        print(int(self.args[0]))
+</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
+
+<ul>
+<li>get_ordering 方法重写
+返回指定的排序，ordering的值</li>
+<li>get_allow_empty
+返回get_allow_empty的值，True或False。默认为True</li>
+<li>get_context_object_name
+返回上下文的名称，context_object_name的值。默认为’数据对象’_list
+-dispatch
+返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
+</ul>
+
+
+<p>-render_to_response
+调用response_class返回渲染后的模板。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>搭建一个Django项目</h1>
+
+<h2>1.下载Django</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install django==1.8.13   此版本太低
+</span><span class='line'>pip install django==2.0.1
+</span><span class='line'>
+</span><span class='line'>pip install django  按炸U给最新版本
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>没有pip（*python自带了pip）</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python -m pip install -U pip</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在网上下载<a href="https://www.djangoproject.com/download/">https://www.djangoproject.com/download/</a>
+Django-2.0.1.tar.gz</li>
+</ul>
+
+
+<h2>2.安装虚拟环境virtualenv</h2>
+
+<ul>
+<li>安装    pip install virtualenv</li>
+<li>创建工作区  virtualenv venv（任意名字）
+
+<ul>
+<li>可以在系统的任意目录下创建工作区（virtualenv 会切换默认的工作区）</li>
+<li><p>选择使用一个Python解释器：</p></li>
+<li><p>virtualenv -p F:\python\Python36 venv</p></li>
+<li>-p参数指定Python解释器程序路径</li>
+</ul>
+</li>
+<li>进入工作区后dir或ls
+
+<ul>
+<li>Scripts\activate</li>
+<li>退出工作区：Scripts\deactivate</li>
+</ul>
+</li>
+<li>创建项目
+
+<ul>
+<li>django-admin startproject [项目名]</li>
+</ul>
+</li>
+<li>创建应用
+
+<ul>
+<li>进入项目</li>
+<li>Python manage.py startapp [应用名]</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>3.使用模块</h2>
+
+<ul>
+<li>在项目的settings中添加自己的应用</li>
+<li>编写自己应用的模块文件（models.py）中</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class User(models.Model):
+</span><span class='line'>    username=models.CharField(max_length=40,unique=True)
+</span><span class='line'>    passwd=models.CharField(max_length=40)
+</span><span class='line'>    gender_choice=((0,'男'),(1,'女'))
+</span><span class='line'>    gender=models.IntegerField(default=0,choices=gender_choice)
+</span><span class='line'>  def __str__(self):
+</span><span class='line'>        return self.username
+</span><span class='line'>    class Meta:
+</span><span class='line'>        db_table='user'</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>生成迁移</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py makemigrations</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>执行迁移</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py migrate</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>进入python解析器测试数据库</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py shell
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>4.使用后台管理系统</h2>
+
+<h3>Django是做CMS系统出生，也是做CMS有优势，所以我们要使用Django中自带的后台，必须创建用户</h3>
+
+<ul>
+<li>命令行</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py createsuperuser</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>输入用户名、邮箱、密码2次</li>
+<li>启动服务器</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pyhton manage.py runserver</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在浏览器输入网址进入后台管理系统</li>
+<li><a href="http://localhost:8000/admin/">http://localhost:8000/admin/</a>
+或<a href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a></li>
+</ul>
+
+
+<h3>此时进入后台系统什么也看不到，因为我们没有关联models</h3>
+
+<ul>
+<li>在应用的admin.py中，先导入model，在编写models在后台显示的格式</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from .models import UserInfo
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>class UserInfoAdmin(admin.ModelAdmin):
+</span><span class='line'>list_display = ['username', 'passwd', 'birthday','gender'] 显示数据库中的数据的时候显示什么字段，可以点击列头进行排序
+</span><span class='line'>list_filter = ['username']过滤字段，过滤框会出现在右侧
+</span><span class='line'>search_fields = ['birthday']搜索字段，搜索框会出现在上侧 
+</span><span class='line'>list_per_page = 10 分页，分页框会出现在下侧 
+</span><span class='line'>fieldsets = [
+</span><span class='line'>        ('basic', {'fields': ['username','birthdate']}),
+</span><span class='line'>        ('more', {'fields': ['gender']}),
+</span><span class='line'>    ]
+</span><span class='line'>
+</span><span class='line'>admin.site.register(UserInfo,UserInfoAdmin)把model注册到后台中能显示
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>可以在settings.py中修改中文LANGUAGE_CODE = &lsquo;zh-hans或zh-hant‘</li>
+<li>涉及到后台管理时间时，可以在Settings.py中设置时区
+TIME_ZONE = &lsquo;Asia/Shanghai’</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-视图与url</h1>
+
+<p>在把Django项目创建完成之后</p>
+
+<p>1.打开settings文件，把应用配置到项目上去</p>
+
+<p>2.在应用中创建一个urls.py文件</p>
+
+<p>3.在项目的urls文件中导入应用的urls文件，如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from django.contrib import admin
+</span><span class='line'>from django.urls import path,include
+</span><span class='line'>
+</span><span class='line'>urlpatterns = [
+</span><span class='line'>       path('admin/', admin.site.urls),
+</span><span class='line'>     path('food/', include('food.urls')),  #这一行
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4.编入应用自己的urls文件，如下：
+from django.urls import path
+from food.views import *</p>
+
+<p>urlpatterns = [
+    path(&lsquo;hello/&rsquo;,hello,name=&lsquo;hello&rsquo;),
+    path(&lsquo;time/&rsquo;,time,name=&lsquo;time&rsquo;),
+]</p>
+
+<p>5.编写应用自己的views文件，</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>from django.shortcuts import render,HttpResponse
+</span><span class='line'>
+</span><span class='line'># Create your views here.
+</span><span class='line'>
+</span><span class='line'>def hello(request):
+</span><span class='line'>    return HttpResponse('1234')
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>render,HttpResponse？</p>
+
+<p>render是在使用模板渲染html的时候使用，例如我们把从数据库中取到的数据显示到页面上，java使用的JSP技术
+Django使用的模板（template），最总render还是调用HttpResponse，把html读取出来返回到浏览器（也可以说
+render是HttpResponse的封装，功能强大而已），HttpResponse只能返回字符串，不能循环数据放到html中
+所以使用render。</p>
+
+<p>render为什么？一定要传入request呢？
+1.request中存储的浏览器请求的数据类型
+2.我们在模板中使用request这个对象，如：</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -154,7 +820,23 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog/">Octopress</a>
+        <a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a>
       </li>
     
   </ul>

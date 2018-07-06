@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Python | 夕阳还是很红]]></title>
-  <link href="http://shangyajun6943.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Dajngo | 夕阳还是很红]]></title>
+  <link href="http://shangyajun6943.github.io/blog/categories/dajngo/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
   <updated>2018-07-06T17:03:14+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
@@ -12,34 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Octopress环境的搭建]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2 - 副本</id>
-    <content type="html"><![CDATA[<h1>octopress环境的搭建</h1>
-
-<h3>git、ruby、Devkit、markdownPad的安装与配置</h3>
-
-<ul>
-<li>git：版本管理工具，将代码托管到github上</li>
-<li>Ruby+Devkit：生成静态的页面</li>
-<li>MarkdwonPad:z在window下Markdown语法编辑器</li>
-</ul>
-
-
-<h2>1.    git安装与配置</h2>
-
-<h2>2.    ruby安装与配置</h2>
-
-<h2>3.    Devkit安装与配置</h2>
-
-<h2>4.    Ruby与Devkit关联</h2>
-
-<h2>5.安装octopress并设置默认主题</h2>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Django-request对象]]></title>
@@ -383,6 +355,63 @@ fieldsets = [
 TIME_ZONE = &lsquo;Asia/Shanghai’</li>
 </ul>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Django-视图url]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_1/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_1</id>
+    <content type="html"><![CDATA[<h1>Django-视图与url</h1>
+
+<p>在把Django项目创建完成之后</p>
+
+<p>1.打开settings文件，把应用配置到项目上去</p>
+
+<p>2.在应用中创建一个urls.py文件</p>
+
+<p>3.在项目的urls文件中导入应用的urls文件，如下：
+```
+    from django.contrib import admin
+    from django.urls import path,include</p>
+
+<pre><code>urlpatterns = [
+ path('admin/', admin.site.urls),
+     path('food/', include('food.urls')),  #这一行
+]
+</code></pre>
+
+<pre><code>4.编入应用自己的urls文件，如下：
+from django.urls import path
+from food.views import *
+
+urlpatterns = [
+    path('hello/',hello,name='hello'),
+    path('time/',time,name='time'),
+]
+
+5.编写应用自己的views文件，
+</code></pre>
+
+<p>from django.shortcuts import render,HttpResponse</p>
+
+<h1>Create your views here.</h1>
+
+<p>def hello(request):
+    return HttpResponse(&lsquo;1234&rsquo;)</p>
+
+<p>```
+render,HttpResponse？</p>
+
+<p>render是在使用模板渲染html的时候使用，例如我们把从数据库中取到的数据显示到页面上，java使用的JSP技术
+Django使用的模板（template），最总render还是调用HttpResponse，把html读取出来返回到浏览器（也可以说
+render是HttpResponse的封装，功能强大而已），HttpResponse只能返回字符串，不能循环数据放到html中
+所以使用render。</p>
+
+<p>render为什么？一定要传入request呢？
+1.request中存储的浏览器请求的数据类型
+2.我们在模板中使用request这个对象，如：{{ request.path}}</p>
 ]]></content>
   </entry>
   

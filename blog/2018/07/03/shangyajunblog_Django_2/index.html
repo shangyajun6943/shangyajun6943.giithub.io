@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>搭建一个Django项目 - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="搭建一个Django项目 1.下载Django 1
+2
+3
+4
+pip install django==1.8.13 此版本太低
+pip install django==2.0.1 pip install django 按炸U给最新版本 没有pip（*python自带了pip） 1
+python &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">搭建一个Django项目</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>搭建一个Django项目</h1>
+
+<h2>1.下载Django</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install django==1.8.13   此版本太低
+</span><span class='line'>pip install django==2.0.1
+</span><span class='line'>
+</span><span class='line'>pip install django  按炸U给最新版本
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>没有pip（*python自带了pip）</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python -m pip install -U pip</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在网上下载<a href="https://www.djangoproject.com/download/">https://www.djangoproject.com/download/</a>
+Django-2.0.1.tar.gz</li>
+</ul>
+
+
+<h2>2.安装虚拟环境virtualenv</h2>
+
+<ul>
+<li>安装    pip install virtualenv</li>
+<li>创建工作区  virtualenv venv（任意名字）
+
+<ul>
+<li>可以在系统的任意目录下创建工作区（virtualenv 会切换默认的工作区）</li>
+<li><p>选择使用一个Python解释器：</p></li>
+<li><p>virtualenv -p F:\python\Python36 venv</p></li>
+<li>-p参数指定Python解释器程序路径</li>
+</ul>
+</li>
+<li>进入工作区后dir或ls
+
+<ul>
+<li>Scripts\activate</li>
+<li>退出工作区：Scripts\deactivate</li>
+</ul>
+</li>
+<li>创建项目
+
+<ul>
+<li>django-admin startproject [项目名]</li>
+</ul>
+</li>
+<li>创建应用
+
+<ul>
+<li>进入项目</li>
+<li>Python manage.py startapp [应用名]</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>3.使用模块</h2>
+
+<ul>
+<li>在项目的settings中添加自己的应用</li>
+<li>编写自己应用的模块文件（models.py）中</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class User(models.Model):
+</span><span class='line'>    username=models.CharField(max_length=40,unique=True)
+</span><span class='line'>    passwd=models.CharField(max_length=40)
+</span><span class='line'>    gender_choice=((0,'男'),(1,'女'))
+</span><span class='line'>    gender=models.IntegerField(default=0,choices=gender_choice)
+</span><span class='line'>  def __str__(self):
+</span><span class='line'>        return self.username
+</span><span class='line'>    class Meta:
+</span><span class='line'>        db_table='user'</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>生成迁移</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py makemigrations</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>执行迁移</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py migrate</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>进入python解析器测试数据库</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py shell
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>4.使用后台管理系统</h2>
+
+<h3>Django是做CMS系统出生，也是做CMS有优势，所以我们要使用Django中自带的后台，必须创建用户</h3>
+
+<ul>
+<li>命令行</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py createsuperuser</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>输入用户名、邮箱、密码2次</li>
+<li>启动服务器</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pyhton manage.py runserver</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在浏览器输入网址进入后台管理系统</li>
+<li><a href="http://localhost:8000/admin/">http://localhost:8000/admin/</a>
+或<a href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a></li>
+</ul>
+
+
+<h3>此时进入后台系统什么也看不到，因为我们没有关联models</h3>
+
+<ul>
+<li>在应用的admin.py中，先导入model，在编写models在后台显示的格式</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from .models import UserInfo
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>class UserInfoAdmin(admin.ModelAdmin):
+</span><span class='line'>list_display = ['username', 'passwd', 'birthday','gender'] 显示数据库中的数据的时候显示什么字段，可以点击列头进行排序
+</span><span class='line'>list_filter = ['username']过滤字段，过滤框会出现在右侧
+</span><span class='line'>search_fields = ['birthday']搜索字段，搜索框会出现在上侧 
+</span><span class='line'>list_per_page = 10 分页，分页框会出现在下侧 
+</span><span class='line'>fieldsets = [
+</span><span class='line'>        ('basic', {'fields': ['username','birthdate']}),
+</span><span class='line'>        ('more', {'fields': ['gender']}),
+</span><span class='line'>    ]
+</span><span class='line'>
+</span><span class='line'>admin.site.register(UserInfo,UserInfoAdmin)把model注册到后台中能显示
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>可以在settings.py中修改中文LANGUAGE_CODE = &lsquo;zh-hans或zh-hant‘</li>
+<li>涉及到后台管理时间时，可以在Settings.py中设置时区
+TIME_ZONE = &lsquo;Asia/Shanghai’</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dajngo/'>dajngo</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_2/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_Django_1/" title="Previous Post: Django-视图url">&laquo; Django-视图url</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_Django_3/" title="Next Post: Django-通用视图ListView">Django-通用视图ListView &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

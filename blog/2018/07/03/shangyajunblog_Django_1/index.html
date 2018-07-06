@@ -5,12 +5,18 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopress - 夕阳还是很红</title>
+  <title>Django-视图url - 夕阳还是很红</title>
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="初识octopress 1. Octopress的基础知识 1.1Octopress是什么？ Octopress是一个基于Jekyll的静态的博客站点生成系统，它很大程度上简化了Jekyll的搭建博客的过程 为什么要使用Octopress？ 我们说一下WordPress的缺点
-我们得买主机（空间 &hellip;">
+  <meta name="description" content="Django-视图与url 在把Django项目创建完成之后 1.打开settings文件，把应用配置到项目上去 2.在应用中创建一个urls.py文件 3.在项目的urls文件中导入应用的urls文件，如下： 1
+2
+3
+4
+5
+6
+7
+from django.contrib import &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +25,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog/">
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_1/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
@@ -70,7 +76,7 @@
   
   <header>
     
-      <h1 class="entry-title">Octopress</h1>
+      <h1 class="entry-title">Django-视图url</h1>
     
     
       <p class="meta">
@@ -87,50 +93,70 @@
   </header>
 
 
-<div class="entry-content"><h1>初识octopress</h1>
+<div class="entry-content"><h1>Django-视图与url</h1>
 
-<h2>1.    Octopress的基础知识</h2>
+<p>在把Django项目创建完成之后</p>
 
-<h3>1.1Octopress是什么？</h3>
+<p>1.打开settings文件，把应用配置到项目上去</p>
 
-<ul>
-<li>Octopress是一个基于Jekyll的静态的博客站点生成系统，它很大程度上简化了Jekyll的搭建博客的过程
+<p>2.在应用中创建一个urls.py文件</p>
 
-<h3>为什么要使用Octopress？</h3>
+<p>3.在项目的urls文件中导入应用的urls文件，如下：</p>
 
-<h3>我们说一下WordPress的缺点</h3></li>
-<li>我们得买主机（空间）、域名</li>
-<li>OverFeatured</li>
-<li><code>动态网站</code>下载速度慢</li>
-<li>过渡的<code>依赖数据库</code></li>
-<li>可控性差</li>
-<li>容错性差</li>
-<li>迁移成本高</li>
-<li><code>网页编辑器写博客</code>耗费时间多
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from django.contrib import admin
+</span><span class='line'>from django.urls import path,include
+</span><span class='line'>
+</span><span class='line'>urlpatterns = [
+</span><span class='line'>       path('admin/', admin.site.urls),
+</span><span class='line'>     path('food/', include('food.urls')),  #这一行
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
 
-<h3>Octopress优点</h3></li>
-<li>命令行操作</li>
-<li>存文本写博客</li>
-<li>定制性高</li>
-<li>纯静态页面</li>
-<li>版本化管理</li>
-<li>迁移成本低</li>
-<li>简介的Ruby框架</li>
-<li>markdown语法
 
-<h2>2.    Octopress的目录结构</h2></li>
-<li>主题插件等->自定义博客</li>
-<li>source->存放程序、博客源码（rake generate后生成public静态网页）</li>
-<li>public->存放生成的静态网站
+<p>4.编入应用自己的urls文件，如下：
+from django.urls import path
+from food.views import *</p>
 
-<h2>3.    Octopress的使用流程</h2></li>
-<li>搭建环境</li>
-<li>纯文本书写博客</li>
-<li>生成静态网页</li>
-<li>本地预览</li>
-<li>部署github</li>
-</ul>
+<p>urlpatterns = [
+    path(&lsquo;hello/&rsquo;,hello,name=&lsquo;hello&rsquo;),
+    path(&lsquo;time/&rsquo;,time,name=&lsquo;time&rsquo;),
+]</p>
 
+<p>5.编写应用自己的views文件，</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>from django.shortcuts import render,HttpResponse
+</span><span class='line'>
+</span><span class='line'># Create your views here.
+</span><span class='line'>
+</span><span class='line'>def hello(request):
+</span><span class='line'>    return HttpResponse('1234')
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>render,HttpResponse？</p>
+
+<p>render是在使用模板渲染html的时候使用，例如我们把从数据库中取到的数据显示到页面上，java使用的JSP技术
+Django使用的模板（template），最总render还是调用HttpResponse，把html读取出来返回到浏览器（也可以说
+render是HttpResponse的封装，功能强大而已），HttpResponse只能返回字符串，不能循环数据放到html中
+所以使用render。</p>
+
+<p>render为什么？一定要传入request呢？
+1.request中存储的浏览器请求的数据类型
+2.我们在模板中使用request这个对象，如：</p>
 </div>
 
 
@@ -151,7 +177,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/octopress/'>octopress</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/dajngo/'>dajngo</a>, <a class='category' href='/blog/categories/python/'>python</a>
   
 </span>
 
@@ -160,7 +186,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_1/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_1/" >Tweet</a>
   
   
   
@@ -169,8 +195,10 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog/" title="Previous Post: octopress">&laquo; octopress</a>
       
-        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_Django_1/" title="Next Post: Django-视图url">Django-视图url &raquo;</a>
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_Django_2/" title="Next Post: 搭建一个Django项目">搭建一个Django项目 &raquo;</a>
       
     </p>
   </footer>

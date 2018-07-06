@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Django-通用视图ListView - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="Django-通用视图ListView 类图 url.py 1
+2
+3
+urlpatterns = [ path('list/',ProductList.as_view()),
+] view.py 1
+2
+3
+4
+5
+6
+7
+class ProductList(ListView): model= &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Django-通用视图ListView</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Django-通用视图ListView</h1>
+
+<h3>类图</h3>
+
+<p><img src="/images/lsitviewimage.png" alt="image" /></p>
+
+<ul>
+<li>url.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>urlpatterns = [
+</span><span class='line'>    path('list/',ProductList.as_view()),
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>view.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductList(ListView):
+</span><span class='line'>    model=Product
+</span><span class='line'>    queryset=Product.products.filter(pk__lt=3)
+</span><span class='line'>    template_name='product/listpro1.html'
+</span><span class='line'>    context_object_name='pro_lists'
+</span><span class='line'>    ordering=('-id',)
+</span><span class='line'>    paginate_by=2</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>常用参数</strong></p>
+
+<p>model  必须指定模型，但会是这个模型下的所有的数据
+queryset=？  指定的通过模型语言返回指定的QuerySet集合
+template_name 指定返回的模板的地址
+context_object_name 指定模板语言中返回的变量名称，默认是object_list
+ording 返回的数据集合按照什么排序（元组数据）
+paginate_by 分页的参数，指定后会返回指定数量的数据
+http_method_names   http访问方式。包含了GET、POST等
+<strong>常重写的方法</strong>
+- 额外的添加数据get_context_data方法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
+</span><span class='line'>        
+</span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
+</span><span class='line'>
+</span><span class='line'>        context['author_list']=Author.authors.all()
+</span><span class='line'>
+</span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>返回的数据集get_queryset</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
+</span><span class='line'>         return Product.products.filter(pk__gt=3)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
+
+<ul>
+<li>从url中获取参数，返回指定的数据集
+<strong>url.py</strong></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>view.py</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductOne(ListView):
+</span><span class='line'>    # model=Product
+</span><span class='line'>    template_name='product/Onepro1.html'
+</span><span class='line'>    context_object_name='pro_one'
+</span><span class='line'>    
+</span><span class='line'>    def get_queryset(self):
+</span><span class='line'>        print(self.args)
+</span><span class='line'>        print(int(self.args[0]))
+</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
+
+<ul>
+<li>get_ordering 方法重写
+返回指定的排序，ordering的值</li>
+<li>get_allow_empty
+返回get_allow_empty的值，True或False。默认为True</li>
+<li>get_context_object_name
+返回上下文的名称，context_object_name的值。默认为’数据对象’_list
+-dispatch
+返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
+</ul>
+
+
+<p>-render_to_response
+调用response_class返回渲染后的模板。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dajngo/'>dajngo</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_3/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_3/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_Django_2/" title="Previous Post: 搭建一个Django项目">&laquo; 搭建一个Django项目</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_Django_4/" title="Next Post: Django-通用视图DetailView">Django-通用视图DetailView &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_octopress2%20-%20%E5%89%AF%E6%9C%AC/">Octopress环境的搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
