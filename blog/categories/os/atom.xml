@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Os | 夕阳还是很红]]></title>
+  <link href="http://shangyajun6943.github.io/blog/categories/os/atom.xml" rel="self"/>
+  <link href="http://shangyajun6943.github.io/"/>
+  <updated>2018-07-19T20:51:14+08:00</updated>
+  <id>http://shangyajun6943.github.io/</id>
+  <author>
+    <name><![CDATA[尚亚军]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[操作系统]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_os1/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_os1</id>
+    <content type="html"><![CDATA[<h1>操作系统怎么执行程序的？</h1>
+
+<hr />
+
+<pre><code>include &lt;stdio.h&gt;
+int main(int argc,char *argc[])
+{
+    puts("hello word!");
+    return 0;
+}
+</code></pre>
+
+<h5>以这个程序为例，解释操作系统怎么调用程序！</h5>
+
+<hr />
+
+<ol>
+<li>首先我们告诉操作系统我们执行helloworld程序(使用命令，或双击)</li>
+<li>操作系统接受到用户请求，找到helloworld程序的相关信息，检查文件是否是可执行文件；并通过程序的首部信息，确定代码和数据在可执行文件中的位置并计算出对应的磁盘块地址。（可执行文件格式：window：pe linux：elf）</li>
+<li>操作系统：创建一个进程，并将helloworld可执行文件映射到改进程结构，表示由该进程执行helloworld程序</li>
+<li>操作系统：为helloworld程序设置CPU上下文环境并跳到程序开始处（假设调度程序选中了hello程序）</li>
+<li>调度程序：执行helloworld程序的第一条指令，发生<code>缺页异常</code>（因为执行文件需要把程序读入内存）</li>
+<li>操作系统：分配一页空闲的物理内存，并将代码从磁盘读入内存，然后继续执行helloworld程序（有时候程序很大，操作系统会多次从磁盘读程序进入内存，也会发生很多次缺页异常）</li>
+<li>helloworld程序执行puts函数（系统调用），在显示器上写一字符串</li>
+<li>操作系统：找到要将字符串宋往的显示设备，通常设备是由一个进程控制的，所以操作系统将写的字符串送给该进程</li>
+<li>操作系统：控制设备的进程告诉设备的窗口系统它要显示的字符串，窗口系统确定知识一个合法的操作，然后将字符串转换成像素，将像素写入设备的存储映像区。</li>
+<li>视频硬件将像素转换成显示器可接收的一组控制/数据信号</li>
+<li>显示器解释信号，激发液晶屏</li>
+<li>我们在屏幕上看到了‘helloworld’</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Tcp/ip | 夕阳还是很红]]></title>
+  <link href="http://shangyajun6943.github.io/blog/categories/tcp-slash-ip/atom.xml" rel="self"/>
+  <link href="http://shangyajun6943.github.io/"/>
+  <updated>2018-07-19T20:51:14+08:00</updated>
+  <id>http://shangyajun6943.github.io/</id>
+  <author>
+    <name><![CDATA[尚亚军]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[TCP/IP协议族概述]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_linux2/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_linux2</id>
+    <content type="html"><![CDATA[<h1>TCP/IP</h1>
+
+<hr />
+
+<h2>TCP/IP协议的体系结构</h2>
+
+<ol>
+<li>TCP/IP协议族四层模型和OSI七层模型
+
+<h5>OSI七层模型，物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</h5>
+
+<h5>TCP/IP协议四层模型，链路层、网络层、传输层、应用层</h5></li>
+<li>四层模型中层次的作用和特点
+
+<h5>链路层：物理连接与传输</h5>
+
+<h5>网络层：数据包的选路与转发</h5>
+
+<h5>传输层：为两台机器提供了端到端的通信，关心传输的起始端和目标端，不在乎中专过程，主要完成数据分发，数据重传的任务</h5></li>
+<li>四层模型中层次中对应的协议
+
+<h5>链路层协议：1.ARP协议地址解析协议。2.RARP协议逆地址解析协议。已上两个实现了IP地址和物理地址的转换。</h5></li>
+</ol>
+
+
+<h5>网络层协议（必须把IP地址转化成物理地址才能使用链路层的服务）：1：IP协议：根据数据包的目的IP地址决定如何投递数据包，如果数据包不能直接发送给目标主机，IP协议会为数据包寻找合适的路由器，并把数据包给了路由器进行转发，一直重复，直到到大目的端或发送失败对齐数据包</h5>
+
+<h5>2.ICMP协议：intel网控制报文协议，IP协议的重要补充，主要用于网络连接</h5>
+
+<h5>3.IGMP</h5>
+
+<h5>传输层协议：1.TCP协议，传中控制协议，它为应用层提供的可靠的、面向连接的、面向流的服务</h5>
+
+<h5>2.UDP协议：为应用层提供不可靠的（无法保证正确的从发送端发送到目标端）、无连接的（不保持长久链接）、数据包（有长度，一次性读出）服务</h5>
+
+<h5>3.SCTP协议：流控制传输协议，新的传输协议，控制intel网上电话信号设计的</h5>
+
+<h5>应用层协议：1.telnet协议：远程登录协议</h5>
+
+<h5>2.OSPF协议：开放路径最短优先协议，路由器更新协议，主要路由器之间的通信来告知对方各自的路由信息</h5>
+
+<h5>3.DNS协议：提供机器域名到IP地址转换</h5>
+
+<h5>ping</h5>
+
+<hr />
+
+<h2>数据的封装和分用</h2>
+
+<ol>
+<li>数据的封装形式
+<img src="/images/tcp_1.png" alt="image" /></li>
+<li>TCP报文段的传输过程
+<img src="/images/tcp_2.png" alt="image" /></li>
+<li>最大传送单元（MTU
+
+<h5>在数据链路层传输的数据包称为帧，帧的最大单位称为MTU（Max Transmit Unit），以太网1500K，令牌1492K，超过最大单位就分片</h5></li>
+<li>以太网帧格式
+<img src="/images/tcp_3.png" alt="image" /></li>
+<li>数据分用的过程
+<img src="/images/tcp_4.png" alt="image" /></li>
+</ol>
+
+
+<h5>1.以太网帧在复杂的网络中如何选路？</h5>
+
+<h5>2.网络协议怎么确保传输的数据准确无误的传输？</h5>
+
+<hr />
+
+<h2>ARP协议的工作原理</h2>
+
+<ol>
+<li>ARP的用途
+
+<h5>1.ARP协议是地址解析协议</h5>
+
+<h5>2.ARP协议作用：能实现网络地址到任意物理地址的转换</h5>
+
+<h5>3.ARP工作原理：首先主机在自己所在的网络广播一个ARP请求，改请求包含目标机器的网络地址，同时网络上的其他机器都收到这个请求，但是只有被请求的目标机器回应一个ARP应答,其中包含了自己的物理地址</h5></li>
+<li>ARP请求/应答报文详解
+<img src="/images/tcp_5.png" alt="image" />
+
+<ol>
+<li>ARP通信过程</li>
+</ol>
+</li>
+</ol>
+
+
+<hr />
+
+<h2>DNS洗衣工作原理</h2>
+]]></content>
+  </entry>
+  
+</feed>

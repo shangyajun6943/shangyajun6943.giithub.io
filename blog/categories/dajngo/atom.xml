@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Dajngo | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/dajngo/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-06T19:40:33+08:00</updated>
+  <updated>2018-07-19T20:51:14+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[面试总结]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_面试1</id>
+    <content type="html"><![CDATA[<h1>面试总结</h1>
+
+<hr />
+
+<h5>1.list删除中pop、remove、del有什么区别？</h5>
+
+<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
+
+<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
+
+<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
+
+<h5>del list1 和list.clear()?</h5>
+
+<hr />
+
+<h5>2.map运行机制？</h5>
+
+<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
+
+<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
+
+<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
+
+<hr />
+
+<h5>内存泄漏和内存溢出的区别和联系</h5>
+
+<h5>1、内存泄漏memory leak :是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。</h5>
+
+<h5>2、内存溢出 out of memory :指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM,即所谓的内存溢出。</h5>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Django-Django全文搜索]]></title>
@@ -188,213 +227,87 @@ urlpatterns = [
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Django-request对象]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_5/"/>
+    <title type="html"><![CDATA[Memcached介绍]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Memcached_1/"/>
     <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_5</id>
-    <content type="html"><![CDATA[<h1>Django-Django-request对象属性</h1>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Memcached_1</id>
+    <content type="html"><![CDATA[<h1>Memcached介绍</h1>
+
+<ul>
+<li>Memcached是一个自由开源的，高性能，分布式内存对象缓存系统。</li>
+<li>Memcached是以LiveJournal旗下Danga Interactive公司的Brad Fitzpatric为首开发的一款软件。现在已成为mixi、hatena、Facebook、Vox、LiveJournal等众多服务中提高Web应用扩展性的重要因素。</li>
+<li>Memcached是一种基于内存的key-value存储，用来存储小块的任意数据（字符串、对象）。这些数据可以是数据库调用、API调用或者是页面渲染的结果。</li>
+<li>Memcached简洁而强大。它的简洁设计便于快速开发，减轻开发难度，解决了大数据量缓存的很多问题。它的API兼容大部分流行的开发语言。</li>
+<li><p>本质上，它是一个简洁的key-value存储系统。</p></li>
+<li><p>一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、提高可扩展性。</p></li>
+</ul>
+
+
+<p><img src="http://www.runoob.com/wp-content/uploads/2015/08/web_6.jpg" alt="image" /></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Django-通用视图DetailView]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_4/"/>
+    <title type="html"><![CDATA[Django-Memcached使用配置]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_7/"/>
     <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_4</id>
-    <content type="html"><![CDATA[<h1>Django-通用视图DetailView</h1>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_7</id>
+    <content type="html"><![CDATA[<h1>Django Cache缓存系统介绍及Memcached使用配置</h1>
 
-<h3>类图</h3>
+<h3>在动态网站中，用户每次请求一个页面，服务器都会执行以下操作：查询数据库，渲染模板，执行业务逻辑，最后生成用户可查看的页面。</h3>
 
-<ul>
-<li>url.py
-<code>
-urlpatterns = [
-  re_path('getone/(?P&lt;id3&gt;[0-9]{1,10})',GetOneProduct.as_view()),
-]
-</code></li>
-<li>view.py
-<code>
-class GetOneProduct(DetailView):
-  model=Product
-  template_name='product/showone.html'
-  context_object_name='pro_one'
-  pk_url_kwarg='id3'
-</code></li>
-</ul>
+<h3>这会消耗大量的资源，当访问用户量非常大时，就要考虑这个问题了。缓存就是为了防止重复计算，把那些消耗了大量资源的结果保存起来，下次访问时就不用再次计算了。缓存的逻辑：</h3>
 
-
-<p><strong>常用参数</strong></p>
-
-<ul>
-<li>model  必须指定模型，但会是这个模型下的所有的数据</li>
-<li>queryset=？  指定的通过模型语言返回指定的QuerySet集合</li>
-<li>template_name 指定返回的模板的地址</li>
-<li>context_object_name 指定模板语言中返回的变量名称，默认是object_list</li>
-<li>slug_url_kwarg = &lsquo;slug&rsquo; 指定url中配置中的名称</li>
-<li>pk_url_kwarg = &lsquo;pk'指定url配置中的的名称</li>
-<li><strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong></li>
-<li>query_pk_and_slug = False 是否使用上面两个名称</li>
-<li>http_method_names   http访问方式。包含了GET、POST等
-<strong>常重写的方法</strong></li>
-<li><p>额外的添加数据get_context_data方法
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;  context=super(ProductList,self).get_context_data(**kwargs)
-</span><span class='line'>
-</span><span class='line'>  context['author_list']=Author.authors.all()
-</span><span class='line'>
-</span><span class='line'>  return context
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;```&lt;/p&gt;&lt;/li&gt;
-</span><span class='line'>&lt;li&gt;&lt;p&gt;返回的数据集get_queryset（如果想快速查找必须重写这个方法，若果你看了get_object源码你就必须重写）
-</span><span class='line'>&lt;code&gt;
-</span><span class='line'>def get_queryset(self):
-</span><span class='line'>       return Product.products.filter(pk__gt=3)
-</span><span class='line'>&lt;/code&gt;
-</span><span class='line'>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写&lt;/p&gt;&lt;/li&gt;
-</span><span class='line'>&lt;li&gt;&lt;p&gt;从url中获取参数，返回指定的数据集
-</span><span class='line'>&lt;strong&gt;url.py&lt;/strong&gt;
-</span><span class='line'>&lt;code&gt;
-</span><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),
-</span><span class='line'>&lt;/code&gt;
-</span><span class='line'>&lt;strong&gt;view.py&lt;/strong&gt;</span></code></pre></td></tr></table></div></figure>
-def get_queryset(self):
-  print(self.args)
-  return Product.products.get(pk=int(self.args[0]))</p></li>
-</ul>
-
-
-<p>```
-其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
-
-<ul>
-<li>get_context_object_name
-返回上下文的名称，context_object_name的值。默认为’数据对象’_list
--dispatch
-返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
-</ul>
-
-
-<p>-render_to_response
-调用response_class返回渲染后的模板。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Django-通用视图ListView]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_3/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_3</id>
-    <content type="html"><![CDATA[<h1>Django-通用视图ListView</h1>
-
-<h3>类图</h3>
-
-<p><img src="/images/lsitviewimage.png" alt="image" /></p>
-
-<ul>
-<li>url.py
-<code>
-urlpatterns = [
-  path('list/',ProductList.as_view()),
-]
-</code></li>
-<li>view.py
-<code>
-class ProductList(ListView):
-  model=Product
-  queryset=Product.products.filter(pk__lt=3)
-  template_name='product/listpro1.html'
-  context_object_name='pro_lists'
-  ordering=('-id',)
-  paginate_by=2
-</code></li>
-</ul>
-
-
-<p><strong>常用参数</strong></p>
-
-<p>model  必须指定模型，但会是这个模型下的所有的数据
-queryset=？  指定的通过模型语言返回指定的QuerySet集合
-template_name 指定返回的模板的地址
-context_object_name 指定模板语言中返回的变量名称，默认是object_list
-ording 返回的数据集合按照什么排序（元组数据）
-paginate_by 分页的参数，指定后会返回指定数量的数据
-http_method_names   http访问方式。包含了GET、POST等
-<strong>常重写的方法</strong>
-- 额外的添加数据get_context_data方法
-<code>
-def  get_context_data(self,**kwargs):
-        context=super(ProductList,self).get_context_data(**kwargs)
-        context['author_list']=Author.authors.all()
-        return context
-</code>
-- 返回的数据集get_queryset
-<code>
-def get_queryset(self):
-         return Product.products.filter(pk__gt=3)
-</code>
-这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
-
-<ul>
-<li>从url中获取参数，返回指定的数据集
-<strong>url.py</strong>
-<code>
-re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),
-</code></li>
-</ul>
-
-
-<p><strong>view.py</strong></p>
-
-<pre><code>class ProductOne(ListView):
-    # model=Product
-    template_name='product/Onepro1.html'
-    context_object_name='pro_one' 
-    def get_queryset(self):
-        print(self.args)
-        print(int(self.args[0]))
-        return Product.products.filter(pk__gt=int(self.args[0]))
+<pre><code>given a URL, try finding that page in the cache
+if the page is in the cache:
+    return the cached page
+else:
+    generate the page
+    save the generated page in the cache (for next time)
+    return the generated page
 </code></pre>
 
-<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
+<h3>Django提供了不同粒度的缓存：你可以缓存某个页面，也可以只缓存很难计算、很消耗资源的某个部分，或者直接缓存整个网站。</h3>
 
-<ul>
-<li>get_ordering 方法重写
-返回指定的排序，ordering的值</li>
-<li>get_allow_empty
-返回get_allow_empty的值，True或False。默认为True</li>
-<li>get_context_object_name
-返回上下文的名称，context_object_name的值。默认为’数据对象’_list
--dispatch
-返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
-</ul>
+<h3>Django也可以和一些”下游”缓存一起协作，例如Squid和基于浏览器的缓存，这些类型的缓存你不直接控制，但是你可以提供给他们站点哪部分应该被缓存和怎样被缓存(通过HTTP headers)。</h3>
 
+<hr />
 
-<p>-render_to_response
-调用response_class返回渲染后的模板。</p>
+<h2>设置缓存</h2>
+
+<h3>在settings中的CACHES中设置缓存，下面是几个可用的缓存选项：</h3>
+
+<h3>1.安装Memcached</h3>
+
+<h3>2.安装绑定python-memcached或pylibmc</h3>
+
+<h4>然后设置BACKEND为django.core.cache.backends.memcached.MemcachedCache(使用python-memcached时)或者django.core.cache.backends.memcached.PyLibMCCache(使用pylibmc时)。（我们使用那个绑定）</h4>
+
+<h4>设置LOCATION为ip:port或者unix:path。例如</h4>
+
+<pre><code>CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+</code></pre>
+
+<h4>还可以在多台机器上运行Memcached进程，程序将会把这组机器当作一个单独的缓存，而不需要在每台机器上复制缓存值：</h4>
+
+<pre><code>CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': [
+            '172.19.26.240:11211',
+            '172.19.26.242:11212',
+            '172.19.26.244:11213',
+        ]
+    }
+}
+</code></pre>
+
+<h3>由于Memcached是基于内存的缓存，数据只存储在内存中，如果服务器死机的话数据会丢失，所以不要把内存缓存作为唯一的数据存储方法。</h3>
 ]]></content>
   </entry>
   

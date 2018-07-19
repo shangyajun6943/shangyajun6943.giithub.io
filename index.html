@@ -9,7 +9,7 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="Django-Django全文搜索haystack haystack官网：http://django-haystack.readthedocs.io/en/master/ 使用的工具 haystack是django的开源搜索框架，该框架支持Solr, Elasticsearch, Whoosh, &hellip;">
+  <meta name="description" content="面试总结 1.list删除中pop、remove、del有什么区别？ pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值 remove是值删除，匹配的第一个匹配的值删除，没有返回值 del按照索引删除字符，返回值不可以付给其他的变量。 del list1 和list. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>面试总结</h1>
+
+<hr />
+
+<h5>1.list删除中pop、remove、del有什么区别？</h5>
+
+<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
+
+<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
+
+<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
+
+<h5>del list1 和list.clear()?</h5>
+
+<hr />
+
+<h5>2.map运行机制？</h5>
+
+<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
+
+<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
+
+<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
+
+<hr />
+
+<h5>内存泄漏和内存溢出的区别和联系</h5>
+
+<h5>1、内存泄漏memory leak :是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。</h5>
+
+<h5>2、内存溢出 out of memory :指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM,即所谓的内存溢出。</h5>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -350,6 +410,72 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_os1/">操作系统</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>操作系统怎么执行程序的？</h1>
+
+<hr />
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>include &lt;stdio.h&gt;
+</span><span class='line'>int main(int argc,char *argc[])
+</span><span class='line'>{
+</span><span class='line'>  puts("hello word!");
+</span><span class='line'>  return 0;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>以这个程序为例，解释操作系统怎么调用程序！</h5>
+
+<hr />
+
+<ol>
+<li>首先我们告诉操作系统我们执行helloworld程序(使用命令，或双击)</li>
+<li>操作系统接受到用户请求，找到helloworld程序的相关信息，检查文件是否是可执行文件；并通过程序的首部信息，确定代码和数据在可执行文件中的位置并计算出对应的磁盘块地址。（可执行文件格式：window：pe linux：elf）</li>
+<li>操作系统：创建一个进程，并将helloworld可执行文件映射到改进程结构，表示由该进程执行helloworld程序</li>
+<li>操作系统：为helloworld程序设置CPU上下文环境并跳到程序开始处（假设调度程序选中了hello程序）</li>
+<li>调度程序：执行helloworld程序的第一条指令，发生<code>缺页异常</code>（因为执行文件需要把程序读入内存）</li>
+<li>操作系统：分配一页空闲的物理内存，并将代码从磁盘读入内存，然后继续执行helloworld程序（有时候程序很大，操作系统会多次从磁盘读程序进入内存，也会发生很多次缺页异常）</li>
+<li>helloworld程序执行puts函数（系统调用），在显示器上写一字符串</li>
+<li>操作系统：找到要将字符串宋往的显示设备，通常设备是由一个进程控制的，所以操作系统将写的字符串送给该进程</li>
+<li>操作系统：控制设备的进程告诉设备的窗口系统它要显示的字符串，窗口系统确定知识一个合法的操作，然后将字符串转换成像素，将像素写入设备的存储映像区。</li>
+<li>视频硬件将像素转换成显示器可接收的一组控制/数据信号</li>
+<li>显示器解释信号，激发液晶屏</li>
+<li>我们在屏幕上看到了‘helloworld’</li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_octopress2/">Octopress环境的搭建</a></h1>
     
     
@@ -399,7 +525,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_5/">Django-request对象</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux2/">TCP/IP协议族概述</a></h1>
     
     
       <p class="meta">
@@ -416,524 +542,99 @@
   </header>
 
 
-  <div class="entry-content"><h1>Django-Django-request对象属性</h1>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a></h1>
-    
-    
-      <p class="meta">
-        
+  <div class="entry-content"><h1>TCP/IP</h1>
 
+<hr />
 
+<h2>TCP/IP协议的体系结构</h2>
 
+<ol>
+<li>TCP/IP协议族四层模型和OSI七层模型
 
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
+<h5>OSI七层模型，物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</h5>
 
+<h5>TCP/IP协议四层模型，链路层、网络层、传输层、应用层</h5></li>
+<li>四层模型中层次的作用和特点
 
-  <div class="entry-content"><h1>Django-通用视图DetailView</h1>
+<h5>链路层：物理连接与传输</h5>
 
-<h3>类图</h3>
+<h5>网络层：数据包的选路与转发</h5>
 
-<ul>
-<li>url.py</li>
-</ul>
+<h5>传输层：为两台机器提供了端到端的通信，关心传输的起始端和目标端，不在乎中专过程，主要完成数据分发，数据重传的任务</h5></li>
+<li>四层模型中层次中对应的协议
 
+<h5>链路层协议：1.ARP协议地址解析协议。2.RARP协议逆地址解析协议。已上两个实现了IP地址和物理地址的转换。</h5></li>
+</ol>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>urlpatterns = [
-</span><span class='line'>    re_path('getone/(?P&lt;id3&gt;[0-9]{1,10})',GetOneProduct.as_view()),
-</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
 
+<h5>网络层协议（必须把IP地址转化成物理地址才能使用链路层的服务）：1：IP协议：根据数据包的目的IP地址决定如何投递数据包，如果数据包不能直接发送给目标主机，IP协议会为数据包寻找合适的路由器，并把数据包给了路由器进行转发，一直重复，直到到大目的端或发送失败对齐数据包</h5>
 
-<ul>
-<li>view.py</li>
-</ul>
+<h5>2.ICMP协议：intel网控制报文协议，IP协议的重要补充，主要用于网络连接</h5>
 
+<h5>3.IGMP</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class GetOneProduct(DetailView):
-</span><span class='line'>    model=Product
-</span><span class='line'>    template_name='product/showone.html'
-</span><span class='line'>    context_object_name='pro_one'
-</span><span class='line'>    pk_url_kwarg='id3'</span></code></pre></td></tr></table></div></figure>
+<h5>传输层协议：1.TCP协议，传中控制协议，它为应用层提供的可靠的、面向连接的、面向流的服务</h5>
 
+<h5>2.UDP协议：为应用层提供不可靠的（无法保证正确的从发送端发送到目标端）、无连接的（不保持长久链接）、数据包（有长度，一次性读出）服务</h5>
 
-<p><strong>常用参数</strong></p>
+<h5>3.SCTP协议：流控制传输协议，新的传输协议，控制intel网上电话信号设计的</h5>
 
-<ul>
-<li>model  必须指定模型，但会是这个模型下的所有的数据</li>
-<li>queryset=？  指定的通过模型语言返回指定的QuerySet集合</li>
-<li>template_name 指定返回的模板的地址</li>
-<li>context_object_name 指定模板语言中返回的变量名称，默认是object_list</li>
-<li>slug_url_kwarg = &lsquo;slug&rsquo; 指定url中配置中的名称</li>
-<li>pk_url_kwarg = &lsquo;pk'指定url配置中的的名称</li>
-<li><strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong></li>
-<li>query_pk_and_slug = False 是否使用上面两个名称</li>
-<li>http_method_names   http访问方式。包含了GET、POST等
-<strong>常重写的方法</strong></li>
-<li>额外的添加数据get_context_data方法</li>
-</ul>
+<h5>应用层协议：1.telnet协议：远程登录协议</h5>
 
+<h5>2.OSPF协议：开放路径最短优先协议，路由器更新协议，主要路由器之间的通信来告知对方各自的路由信息</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
-</span><span class='line'>        
-</span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
-</span><span class='line'>
-</span><span class='line'>        context['author_list']=Author.authors.all()
-</span><span class='line'>
-</span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
+<h5>3.DNS协议：提供机器域名到IP地址转换</h5>
 
+<h5>ping</h5>
 
-<ul>
-<li>返回的数据集get_queryset（如果想快速查找必须重写这个方法，若果你看了get_object源码你就必须重写）</li>
-</ul>
+<hr />
 
+<h2>数据的封装和分用</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
-</span><span class='line'>         return Product.products.filter(pk__gt=3)</span></code></pre></td></tr></table></div></figure>
+<ol>
+<li>数据的封装形式
+<img src="/images/tcp_1.png" alt="image" /></li>
+<li>TCP报文段的传输过程
+<img src="/images/tcp_2.png" alt="image" /></li>
+<li>最大传送单元（MTU
 
+<h5>在数据链路层传输的数据包称为帧，帧的最大单位称为MTU（Max Transmit Unit），以太网1500K，令牌1492K，超过最大单位就分片</h5></li>
+<li>以太网帧格式
+<img src="/images/tcp_3.png" alt="image" /></li>
+<li>数据分用的过程
+<img src="/images/tcp_4.png" alt="image" /></li>
+</ol>
 
-<p>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
 
-<ul>
-<li>从url中获取参数，返回指定的数据集
-<strong>url.py</strong></li>
-</ul>
+<h5>1.以太网帧在复杂的网络中如何选路？</h5>
 
+<h5>2.网络协议怎么确保传输的数据准确无误的传输？</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),</span></code></pre></td></tr></table></div></figure>
+<hr />
 
+<h2>ARP协议的工作原理</h2>
 
-<p><strong>view.py</strong></p>
+<ol>
+<li>ARP的用途
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
-</span><span class='line'>  print(self.args)
-</span><span class='line'>  return Product.products.get(pk=int(self.args[0]))
-</span></code></pre></td></tr></table></div></figure>
+<h5>1.ARP协议是地址解析协议</h5>
 
+<h5>2.ARP协议作用：能实现网络地址到任意物理地址的转换</h5>
 
-<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
+<h5>3.ARP工作原理：首先主机在自己所在的网络广播一个ARP请求，改请求包含目标机器的网络地址，同时网络上的其他机器都收到这个请求，但是只有被请求的目标机器回应一个ARP应答,其中包含了自己的物理地址</h5></li>
+<li>ARP请求/应答报文详解
+<img src="/images/tcp_5.png" alt="image" />
 
-<ul>
-<li>get_context_object_name
-返回上下文的名称，context_object_name的值。默认为’数据对象’_list
--dispatch
-返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
-</ul>
-
-
-<p>-render_to_response
-调用response_class返回渲染后的模板。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_3/">Django-通用视图ListView</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Django-通用视图ListView</h1>
-
-<h3>类图</h3>
-
-<p><img src="/images/lsitviewimage.png" alt="image" /></p>
-
-<ul>
-<li>url.py</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>urlpatterns = [
-</span><span class='line'>    path('list/',ProductList.as_view()),
-</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>view.py</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductList(ListView):
-</span><span class='line'>    model=Product
-</span><span class='line'>    queryset=Product.products.filter(pk__lt=3)
-</span><span class='line'>    template_name='product/listpro1.html'
-</span><span class='line'>    context_object_name='pro_lists'
-</span><span class='line'>    ordering=('-id',)
-</span><span class='line'>    paginate_by=2</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>常用参数</strong></p>
-
-<p>model  必须指定模型，但会是这个模型下的所有的数据
-queryset=？  指定的通过模型语言返回指定的QuerySet集合
-template_name 指定返回的模板的地址
-context_object_name 指定模板语言中返回的变量名称，默认是object_list
-ording 返回的数据集合按照什么排序（元组数据）
-paginate_by 分页的参数，指定后会返回指定数量的数据
-http_method_names   http访问方式。包含了GET、POST等
-<strong>常重写的方法</strong>
-- 额外的添加数据get_context_data方法</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
-</span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
-</span><span class='line'>        context['author_list']=Author.authors.all()
-</span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>返回的数据集get_queryset</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
-</span><span class='line'>         return Product.products.filter(pk__gt=3)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
-
-<ul>
-<li>从url中获取参数，返回指定的数据集
-<strong>url.py</strong></li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>view.py</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductOne(ListView):
-</span><span class='line'>    # model=Product
-</span><span class='line'>    template_name='product/Onepro1.html'
-</span><span class='line'>    context_object_name='pro_one' 
-</span><span class='line'>    def get_queryset(self):
-</span><span class='line'>        print(self.args)
-</span><span class='line'>        print(int(self.args[0]))
-</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
-
-<ul>
-<li>get_ordering 方法重写
-返回指定的排序，ordering的值</li>
-<li>get_allow_empty
-返回get_allow_empty的值，True或False。默认为True</li>
-<li>get_context_object_name
-返回上下文的名称，context_object_name的值。默认为’数据对象’_list
--dispatch
-返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
-</ul>
-
-
-<p>-render_to_response
-调用response_class返回渲染后的模板。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_2/">搭建一个Django项目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>搭建一个Django项目</h1>
-
-<h2>1.下载Django</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pip install django==1.8.13   此版本太低
-</span><span class='line'>pip install django==2.0.1
-</span><span class='line'>
-</span><span class='line'>pip install django  按炸U给最新版本
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>没有pip（*python自带了pip）</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python -m pip install -U pip</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>在网上下载<a href="https://www.djangoproject.com/download/">https://www.djangoproject.com/download/</a>
-Django-2.0.1.tar.gz</li>
-</ul>
-
-
-<h2>2.安装虚拟环境virtualenv</h2>
-
-<ul>
-<li>安装    pip install virtualenv</li>
-<li>创建工作区  virtualenv venv（任意名字）
-
-<ul>
-<li>可以在系统的任意目录下创建工作区（virtualenv 会切换默认的工作区）</li>
-<li><p>选择使用一个Python解释器：</p></li>
-<li><p>virtualenv -p F:\python\Python36 venv</p></li>
-<li>-p参数指定Python解释器程序路径</li>
-</ul>
+<ol>
+<li>ARP通信过程</li>
+</ol>
 </li>
-<li>进入工作区后dir或ls
-
-<ul>
-<li>Scripts\activate</li>
-<li>退出工作区：Scripts\deactivate</li>
-</ul>
-</li>
-<li>创建项目
-
-<ul>
-<li>django-admin startproject [项目名]</li>
-</ul>
-</li>
-<li>创建应用
-
-<ul>
-<li>进入项目</li>
-<li>Python manage.py startapp [应用名]</li>
-</ul>
-</li>
-</ul>
+</ol>
 
 
-<h2>3.使用模块</h2>
+<hr />
 
-<ul>
-<li>在项目的settings中添加自己的应用</li>
-<li>编写自己应用的模块文件（models.py）中</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class User(models.Model):
-</span><span class='line'>    username=models.CharField(max_length=40,unique=True)
-</span><span class='line'>    passwd=models.CharField(max_length=40)
-</span><span class='line'>    gender_choice=((0,'男'),(1,'女'))
-</span><span class='line'>    gender=models.IntegerField(default=0,choices=gender_choice)
-</span><span class='line'>  def __str__(self):
-</span><span class='line'>        return self.username
-</span><span class='line'>    class Meta:
-</span><span class='line'>        db_table='user'</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>生成迁移</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py makemigrations</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>执行迁移</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py migrate</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>进入python解析器测试数据库</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py shell
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>4.使用后台管理系统</h2>
-
-<h3>Django是做CMS系统出生，也是做CMS有优势，所以我们要使用Django中自带的后台，必须创建用户</h3>
-
-<ul>
-<li>命令行</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py createsuperuser</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>输入用户名、邮箱、密码2次</li>
-<li>启动服务器</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pyhton manage.py runserver</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>在浏览器输入网址进入后台管理系统</li>
-<li><a href="http://localhost:8000/admin/">http://localhost:8000/admin/</a>
-或<a href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a></li>
-</ul>
-
-
-<h3>此时进入后台系统什么也看不到，因为我们没有关联models</h3>
-
-<ul>
-<li>在应用的admin.py中，先导入model，在编写models在后台显示的格式</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>from .models import UserInfo
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>class UserInfoAdmin(admin.ModelAdmin):
-</span><span class='line'>list_display = ['username', 'passwd', 'birthday','gender'] 显示数据库中的数据的时候显示什么字段，可以点击列头进行排序
-</span><span class='line'>list_filter = ['username']过滤字段，过滤框会出现在右侧
-</span><span class='line'>search_fields = ['birthday']搜索字段，搜索框会出现在上侧 
-</span><span class='line'>list_per_page = 10 分页，分页框会出现在下侧 
-</span><span class='line'>fieldsets = [
-</span><span class='line'>        ('basic', {'fields': ['username','birthdate']}),
-</span><span class='line'>        ('more', {'fields': ['gender']}),
-</span><span class='line'>    ]
-</span><span class='line'>
-</span><span class='line'>admin.site.register(UserInfo,UserInfoAdmin)把model注册到后台中能显示
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>可以在settings.py中修改中文LANGUAGE_CODE = &lsquo;zh-hans或zh-hant‘</li>
-<li>涉及到后台管理时间时，可以在Settings.py中设置时区
-TIME_ZONE = &lsquo;Asia/Shanghai’</li>
-</ul>
-
+<h2>DNS洗衣工作原理</h2>
 </div>
   
   
@@ -946,7 +647,7 @@ TIME_ZONE = &lsquo;Asia/Shanghai’</li>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux1/">Linux介绍</a></h1>
     
     
       <p class="meta">
@@ -963,70 +664,49 @@ TIME_ZONE = &lsquo;Asia/Shanghai’</li>
   </header>
 
 
-  <div class="entry-content"><h1>Django-视图与url</h1>
+  <div class="entry-content"><h1>Linux</h1>
 
-<p>在把Django项目创建完成之后</p>
+<hr />
 
-<p>1.打开settings文件，把应用配置到项目上去</p>
+<h2>1.什么是Linux</h2>
 
-<p>2.在应用中创建一个urls.py文件</p>
+<h5>1.关于Unux</h5>
 
-<p>3.在项目的urls文件中导入应用的urls文件，如下：</p>
+<h5>2.什么是GNU和GPL</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>from django.contrib import admin
-</span><span class='line'>from django.urls import path,include
-</span><span class='line'>
-</span><span class='line'>urlpatterns = [
-</span><span class='line'>       path('admin/', admin.site.urls),
-</span><span class='line'>     path('food/', include('food.urls')),  #这一行
-</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+<h5>3.Linux起源</h5>
 
+<hr />
 
-<p>4.编入应用自己的urls文件，如下：
-from django.urls import path
-from food.views import *</p>
+<h2>2.Linux版本</h2>
 
-<p>urlpatterns = [
-    path(&lsquo;hello/&rsquo;,hello,name=&lsquo;hello&rsquo;),
-    path(&lsquo;time/&rsquo;,time,name=&lsquo;time&rsquo;),
-]</p>
+<h5>1.Ubuntu，2004年9月发布，最为流行的<code>桌面</code>的Linux发行版。(个人)</h5>
 
-<p>5.编写应用自己的views文件，</p>
+<h5>2.RedHat,使用最广，性能稳定</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>from django.shortcuts import render,HttpResponse
-</span><span class='line'>
-</span><span class='line'># Create your views here.
-</span><span class='line'>
-</span><span class='line'>def hello(request):
-</span><span class='line'>    return HttpResponse('1234')
-</span></code></pre></td></tr></table></div></figure>
+<h5>3.CenOS，2003年底推出，rhel的重新编译版，免费（RedHat克隆出来的）服务器发行版</h5>
 
+<hr />
 
-<p>render,HttpResponse？</p>
+<h2>Linux优缺点</h2>
 
-<p>render是在使用模板渲染html的时候使用，例如我们把从数据库中取到的数据显示到页面上，java使用的JSP技术
-Django使用的模板（template），最总render还是调用HttpResponse，把html读取出来返回到浏览器（也可以说
-render是HttpResponse的封装，功能强大而已），HttpResponse只能返回字符串，不能循环数据放到html中
-所以使用render。</p>
+<h5>优点</h5>
 
-<p>render为什么？一定要传入request呢？
-1.request中存储的浏览器请求的数据类型
-2.我们在模板中使用request这个对象，如：</p>
+<ul>
+<li>性能稳定()</li>
+<li>较高的安全性和Bug的快速修复</li>
+<li>支持多用户多任务</li>
+<li>完善的用户和群组策略</li>
+<li>资源好没底</li>
+<li>适合嵌入式应用</li>
+<li>免费或费用低廉
+
+<h5>缺点</h5></li>
+<li>专业软件支持不够</li>
+<li>厂商的支持度不够</li>
+<li>标准化不足</li>
+</ul>
+
 </div>
   
   
@@ -1039,7 +719,7 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog/">Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_https/">HTTP与HTTPS的区别</a></h1>
     
     
       <p class="meta">
@@ -1056,50 +736,229 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
   </header>
 
 
-  <div class="entry-content"><h1>初识octopress</h1>
+  <div class="entry-content"><h5>超文本传输协议HTTP协议被用于在Web浏览器和网站服务器之间传递信息，HTTP协议以明文方式发送内容，不提供任何方式的数据加密，如果攻击者截取了Web浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息，因此，HTTP协议不适合传输一些敏感信息，比如：信用卡号、密码等支付信息。</h5>
 
-<h2>1.    Octopress的基础知识</h2>
+<h5>为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议HTTPS，为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL协议，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</h5>
 
-<h3>1.1Octopress是什么？</h3>
+<hr />
+
+<h2>一、HTTP和HTTPS的基本概念</h2>
 
 <ul>
-<li>Octopress是一个基于Jekyll的静态的博客站点生成系统，它很大程度上简化了Jekyll的搭建博客的过程
-
-<h3>为什么要使用Octopress？</h3>
-
-<h3>我们说一下WordPress的缺点</h3></li>
-<li>我们得买主机（空间）、域名</li>
-<li>OverFeatured</li>
-<li><code>动态网站</code>下载速度慢</li>
-<li>过渡的<code>依赖数据库</code></li>
-<li>可控性差</li>
-<li>容错性差</li>
-<li>迁移成本高</li>
-<li><code>网页编辑器写博客</code>耗费时间多
-
-<h3>Octopress优点</h3></li>
-<li>命令行操作</li>
-<li>存文本写博客</li>
-<li>定制性高</li>
-<li>纯静态页面</li>
-<li>版本化管理</li>
-<li>迁移成本低</li>
-<li>简介的Ruby框架</li>
-<li>markdown语法
-
-<h2>2.    Octopress的目录结构</h2></li>
-<li>主题插件等->自定义博客</li>
-<li>source->存放程序、博客源码（rake generate后生成public静态网页）</li>
-<li>public->存放生成的静态网站
-
-<h2>3.    Octopress的使用流程</h2></li>
-<li>搭建环境</li>
-<li>纯文本书写博客</li>
-<li>生成静态网页</li>
-<li>本地预览</li>
-<li>部署github</li>
+<li>HTTP：是互联网上应用最为广泛的一种网络协议，是一个客户端和服务器端请求和应答的标准（TCP），用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少。</li>
+<li>HTTPS：是以安全为目标的HTTP通道，简单讲是HTTP的安全版，即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。</li>
+<li>HTTPS协议的主要作用可以分为两种：一种是建立一个信息安全通道，来保证数据传输的安全；另一种就是确认网站的真实性。</li>
 </ul>
 
+
+<hr />
+
+<h2>二、HTTP与HTTPS有什么区别？</h2>
+
+<h5>HTTP协议传输的数据都是未加密的，也就是明文的，因此使用HTTP协议传输隐私信息非常不安全，为了保证这些隐私数据能加密传输，于是网景公司设计了SSL（Secure Sockets Layer）协议用于对HTTP协议传输的数据进行加密，从而就诞生了HTTPS。简单来说，HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全。</h5>
+
+<h3>HTTPS和HTTP的区别主要如下：</h3>
+
+<ul>
+<li><p>1.https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</p></li>
+<li><p>2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</p></li>
+<li><p>3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p></li>
+<li><p>4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</p></li>
+</ul>
+
+
+<hr />
+
+<h2>三、HTTPS的工作原理</h2>
+
+<h5>客户端在使用HTTPS方式与Web服务器通信时有以下几个步骤，如图所示</h5>
+
+<ul>
+<li>（1）客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</li>
+<li>（2）Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</li>
+<li>（3）客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。</li>
+<li>（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</li>
+<li>（5）Web服务器利用自己的私钥解密出会话密钥。</li>
+<li>（6）Web服务器利用会话密钥加密与客户端之间的通信。
+<img src="https://pic002.cnblogs.com/images/2012/339704/2012071410212142.gif" alt="image" /></li>
+</ul>
+
+
+<hr />
+
+<h2>四、HTTPS的优点</h2>
+
+<h5>尽管HTTPS并非绝对安全，掌握根证书的机构、掌握加密算法的组织同样可以进行中间人形式的攻击，但HTTPS仍是现行架构下最安全的解决方案，主要有以下几个好处：</h5>
+
+<ul>
+<li><p>（1）使用HTTPS协议可认证用户和服务器，确保数据发送到正确的客户机和服务器；</p></li>
+<li><p>（2）HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全，可防止数据在传输过程中不被窃取、改变，确保数据的完整性。</p></li>
+<li><p>（3）HTTPS是现行架构下最安全的解决方案，虽然不是绝对安全，但它大幅增加了中间人攻击的成本。</p></li>
+<li><p>（4）谷歌曾在2014年8月份调整搜索引擎算法，并称“比起同等HTTP网站，采用HTTPS加密的网站在搜索结果中的排名将会更高”。</p></li>
+</ul>
+
+
+<hr />
+
+<h2>五、HTTPS的缺点</h2>
+
+<h5>虽然说HTTPS有很大的优势，但其相对来说，还是存在不足之处的：</h5>
+
+<ul>
+<li><p>（1）HTTPS协议握手阶段比较费时，会使页面的加载时间延长近50%，增加10%到20%的耗电；</p></li>
+<li><p>（2）HTTPS连接缓存不如HTTP高效，会增加数据开销和功耗，甚至已有的安全措施也会因此而受到影响；</p></li>
+<li><p>（3）SSL证书需要钱，功能越强大的证书费用越高，个人网站、小网站没有必要一般不会用。</p></li>
+<li><p>（4）SSL证书通常需要绑定IP，不能在同一IP上绑定多个域名，IPv4资源不可能支撑这个消耗。</p></li>
+<li><p>（5）HTTPS协议的加密范围也比较有限，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用。最关键的，SSL证书的信用链体系并不安全，特别是在某些国家可以控制CA根证书的情况下，中间人攻击一样可行</p></li>
+</ul>
+
+
+<hr />
+
+<h2>六、http切换到HTTPS</h2>
+
+<h5>如果需要将网站从http切换到https到底该如何实现呢？</h5>
+
+<h5>这里需要将页面中所有的链接，例如js，css，图片等等链接都由http改为https。例如：<a href="http://www.baidu.com%E6%94%B9%E4%B8%BAhttps://www.baidu.comBTW%EF%BC%8C%E8%BF%99%E9%87%8C%E8%99%BD%E7%84%B6%E5%B0%86http%E5%88%87%E6%8D%A2%E4%B8%BA%E4%BA%86https%EF%BC%8C%E8%BF%98%E6%98%AF%E5%BB%BA%E8%AE%AE%E4%BF%9D%E7%95%99http%E3%80%82%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E5%9C%A8%E5%88%87%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E5%81%9Ahttp%E5%92%8Chttps%E7%9A%84%E5%85%BC%E5%AE%B9%EF%BC%8C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%98%AF%EF%BC%8C%E5%8E%BB%E6%8E%89%E9%A1%B5%E9%9D%A2%E9%93%BE%E6%8E%A5%E4%B8%AD%E7%9A%84http%E5%A4%B4%E9%83%A8%EF%BC%8C%E8%BF%99%E6%A0%B7%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%8A%A8%E5%8C%B9%E9%85%8Dhttp%E5%A4%B4%E5%92%8Chttps%E5%A4%B4%E3%80%82%E4%BE%8B%E5%A6%82%EF%BC%9A%E5%B0%86http://www.baidu.com%E6%94%B9%E4%B8%BA//www.baidu.com%E3%80%82%E7%84%B6%E5%90%8E%E5%BD%93%E7%94%A8%E6%88%B7%E4%BB%8Ehttp%E7%9A%84%E5%85%A5%E5%8F%A3%E8%BF%9B%E5%85%A5%E8%AE%BF%E9%97%AE%E9%A1%B5%E9%9D%A2%E6%97%B6%EF%BC%8C%E9%A1%B5%E9%9D%A2%E5%B0%B1%E6%98%AFhttp%EF%BC%8C%E5%A6%82%E6%9E%9C%E7%94%A8%E6%88%B7%E6%98%AF%E4%BB%8Ehttps%E7%9A%84%E5%85%A5%E5%8F%A3%E8%BF%9B%E5%85%A5%E8%AE%BF%E9%97%AE%E9%A1%B5%E9%9D%A2%EF%BC%8C%E9%A1%B5%E9%9D%A2%E5%8D%B3%E4%BD%BFhttps%E7%9A%84%E3%80%82">http://www.baidu.com%E6%94%B9%E4%B8%BAhttps://www.baidu.comBTW%EF%BC%8C%E8%BF%99%E9%87%8C%E8%99%BD%E7%84%B6%E5%B0%86http%E5%88%87%E6%8D%A2%E4%B8%BA%E4%BA%86https%EF%BC%8C%E8%BF%98%E6%98%AF%E5%BB%BA%E8%AE%AE%E4%BF%9D%E7%95%99http%E3%80%82%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E5%9C%A8%E5%88%87%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E5%81%9Ahttp%E5%92%8Chttps%E7%9A%84%E5%85%BC%E5%AE%B9%EF%BC%8C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%98%AF%EF%BC%8C%E5%8E%BB%E6%8E%89%E9%A1%B5%E9%9D%A2%E9%93%BE%E6%8E%A5%E4%B8%AD%E7%9A%84http%E5%A4%B4%E9%83%A8%EF%BC%8C%E8%BF%99%E6%A0%B7%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%8A%A8%E5%8C%B9%E9%85%8Dhttp%E5%A4%B4%E5%92%8Chttps%E5%A4%B4%E3%80%82%E4%BE%8B%E5%A6%82%EF%BC%9A%E5%B0%86http://www.baidu.com%E6%94%B9%E4%B8%BA//www.baidu.com%E3%80%82%E7%84%B6%E5%90%8E%E5%BD%93%E7%94%A8%E6%88%B7%E4%BB%8Ehttp%E7%9A%84%E5%85%A5%E5%8F%A3%E8%BF%9B%E5%85%A5%E8%AE%BF%E9%97%AE%E9%A1%B5%E9%9D%A2%E6%97%B6%EF%BC%8C%E9%A1%B5%E9%9D%A2%E5%B0%B1%E6%98%AFhttp%EF%BC%8C%E5%A6%82%E6%9E%9C%E7%94%A8%E6%88%B7%E6%98%AF%E4%BB%8Ehttps%E7%9A%84%E5%85%A5%E5%8F%A3%E8%BF%9B%E5%85%A5%E8%AE%BF%E9%97%AE%E9%A1%B5%E9%9D%A2%EF%BC%8C%E9%A1%B5%E9%9D%A2%E5%8D%B3%E4%BD%BFhttps%E7%9A%84%E3%80%82</a></h5>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Memcached_2/">Memcached在window下安装</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Memcached在window下安装</h1>
+
+<ul>
+<li>32位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win32-1.4.4-14.zip">http://static.runoob.com/download/memcached-win32-1.4.4-14.zip</a></li>
+<li>64位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win64-1.4.4-14.zip">http://static.runoob.com/download/memcached-win64-1.4.4-14.zip</a></li>
+<li>32位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-x86.zip">http://static.runoob.com/download/memcached-1.4.5-x86.zip</a></li>
+<li>64位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-amd64.zip">http://static.runoob.com/download/memcached-1.4.5-amd64.zip</a></li>
+</ul>
+
+
+<hr />
+
+<h3>memcached &lt;1.4.5 版本安装</h3>
+
+<p>1、解压下载的安装包到指定目录。
+2、在 1.4.5 版本以前 memcached 可以作为一个服务安装，使用管理员权限运行以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。
+3、然后我们可以使用以下命令来启动和关闭 memcached 服务：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d start
+</span><span class='line'>c:\memcached\memcached.exe -d stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4、如果要修改 memcached 的配置项, 可以在命令行中执行 regedit.exe 命令打开注册表并找到 &ldquo;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\memcached&rdquo; 来进行修改。</p>
+
+<p>如果要提供 memcached 使用的缓存配置 可以修改 ImagePath 为:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>"c:\memcached\memcached.exe" -d runservice -m 512</span></code></pre></td></tr></table></div></figure>
+
+
+<p>5、如果我们需要卸载 memcached ，可以使用以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d uninstall</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>memcached >= 1.4.5 版本安装</h3>
+
+<p>1、解压下载的安装包到指定目录。
+2、在 memcached1.4.5 版本之后，memcached 不能作为服务来运行，需要使用任务计划中来开启一个普通的进程，在 window 启动时设置 memcached自动执行。</p>
+
+<p>我们使用管理员身份执行以下命令将 memcached 添加来任务计划表中：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /create /sc onstart /tn memcached /tr "'c:\memcached\memcached.exe' -m 512"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。</p>
+
+<p>注意：-m 512 意思是设置 memcached 最大的缓存配置为512M。</p>
+
+<p>注意：我们可以通过使用 &ldquo;c:\memcached\memcached.exe -h&rdquo; 命令查看更多的参数配置。</p>
+
+<p>3、如果需要删除 memcached 的任务计划可以执行以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /delete /tn memcached</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Memcached_1/">Memcached介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Memcached介绍</h1>
+
+<ul>
+<li>Memcached是一个自由开源的，高性能，分布式内存对象缓存系统。</li>
+<li>Memcached是以LiveJournal旗下Danga Interactive公司的Brad Fitzpatric为首开发的一款软件。现在已成为mixi、hatena、Facebook、Vox、LiveJournal等众多服务中提高Web应用扩展性的重要因素。</li>
+<li>Memcached是一种基于内存的key-value存储，用来存储小块的任意数据（字符串、对象）。这些数据可以是数据库调用、API调用或者是页面渲染的结果。</li>
+<li>Memcached简洁而强大。它的简洁设计便于快速开发，减轻开发难度，解决了大数据量缓存的很多问题。它的API兼容大部分流行的开发语言。</li>
+<li><p>本质上，它是一个简洁的key-value存储系统。</p></li>
+<li><p>一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、提高可扩展性。</p></li>
+</ul>
+
+
+<p><img src="http://www.runoob.com/wp-content/uploads/2015/08/web_6.jpg" alt="image" /></p>
 </div>
   
   
@@ -1108,6 +967,8 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/posts/2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1120,6 +981,10 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
       </li>
     
@@ -1128,15 +993,11 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
       </li>
     
       <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os1/">操作系统</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/07/03/shangyajunblog_octopress2/">Octopress环境的搭建</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_5/">Django-request对象</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a>
       </li>
     
   </ul>
