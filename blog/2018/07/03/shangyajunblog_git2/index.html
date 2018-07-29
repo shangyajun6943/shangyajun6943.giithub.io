@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Git安装-简单配置 - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="git安装-简单配置 git的安装—git-scm.com
+git的自动完成 在windows系统下默认就是自动补全的
+git的自动完成 在linux系统下 在git源码包(如果没有去github上下载git源码地址)的./contrib/completion目录下有两个文件 1
+2
+git- &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Git安装-简单配置</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>git安装-简单配置</h1>
+
+<hr />
+
+<ol>
+<li>git的安装—git-scm.com</li>
+<li>git的自动完成 在windows系统下默认就是自动补全的</li>
+<li>git的自动完成 在linux系统下</li>
+</ol>
+
+
+<h5>在git源码包(如果没有去github上下载git<a href="https://github.com/git/git">源码地址</a>)的./contrib/completion目录下有两个文件</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git-completion.bash
+</span><span class='line'>git-prompt.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>其中git-completion.bash是自动补全脚本,git-prompt.sh是状态提示脚本.</h5>
+
+<h5>把他们两个放到/etc/profile.d/目录下,再把git-completion.bash改名为 gitcompletion.sh 然后创建一个git.sh文件(或者直接修改在/etc/profile文件)在里面加入以下内容</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>export GIT_PS1_SHOWDIRTYSTATE=1
+</span><span class='line'>export GIT_PS1_SHOWSTASHSTATE=1
+</span><span class='line'>export GIT_PS1_SHOWUNTRACKEDFILES=1
+</span><span class='line'>export GIT_PS1_SHOWUPSTREAM="verbose git svn"
+</span><span class='line'>PS1='\[\033[1;32m\]\u@\h \[\033[1;34m\]\W\[\033[1;31m\]$(__git_ps1 " (%s)")\[\033[1;35m\] $ \[\033[0m\]'</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>重启后</h5>
+
+<h4>git version-1.9.1以上的似乎已经默认加上了git的自动补全的功能。所以无需自己配置：原因就在下面的脚本里面吧：</h4>
+
+<h4>可以看见有这个脚本文件:/usr/lib/git-core/git-sh-prompt也就是git自动补全脚本</h4>
+
+<h4>它是被/etc/bash_completion.d/ 下的git-prompt脚本所包含的</h4>
+
+<h4>这里提供手动设置git自动补全功能：</h4>
+
+<ol>
+<li><p><a href="https://github.com/markgandolfo/git-bash-completion.git%E4%B8%8A%E4%B8%8B%E8%BD%BD%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC">https://github.com/markgandolfo/git-bash-completion.git%E4%B8%8A%E4%B8%8B%E8%BD%BD%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC</a>(git-bash-completion)</p></li>
+<li><p>复制脚本文件git-bash-completion至目录/etc/bash_completion.d/下</p></li>
+<li></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$cp git-completion.bash  /etc/bash_completion.d/</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>或者直接一步到位：1-2步</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo wget --no-check-certificate -P /etc/bash_completion.d/ https://raw.githubusercontent.com/markgandolfo/git-bash-completion/master/git-completion.bash</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>使脚本生效：</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./etc/bash_completion.d/git-completion.bash</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>git简单配置</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global user.name ShangYaJun
+</span><span class='line'>git config --global user.email 373296201@qq.com</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>这是git中最基本的配置，提交的时候用到，告诉每次提交的时候，提交的文件作者是谁？文件修改之后提交的作者是谁？</h5>
+
+<h5>还可以这样添加作者</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global user.name --add ***</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>还可以这样删除作者</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global --unset user.name ***</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>还可以这样修改作者</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>```
+</span><span class='line'>#####查看所有用户信息</span></code></pre></td></tr></table></div></figure>
+
+
+<p>git config &ndash;get user.name</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>```
+</span><span class='line'>git config --get user.email</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --list --global</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>git配置的三个级别</h3>
+
+<ol>
+<li>git config &ndash;local   针对当前的仓库，优先级最高</li>
+<li>git config –global  针对当前用户，优先级中</li>
+<li>git config –system</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –list  查看所有的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global –list 查看针对用户的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –local –list 查看单签仓库的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –add 添加仓库的配置信息或git config –local –add</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global –add 添加当前用户的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global –get 的到当前用户的某个信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –local –unset</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –local –unset-all 不设置（删除）仓库的某个配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global user.name *** 第一次是添加（第二次就是修改名字）</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>为git子命令配置别名</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global alias.ck checkout 给checkout七个别名</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>使用</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git ck</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/git/'>git</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git2/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_git/" title="Previous Post: git简介">&laquo; git简介</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_https/" title="Next Post: HTTP与HTTPS的区别">HTTP与HTTPS的区别 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%952/">面试总结2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os2/">Os处理器状态</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-29T22:06:58+08:00</updated>
+  <updated>2018-07-29T23:17:49+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -12,6 +12,160 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git安装-简单配置]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git2/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git2</id>
+    <content type="html"><![CDATA[<h1>git安装-简单配置</h1>
+
+<hr />
+
+<ol>
+<li>git的安装—git-scm.com</li>
+<li>git的自动完成 在windows系统下默认就是自动补全的</li>
+<li>git的自动完成 在linux系统下</li>
+</ol>
+
+
+<h5>在git源码包(如果没有去github上下载git<a href="https://github.com/git/git">源码地址</a>)的./contrib/completion目录下有两个文件</h5>
+
+<pre><code>git-completion.bash
+git-prompt.sh
+</code></pre>
+
+<h5>其中git-completion.bash是自动补全脚本,git-prompt.sh是状态提示脚本.</h5>
+
+<h5>把他们两个放到/etc/profile.d/目录下,再把git-completion.bash改名为 gitcompletion.sh 然后创建一个git.sh文件(或者直接修改在/etc/profile文件)在里面加入以下内容</h5>
+
+<pre><code>export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM="verbose git svn"
+PS1='\[\033[1;32m\]\u@\h \[\033[1;34m\]\W\[\033[1;31m\]$(__git_ps1 " (%s)")\[\033[1;35m\] $ \[\033[0m\]'
+</code></pre>
+
+<h5>重启后</h5>
+
+<h4>git version-1.9.1以上的似乎已经默认加上了git的自动补全的功能。所以无需自己配置：原因就在下面的脚本里面吧：</h4>
+
+<h4>可以看见有这个脚本文件:/usr/lib/git-core/git-sh-prompt也就是git自动补全脚本</h4>
+
+<h4>它是被/etc/bash_completion.d/ 下的git-prompt脚本所包含的</h4>
+
+<h4>这里提供手动设置git自动补全功能：</h4>
+
+<ol>
+<li><p><a href="https://github.com/markgandolfo/git-bash-completion.git%E4%B8%8A%E4%B8%8B%E8%BD%BD%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC">https://github.com/markgandolfo/git-bash-completion.git%E4%B8%8A%E4%B8%8B%E8%BD%BD%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC</a>(git-bash-completion)</p></li>
+<li><p>复制脚本文件git-bash-completion至目录/etc/bash_completion.d/下</p></li>
+<li><pre><code>$cp git-completion.bash  /etc/bash_completion.d/
+</code></pre></li>
+</ol>
+
+
+<h4>或者直接一步到位：1-2步</h4>
+
+<pre><code>sudo wget --no-check-certificate -P /etc/bash_completion.d/ https://raw.githubusercontent.com/markgandolfo/git-bash-completion/master/git-completion.bash
+</code></pre>
+
+<ol>
+<li>使脚本生效：</li>
+</ol>
+
+
+<pre><code>./etc/bash_completion.d/git-completion.bash
+</code></pre>
+
+<hr />
+
+<h2>git简单配置</h2>
+
+<pre><code>git config --global user.name ShangYaJun
+git config --global user.email 373296201@qq.com
+</code></pre>
+
+<h5>这是git中最基本的配置，提交的时候用到，告诉每次提交的时候，提交的文件作者是谁？文件修改之后提交的作者是谁？</h5>
+
+<h5>还可以这样添加作者</h5>
+
+<pre><code>git config --global user.name --add ***
+</code></pre>
+
+<h5>还可以这样删除作者</h5>
+
+<pre><code>git config --global --unset user.name ***
+</code></pre>
+
+<h5>还可以这样修改作者</h5>
+
+<p><code>
+</code></p>
+
+<h5>查看所有用户信息</h5>
+
+<pre><code>git config --get user.name
+</code></pre>
+
+<pre><code>git config --get user.email
+</code></pre>
+
+<pre><code>git config --list --global
+</code></pre>
+
+<hr />
+
+<h3>git配置的三个级别</h3>
+
+<ol>
+<li>git config &ndash;local   针对当前的仓库，优先级最高</li>
+<li>git config –global  针对当前用户，优先级中</li>
+<li>git config –system</li>
+</ol>
+
+
+<pre><code>git config –list  查看所有的配置信息
+</code></pre>
+
+<pre><code>git config –global –list 查看针对用户的配置信息
+</code></pre>
+
+<pre><code>git config –local –list 查看单签仓库的配置信息
+</code></pre>
+
+<pre><code>git config –add 添加仓库的配置信息或git config –local –add
+</code></pre>
+
+<pre><code>git config –global –add 添加当前用户的配置信息
+</code></pre>
+
+<pre><code>git config –global –get 的到当前用户的某个信息
+</code></pre>
+
+<pre><code>git config –local –unset
+</code></pre>
+
+<pre><code>git config –local –unset-all 不设置（删除）仓库的某个配置信息
+</code></pre>
+
+<pre><code>git config –global user.name *** 第一次是添加（第二次就是修改名字）
+</code></pre>
+
+<hr />
+
+<h3>为git子命令配置别名</h3>
+
+<pre><code>git config --global alias.ck checkout 给checkout七个别名
+</code></pre>
+
+<h5>使用</h5>
+
+<pre><code>git ck
+</code></pre>
+
+<hr />
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git简介]]></title>

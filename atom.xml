@@ -4,7 +4,7 @@
   <title><![CDATA[夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-29T22:06:58+08:00</updated>
+  <updated>2018-07-29T23:17:49+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -817,6 +817,191 @@
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[Git安装-简单配置]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git2/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git2</id>
+    <content type="html"><![CDATA[<h1>git安装-简单配置</h1>
+
+<hr />
+
+<ol>
+<li>git的安装—git-scm.com</li>
+<li>git的自动完成 在windows系统下默认就是自动补全的</li>
+<li>git的自动完成 在linux系统下</li>
+</ol>
+
+
+<h5>在git源码包(如果没有去github上下载git<a href="https://github.com/git/git">源码地址</a>)的./contrib/completion目录下有两个文件</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git-completion.bash
+</span><span class='line'>git-prompt.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>其中git-completion.bash是自动补全脚本,git-prompt.sh是状态提示脚本.</h5>
+
+<h5>把他们两个放到/etc/profile.d/目录下,再把git-completion.bash改名为 gitcompletion.sh 然后创建一个git.sh文件(或者直接修改在/etc/profile文件)在里面加入以下内容</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>export GIT_PS1_SHOWDIRTYSTATE=1
+</span><span class='line'>export GIT_PS1_SHOWSTASHSTATE=1
+</span><span class='line'>export GIT_PS1_SHOWUNTRACKEDFILES=1
+</span><span class='line'>export GIT_PS1_SHOWUPSTREAM="verbose git svn"
+</span><span class='line'>PS1='\[\033[1;32m\]\u@\h \[\033[1;34m\]\W\[\033[1;31m\]$(__git_ps1 " (%s)")\[\033[1;35m\] $ \[\033[0m\]'</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>重启后</h5>
+
+<h4>git version-1.9.1以上的似乎已经默认加上了git的自动补全的功能。所以无需自己配置：原因就在下面的脚本里面吧：</h4>
+
+<h4>可以看见有这个脚本文件:/usr/lib/git-core/git-sh-prompt也就是git自动补全脚本</h4>
+
+<h4>它是被/etc/bash_completion.d/ 下的git-prompt脚本所包含的</h4>
+
+<h4>这里提供手动设置git自动补全功能：</h4>
+
+<ol>
+<li><p><a href="https://github.com/markgandolfo/git-bash-completion.git%E4%B8%8A%E4%B8%8B%E8%BD%BD%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC">https://github.com/markgandolfo/git-bash-completion.git%E4%B8%8A%E4%B8%8B%E8%BD%BD%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC</a>(git-bash-completion)</p></li>
+<li><p>复制脚本文件git-bash-completion至目录/etc/bash_completion.d/下</p></li>
+<li></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$cp git-completion.bash  /etc/bash_completion.d/</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>或者直接一步到位：1-2步</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo wget --no-check-certificate -P /etc/bash_completion.d/ https://raw.githubusercontent.com/markgandolfo/git-bash-completion/master/git-completion.bash</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>使脚本生效：</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./etc/bash_completion.d/git-completion.bash</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>git简单配置</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global user.name ShangYaJun
+</span><span class='line'>git config --global user.email 373296201@qq.com</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>这是git中最基本的配置，提交的时候用到，告诉每次提交的时候，提交的文件作者是谁？文件修改之后提交的作者是谁？</h5>
+
+<h5>还可以这样添加作者</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global user.name --add ***</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>还可以这样删除作者</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global --unset user.name ***</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>还可以这样修改作者</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>```
+</span><span class='line'>#####查看所有用户信息</span></code></pre></td></tr></table></div></figure>
+
+
+<p>git config &ndash;get user.name</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>```
+</span><span class='line'>git config --get user.email</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --list --global</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>git配置的三个级别</h3>
+
+<ol>
+<li>git config &ndash;local   针对当前的仓库，优先级最高</li>
+<li>git config –global  针对当前用户，优先级中</li>
+<li>git config –system</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –list  查看所有的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global –list 查看针对用户的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –local –list 查看单签仓库的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –add 添加仓库的配置信息或git config –local –add</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global –add 添加当前用户的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global –get 的到当前用户的某个信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –local –unset</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –local –unset-all 不设置（删除）仓库的某个配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config –global user.name *** 第一次是添加（第二次就是修改名字）</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>为git子命令配置别名</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global alias.ck checkout 给checkout七个别名</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>使用</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git ck</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Git简介]]></title>
     <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git/"/>
     <updated>2018-07-03T15:11:11+08:00</updated>
@@ -1372,210 +1557,6 @@ http_method_names   http访问方式。包含了GET、POST等
 
 <p>-render_to_response
 调用response_class返回渲染后的模板。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[搭建一个Django项目]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_2/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_2</id>
-    <content type="html"><![CDATA[<h1>搭建一个Django项目</h1>
-
-<h2>1.下载Django</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pip install django==1.8.13   此版本太低
-</span><span class='line'>pip install django==2.0.1
-</span><span class='line'>
-</span><span class='line'>pip install django  按炸U给最新版本
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>没有pip（*python自带了pip）</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python -m pip install -U pip</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>在网上下载<a href="https://www.djangoproject.com/download/">https://www.djangoproject.com/download/</a>
-Django-2.0.1.tar.gz</li>
-</ul>
-
-
-<h2>2.安装虚拟环境virtualenv</h2>
-
-<ul>
-<li>安装    pip install virtualenv</li>
-<li>创建工作区  virtualenv venv（任意名字）
-
-<ul>
-<li>可以在系统的任意目录下创建工作区（virtualenv 会切换默认的工作区）</li>
-<li><p>选择使用一个Python解释器：</p></li>
-<li><p>virtualenv -p F:\python\Python36 venv</p></li>
-<li>-p参数指定Python解释器程序路径</li>
-</ul>
-</li>
-<li>进入工作区后dir或ls
-
-<ul>
-<li>Scripts\activate</li>
-<li>退出工作区：Scripts\deactivate</li>
-</ul>
-</li>
-<li>创建项目
-
-<ul>
-<li>django-admin startproject [项目名]</li>
-</ul>
-</li>
-<li>创建应用
-
-<ul>
-<li>进入项目</li>
-<li>Python manage.py startapp [应用名]</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>3.使用模块</h2>
-
-<ul>
-<li>在项目的settings中添加自己的应用</li>
-<li>编写自己应用的模块文件（models.py）中</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class User(models.Model):
-</span><span class='line'>    username=models.CharField(max_length=40,unique=True)
-</span><span class='line'>    passwd=models.CharField(max_length=40)
-</span><span class='line'>    gender_choice=((0,'男'),(1,'女'))
-</span><span class='line'>    gender=models.IntegerField(default=0,choices=gender_choice)
-</span><span class='line'>  def __str__(self):
-</span><span class='line'>        return self.username
-</span><span class='line'>    class Meta:
-</span><span class='line'>        db_table='user'</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>生成迁移</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py makemigrations</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>执行迁移</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py migrate</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>进入python解析器测试数据库</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py shell
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>4.使用后台管理系统</h2>
-
-<h3>Django是做CMS系统出生，也是做CMS有优势，所以我们要使用Django中自带的后台，必须创建用户</h3>
-
-<ul>
-<li>命令行</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py createsuperuser</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>输入用户名、邮箱、密码2次</li>
-<li>启动服务器</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pyhton manage.py runserver</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>在浏览器输入网址进入后台管理系统</li>
-<li><a href="http://localhost:8000/admin/">http://localhost:8000/admin/</a>
-或<a href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a></li>
-</ul>
-
-
-<h3>此时进入后台系统什么也看不到，因为我们没有关联models</h3>
-
-<ul>
-<li>在应用的admin.py中，先导入model，在编写models在后台显示的格式</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>from .models import UserInfo
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>class UserInfoAdmin(admin.ModelAdmin):
-</span><span class='line'>list_display = ['username', 'passwd', 'birthday','gender'] 显示数据库中的数据的时候显示什么字段，可以点击列头进行排序
-</span><span class='line'>list_filter = ['username']过滤字段，过滤框会出现在右侧
-</span><span class='line'>search_fields = ['birthday']搜索字段，搜索框会出现在上侧 
-</span><span class='line'>list_per_page = 10 分页，分页框会出现在下侧 
-</span><span class='line'>fieldsets = [
-</span><span class='line'>        ('basic', {'fields': ['username','birthdate']}),
-</span><span class='line'>        ('more', {'fields': ['gender']}),
-</span><span class='line'>    ]
-</span><span class='line'>
-</span><span class='line'>admin.site.register(UserInfo,UserInfoAdmin)把model注册到后台中能显示
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>可以在settings.py中修改中文LANGUAGE_CODE = &lsquo;zh-hans或zh-hant‘</li>
-<li>涉及到后台管理时间时，可以在Settings.py中设置时区
-TIME_ZONE = &lsquo;Asia/Shanghai’</li>
-</ul>
-
 ]]></content>
   </entry>
   
