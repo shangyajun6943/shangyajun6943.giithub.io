@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Os处理器状态 - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="处理器状态 中央处理器（CPU） 处理器组成：运算器、控制器、一系列的寄存器、高速缓存 两种寄存器 用户可见寄存器：高级语言编译器通过优化算法分配并使用，以减少程序的访问内存的次数，提高运行效率
+控制和状态寄存器：用于控制处理器的操作，通常由操作系统代码使用 控制和状态寄存器 用于控制处理器的操作 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_os2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Os处理器状态</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>处理器状态</h1>
+
+<hr />
+
+<h4>中央处理器（CPU）</h4>
+
+<h5>处理器组成：运算器、控制器、一系列的<code>寄存器</code>、高速缓存</h5>
+
+<h5>两种寄存器</h5>
+
+<ol>
+<li>用户可见寄存器：高级语言编译器通过优化算法分配并使用，以减少程序的访问内存的次数，提高运行效率</li>
+<li>控制和状态寄存器：用于控制处理器的操作，通常由操作系统代码使用</li>
+</ol>
+
+
+<hr />
+
+<h4>控制和状态寄存器</h4>
+
+<ul>
+<li>用于控制处理器的操作</li>
+<li>在某种特权级别下可以访问、修改</li>
+<li><p>常见的控制和状态寄存器：</p></li>
+<li><p>程序计数器（PC：program Counter）：记录将取出的指令地址</p></li>
+<li>指令寄存器（IR：Instruction Register）：记录最近取出的指令</li>
+<li>程序状态字（PSW：Program Status Word）：记录处理器的运行状态如：条形码、模式、控制位等信息。</li>
+</ul>
+
+
+<hr />
+
+<h4>现代CPU状态设计划分：两种、三种或四种</h4>
+
+<h5>在程序状态字寄存器PSW中专门是指一位，根据运行程序<code>对资源和指令的使用权限</code>而设置不同的CPU状态</h5>
+
+<h3>操作系统需要两种CPU状态</h3>
+
+<ol>
+<li>内核态：运行操作系统程序</li>
+<li>用户态：运行用户程序</li>
+</ol>
+
+
+<h4>特权指令：只能有操作系统使用、用户程序不能使用的指令。启动IO、内存清零、修改程序状态字、设置时钟、允许/禁止中断、停机</h4>
+
+<h4>非特权指令：用户程序可以使用的指令</h4>
+
+<h3>X86支持4个处理器特权级别，特权环：R0-R3</h3>
+
+<h4>R0相当于内核态，R3相当于用户态，R1和R2结余两者之间</h4>
+
+<hr />
+
+<h3>CPU状态之间的转换</h3>
+
+<h6>用户态->内核态  唯一途径-> 中断/异常/陷入机制</h6>
+
+<h6>内核态->用户态  设置程序状态字PSW</h6>
+
+<h5>一条特殊的指令：陷入指令（又称访管指令）：提供给用户程序的接口，用于调用操作系统的功能（服务）。如：int、trap、syscall、sysenter/sysexit</h5>
+
+<hr />
+
+<h2>中断/异常机制</h2>
+
+<h4>中断/异常：对于操作系统的重要性就好比：汽车的发动机、飞机的引擎，可以这么说：操作系统是由‘中断驱动’或者‘事件驱动’的</h4>
+
+<h4>中断/异常：CPU对系统发生中的某个事件做出的一种反应，事件的发生改变了处理器的控制流</h4>
+
+<h4>中断/异常：CPU暂停正在执行的程序，保留现场后自动转去执行相应的事件的处理程序，处理完成后返回断点，继续执行被打断的程序。</h4>
+
+<h4>特点：随机发生、自动处理、和恢复</h4>
+
+<h3>为什么引入中断与异常？</h3>
+
+<h2>中断/异常合称：事件</h2>
+
+<h3>事件分为：外中断（中断）、内中断（异常）</h3>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/os/'>os</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_os2/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_os2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_os1/" title="Previous Post: 操作系统">&laquo; 操作系统</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_quanwen_1/" title="Next Post: Django-全文检索">Django-全文检索 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%952/">面试总结2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os2/">Os处理器状态</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

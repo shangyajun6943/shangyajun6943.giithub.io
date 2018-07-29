@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tcp/ip | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/tcp-slash-ip/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-19T20:51:14+08:00</updated>
+  <updated>2018-07-29T21:37:58+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -25,19 +25,23 @@
 <h2>TCP/IP协议的体系结构</h2>
 
 <ol>
-<li>TCP/IP协议族四层模型和OSI七层模型
+<li><p>TCP/IP协议族四层模型和OSI七层模型</p>
 
 <h5>OSI七层模型，物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</h5>
 
-<h5>TCP/IP协议四层模型，链路层、网络层、传输层、应用层</h5></li>
-<li>四层模型中层次的作用和特点
+<h5>TCP/IP协议四层模型，链路层、网络层、传输层、应用层</h5>
 
-<h5>链路层：物理连接与传输</h5>
+<p><img src="/images/tcp_6.png" alt="image" /></p></li>
+<li><p>四层模型中层次的作用和特点</p>
 
-<h5>网络层：数据包的选路与转发</h5>
+<h5>链路层：物理连接与传输(不同的类型？以太网，令牌)</h5>
 
-<h5>传输层：为两台机器提供了端到端的通信，关心传输的起始端和目标端，不在乎中专过程，主要完成数据分发，数据重传的任务</h5></li>
-<li>四层模型中层次中对应的协议
+<h5>网络层：数据包的选路与转发（IP层，数据包的选路和转发）</h5>
+
+<h5>传输层：为两台机器提供了端到端的通信，关心传输的起始端和目标端，不在乎中专过程，主要完成数据分发，数据重传的任务</h5>
+
+<p><img src="/images/tcp_7.png" alt="image" /></p></li>
+<li><p>四层模型中层次中对应的协议</p>
 
 <h5>链路层协议：1.ARP协议地址解析协议。2.RARP协议逆地址解析协议。已上两个实现了IP地址和物理地址的转换。</h5></li>
 </ol>
@@ -68,19 +72,35 @@
 <h2>数据的封装和分用</h2>
 
 <ol>
-<li>数据的封装形式
-<img src="/images/tcp_1.png" alt="image" /></li>
-<li>TCP报文段的传输过程
-<img src="/images/tcp_2.png" alt="image" /></li>
+<li>数据的封装形式</li>
+</ol>
+
+
+<p><img src="/images/tcp_1.png" alt="image" /></p>
+
+<ol>
+<li>TCP报文段的传输过程</li>
+</ol>
+
+
+<p><img src="/images/tcp_2.png" alt="image" /></p>
+
+<ol>
 <li>最大传送单元（MTU
 
 <h5>在数据链路层传输的数据包称为帧，帧的最大单位称为MTU（Max Transmit Unit），以太网1500K，令牌1492K，超过最大单位就分片</h5></li>
-<li>以太网帧格式
-<img src="/images/tcp_3.png" alt="image" /></li>
-<li>数据分用的过程
-<img src="/images/tcp_4.png" alt="image" /></li>
+<li>以太网帧格式</li>
 </ol>
 
+
+<p><img src="/images/tcp_3.png" alt="image" /></p>
+
+<ol>
+<li>数据分用的过程</li>
+</ol>
+
+
+<p><img src="/images/tcp_4.png" alt="image" /></p>
 
 <h5>1.以太网帧在复杂的网络中如何选路？</h5>
 
@@ -98,19 +118,26 @@
 <h5>2.ARP协议作用：能实现网络地址到任意物理地址的转换</h5>
 
 <h5>3.ARP工作原理：首先主机在自己所在的网络广播一个ARP请求，改请求包含目标机器的网络地址，同时网络上的其他机器都收到这个请求，但是只有被请求的目标机器回应一个ARP应答,其中包含了自己的物理地址</h5></li>
-<li>ARP请求/应答报文详解
-<img src="/images/tcp_5.png" alt="image" />
+<li>ARP请求/应答报文详解</li>
+</ol>
+
+
+<p><img src="/images/tcp_5.png" alt="image" /></p>
+
+<h2>3. ARP通信过程</h2>
+
+<h2>DNS协议工作原理</h2>
 
 <ol>
-<li>ARP通信过程</li>
+<li>DNS的用途和工作原理
+
+<h5>DNS的作用：将机器的域名转换成IP地址（有很多方法转换，不至DNS一种）</h5>
+
+<h5>DNS的工作原理：我们应用程序发送网址之前（使用的是TCP协议），必须将域名请求DNS服务器（端口53）找到域名对应的IP，才能使用TCP服务进行网络请求。DNS服务器就是一个分布式的IP存储系统。</h5></li>
+<li>DNS查询和应答报文详解</li>
+<li>Linux访问DNS服务</li>
 </ol>
-</li>
-</ol>
 
-
-<hr />
-
-<h2>DNS洗衣工作原理</h2>
 ]]></content>
   </entry>
   

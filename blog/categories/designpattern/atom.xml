@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Designpattern | 夕阳还是很红]]></title>
+  <link href="http://shangyajun6943.github.io/blog/categories/designpattern/atom.xml" rel="self"/>
+  <link href="http://shangyajun6943.github.io/"/>
+  <updated>2018-07-29T21:37:58+08:00</updated>
+  <id>http://shangyajun6943.github.io/</id>
+  <author>
+    <name><![CDATA[尚亚军]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[工厂模式]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Designpattern2/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Designpattern2</id>
+    <content type="html"><![CDATA[<h1>工厂模式（创建型模式）</h1>
+
+<hr />
+
+<hr />
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[单例模式]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Designpattern1/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Designpattern1</id>
+    <content type="html"><![CDATA[<h1>单例模式（创建型模式）</h1>
+
+<hr />
+
+<hr />
+
+<h4>1.Python 的模块就是天然的单例模式因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc 文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了。如果我们真的想要一个单例类，可以考虑这样做：</h4>
+
+<pre><code>class Singleton(object):
+    def foo(self):
+        pass
+singleton=Singleton()
+</code></pre>
+
+<h4>使用：</h4>
+
+<pre><code>from single.py import singleton
+</code></pre>
+
+<hr />
+
+<h5>使用装饰器</h5>
+
+<pre><code>def Singleton(cls):
+    _instance={}
+    def inter(*args,**kwargs):
+        if cls not in _instance:
+            _instance[cls]=cls(*args,**kwargs)
+        return _instance[cls]
+    return inter
+@Singleton
+class Student(object):
+    def __init__(self):
+        pass
+@Singleton
+class Teacher(object):
+    def __init__(self):
+        pass
+if __name__=='__main__':
+    stu1=Student()
+    stu2=Student()
+    stu3=Student()
+    stu4=Student()
+    t1=Teacher()
+    t2=Teacher()
+    t3=Teacher()
+    t4=Teacher()
+    print(id(stu1)) //39393040
+    print(id(stu2)) //39393040
+    print(id(stu3)) //39393040
+    print(id(stu4)) //39393040
+    print(id(t1)) //39393072
+    print(id(t2)) //39393072
+    print(id(t3)) //39393072
+    print(id(t4)) //39393072
+</code></pre>
+
+<h5>支持多线程-不</h5>
+
+<pre><code>import time
+def Singleton(cls):
+    _instance={}
+    def inter(*args,**kwargs):
+        if cls not in _instance:
+            _instance[cls]=cls(*args,**kwargs)
+        return _instance[cls]
+    return inter
+@Singleton
+class Student(object):
+    def __init__(self):
+        time.sleep(2)
+@Singleton
+class Teacher(object):
+    def __init__(self):
+        pass
+def task():
+    stu1=Student()
+    print(id(stu1))
+if __name__=='__main__':
+    import threading
+    for i in range(3):
+        t=threading.Thread(target=task)
+        t.start()
+39590352
+40240400
+39908464
+</code></pre>
+
+<h5>解决办法：加锁！未加锁部分并发执行,加锁部分串行执行,速度降低,但是保证了数据安全</h5>
+
+<pre><code>import time
+import threading
+lock1=threading.Lock()
+def Singleton(cls):
+    _instance={}
+    def inter(*args,**kwargs):
+        if lock1.acquire():
+            if cls not in _instance:
+                _instance[cls]=cls(*args,**kwargs)
+        lock1.release()
+        return _instance[cls]
+    return inter
+@Singleton
+class Student(object):
+    def __init__(self):
+        time.sleep(2)
+@Singleton
+class Teacher(object):
+    def __init__(self):
+        pass
+def task():
+    stu1=Student()
+    print(id(stu1))
+if __name__=='__main__':
+    for i in range(3):
+        t=threading.Thread(target=task)
+        t.start()
+41935856
+41935856
+41935856
+</code></pre>
+
+<h5>优化,因为线程是并发执行的，当一个线程加锁后，其他线程不能使用此资源，只有当所释放的时候才可能执行，有这样一种情况，某一个线程执行完了，锁也释放了，但是第二个线程才开始执行，<code>又一次加锁</code>这样不可以，资源浪费较大，所以我们在不定时的并发执行中，先判断在加锁后，某一个线程执行完成，另一个线程就不需要加锁。资源利用率高</h5>
+
+<pre><code>import time
+import threading
+lock1=threading.Lock()
+def Singleton(cls):
+    _instance={}
+    def inter(*args,**kwargs):
+        if cls not in _instance:
+            if lock1.acquire():
+                if cls not in _instance:
+                    _instance[cls]=cls(*args,**kwargs)
+            lock1.release()
+        return _instance[cls]
+    return inter
+@Singleton
+class Student(object):
+    def __init__(self):
+        time.sleep(2)
+@Singleton
+class Teacher(object):
+    def __init__(self):
+        pass
+def task():
+    stu1=Student()
+    print(id(stu1))
+if __name__=='__main__':
+    for i in range(3):
+        t=threading.Thread(target=task)
+        t.start()
+</code></pre>
+
+<hr />
+
+<h5>使用类方法@classmethod</h5>
+
+<h5>classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。</h5>
+
+<pre><code>class Student(object):
+    def __init__(self):
+        pass
+    @classmethod
+    def instance(cls,*args, **kwargs):
+        if not hasattr(Student,'_instance'):
+            Student._instance=Student(*args, **kwargs)
+        return Student._instance
+if __name__=='__main__':
+    st1=Student.instance()
+    st2=Student.instance()
+    st3=Student.instance()
+    print(id(st1))
+    print(id(st2))
+    print(id(st3))
+</code></pre>
+
+<h5>是否支持多线程-不</h5>
+
+<pre><code>class Student(object):
+    def __init__(self):
+        pass
+    @classmethod
+    def instance(cls,*args, **kwargs):
+        if not hasattr(Student,'_instance'):
+            Student._instance=Student(*args, **kwargs)
+        return Student._instance
+def task():
+    stu1=Student.instance()
+    print(id(stu1))
+if __name__=='__main__':
+    import threading
+    for i in range(3):
+        t=threading.Thread(target=task)
+        t.start()
+36049744
+36049744
+36049744
+</code></pre>
+
+<h5>这样写看不出什么，因为运行太快，效果不明显,看下面</h5>
+
+<pre><code>import time
+class Student(object):
+    def __init__(self):
+        time.sleep(2)
+    @classmethod
+    def instance(cls,*args, **kwargs):
+        if not hasattr(Student,'_instance'):
+            Student._instance=Student(*args, **kwargs)
+        return Student._instance
+def task():
+    stu1=Student.instance()
+    print(id(stu1))
+if __name__=='__main__':
+    import threading
+    for i in range(3):
+        t=threading.Thread(target=task)
+        t.start()
+36182224
+36836304
+36496208
+</code></pre>
+
+<h5>解决办法：加锁！未加锁部分并发执行,加锁部分串行执行,速度降低,但是保证了数据安全</h5>
+
+<pre><code>import time
+import threading
+lock1=threading.Lock()
+class Student(object):
+    def __init__(self):
+        time.sleep(2)
+    @classmethod
+    def instance(cls,*args, **kwargs):
+        if lock1.acquire():
+            if not hasattr(Student,'_instance'):
+                Student._instance=Student(*args, **kwargs)
+        lock1.release()
+        return Student._instance
+def task():
+    stu1=Student.instance()
+    print(id(stu1))
+if __name__=='__main__':
+    for i in range(3):
+        t=threading.Thread(target=task)
+        t.start()
+</code></pre>
+
+<h5>优化</h5>
+
+<pre><code>import time
+import threading
+lock1=threading.Lock()
+class Student(object):
+    def __init__(self):
+        time.sleep(2)
+    @classmethod
+    def instance(cls,*args, **kwargs):
+        if not hasattr(Student,'_instance'):
+            with lock1:
+                if not hasattr(Student,'_instance'):
+                    Student._instance=Student(*args, **kwargs)
+        return Student._instance
+def task():
+    stu1=Student.instance()
+    print(id(stu1))
+if __name__=='__main__':
+    for i in range(3):
+        t=threading.Thread(target=task)
+        t.start()
+</code></pre>
+
+<hr />
+
+<h5>使用<strong>new</strong>方法</h5>
+
+<h5>我们知道，当我们实例化一个对象时，是先执行了类的<strong>new</strong>方法（我们没写时，默认调用object.<strong>new</strong>），实例化对象；然后再执行类的<strong>init</strong>方法，对这个对象进行初始化，所有我们可以基于这个，实现单例模式</h5>
+
+<pre><code>import time
+import threading
+class Student(object):
+    _lock=threading.Lock()
+    def __init__(self):
+        time.sleep(2)
+    def __new__(cls,*args,**kwargs):
+        if not hasattr(cls,'_instance'):
+            with cls._lock:
+                if not hasattr(Student,'_instance'):
+                    Student._instance=object.__new__(cls,*args,**kwargs)
+        return Student._instance
+def task():
+    stu1=Student()
+    print(id(stu1))      
+if __name__=='__main__':
+    for i in range(5):
+        t=threading.Thread(target=task)
+        t.start()
+6652528
+6652528
+6652528
+6652528
+6652528
+</code></pre>
+
+<hr />
+
+<h3>5.基于metaclass方式实现</h3>
+]]></content>
+  </entry>
+  
+</feed>

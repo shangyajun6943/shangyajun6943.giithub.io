@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Dajngo | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/dajngo/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-19T20:51:14+08:00</updated>
+  <updated>2018-07-29T21:37:58+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -43,12 +43,6 @@
 <h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
 
 <hr />
-
-<h5>内存泄漏和内存溢出的区别和联系</h5>
-
-<h5>1、内存泄漏memory leak :是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。</h5>
-
-<h5>2、内存溢出 out of memory :指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM,即所谓的内存溢出。</h5>
 ]]></content>
   </entry>
   

@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Django-静态文件压缩 - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="Django-静态文件压缩django-compressor 在网站开发阶段，对于静态资源文件比如JS，CSS等文件都是未经过压缩合并处理的，这对于访问量巨大的网站来说不仅浪费带宽，而且也会影响网站的访问速度。django-compressor的作用就是将静态文件压缩合并成一个文件， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/othew/2018-07-03-shangyajunblog_Django_6%20.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Django-静态文件压缩</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Django-静态文件压缩django-compressor</h1>
+
+<h5>在网站开发阶段，对于静态资源文件比如JS，CSS等文件都是未经过压缩合并处理的，这对于访问量巨大的网站来说不仅浪费带宽，而且也会影响网站的访问速度。django-compressor的作用就是将静态文件压缩合并成一个文件，不仅减少了网站的请求次数，还能节省网络带宽。</h5>
+
+<h5>本文分为两部分，第一部分介绍settings文件相关配置对静态文件的影响，然后再讨论Compressor的如何使用。如果你对setting文件非常了解不妨直接从第二部分开始阅读。</h5>
+
+<hr />
+
+<h1>第一部分：Setting文件配置</h1>
+
+<h3>一：指定STATIC_URL</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>STATIC_URL = '/static/'
+</span><span class='line'>STATICFILES_DIRS= [os.path.join(BASE_DIR,'static')]</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>STATIC_URL指定静态文件的路径，STATICFILES_DIRS指定静态文件的目录</h5>
+
+<h4>模版中定义的资源路径是：</h4>
+
+<p><img src="/images/django_6_2.png" alt="image" /></p>
+
+<h4>最终渲染后的效果是：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script src="/static/js/blog.js"&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Django怎么知道从/static/目录查找静态文件呢？原来django有个默认配置项STATICFILES_FINDERS，默认值：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>("django.contrib.staticfiles.finders.FileSystemFinder",
+</span><span class='line'>"django.contrib.staticfiles.finders.AppDirectoriesFinder")</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>AppDirectoriesFinder模块就是负责在/static/目录下找静态文件的。</h5>
+
+<h3>二：指定STATIC_ROOT</h3>
+
+<h5>上面的配置就是在开发环境下Django对静态资源的处理过程，那么在生产环境下是怎么处理的呢？如果还是这样由django自己来处理，那么累死Django了，对于静态资源直接由Nginx这样的代理去处理就行，而且Nginx处理这些非逻辑的资源性能也非常高。于是Django提供了一个非常方便的静态资源管理命令django.contrib.staticfiles将系统要用的资源文件从不同目录收集到统一的目录中去，然后在Nginx的配置中指定这些静态资源的位置即可。</h5>
+
+<h5>收集这些静态文件需要先指定存放这些静态资源的目录：STATIC_ROOT</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>STATIC_ROOT="/var/www/foofish.net/static/"</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>运行collectstatic管理命令</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py collectstatic</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>运行该命令，所有静态资源都将拷贝到STATIC_ROOT指定的目录中。但是Django2.0后所有的静态资源都放到了一起只在/static/下，所以上面的部分可以不做</h5>
+
+<h3>三：配置Nginx</h3>
+
+<h5>在Nginx的配置文件中指定凡是来自/static/路径的请求直接访问STATIC_ROOT。</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>location /static {
+</span><span class='line'>  alias /var/www/foofish.net/static/; # your Django project's static files
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h1>第二部分：Compressor的使用</h1>
+
+<h3>django-compressor 的安装配置非常简单</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install django_compressor</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>配置:</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>COMPRESS_ENABLED = True 
+</span><span class='line'>INSTALLED_APPS = (
+</span><span class='line'>    # other apps
+</span><span class='line'>    "compressor",  
+</span><span class='line'>)
+</span><span class='line'>STATICFILES_FINDERS = (
+</span><span class='line'>'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+</span><span class='line'>'django.contrib.staticfiles.finders.FileSystemFinder',
+</span><span class='line'>'compressor.finders.CompressorFinder',)  </span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Django-Compressor开启与否取决于DEBUG参数，默认是COMPRESS_ENABLED与DEBUG的值相反。因为</h5>
+
+<h5>Django-Compressor的功能本身是用在生产环境下项目发布前对静态文件压缩处理的。因此想在开发阶段(DEBUG=True)的时候做测试使用，需要手动设置COMPRESS_ENABLED=True</h5>
+
+<h2>使用</h2>
+
+<h3>在模板文件中添加模板标签</h3>
+
+<p><img src="/images/django_6_1.png" alt="image" /></p>
+
+<h3>执行命令：python manage.py compress ,最终文件将合并成:</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;link rel="stylesheet" href="/static/CACHE/css/f18b10165eed.css" type="text/css"&gt;
+</span><span class='line'>&lt;script type="text/javascript" src="/static/CACHE/js/9d1f64ba50fc.js"&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>f18b10165eed.css、9d1f64ba50fc.js这两文件在STATIC_ROOT目录下面。</h5>
+
+<h5>每次修改了js、css文件后，都需要重新加载最新的文件到STATIC_ROOT目录下去，因此需要重新运行命令：</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py collectstatic
+</span><span class='line'>python manage.py compress</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>使用Django-compress就是把所有的CSS合并成一个.css文件，把所有的JS文件合并成一个.js文件,这样就减少了请求次数，节省了带宽</h3>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dajngo/'>Dajngo</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/othew/2018-07-03-shangyajunblog_Django_6%20.html" data-via="" data-counturl="http://shangyajun6943.github.io/othew/2018-07-03-shangyajunblog_Django_6%20.html" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%952/">面试总结2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os2/">Os处理器状态</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

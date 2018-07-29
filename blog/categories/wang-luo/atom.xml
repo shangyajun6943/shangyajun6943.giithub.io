@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 网络 | 夕阳还是很红]]></title>
+  <link href="http://shangyajun6943.github.io/blog/categories/wang-luo/atom.xml" rel="self"/>
+  <link href="http://shangyajun6943.github.io/"/>
+  <updated>2018-07-29T21:37:58+08:00</updated>
+  <id>http://shangyajun6943.github.io/</id>
+  <author>
+    <name><![CDATA[尚亚军]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[TCP详解]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_linux3/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_linux3</id>
+    <content type="html"><![CDATA[<h1>TCP协议详解</h1>
+
+<hr />
+
+<h3>1.   传输层概述</h3>
+
+<ul>
+<li><p>TCP服务特点:面向连接、字节流、可靠传输</p>
+
+<h5>TCP面向连接是什么意思？双方在同时使用TCP协议通信，必须先建立连接，然后才开始数据的读写，双发必须为这次连接分配必要的内核资源，以管理连接的状态和数据的传输，同时TCP协议模式是：全双工的，双方的多次读写可以使用一次连接进行，交换数据后双方必须断开连接，释放系统资源，TCP协议针对的是一对一的，基于广播，多播的应用，不能使用TCP，而使用UDP</h5></li>
+<li><p>TCP头部信息</p></li>
+</ul>
+
+
+<hr />
+
+<h3>2.   TCP状态转移详解</h3>
+
+<hr />
+
+<h3>3.   TCP简历简介和关闭连接的过程</h3>
+
+<hr />
+
+<h3>4.   RST复位报文段</h3>
+
+<hr />
+
+<h3>5.   TCP可靠性传输机制</h3>
+]]></content>
+  </entry>
+  
+</feed>
