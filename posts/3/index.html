@@ -9,7 +9,14 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="工厂模式（创建型模式） ">
+  <meta name="description" content="Django-视图与url 在把Django项目创建完成之后 1.打开settings文件，把应用配置到项目上去 2.在应用中创建一个urls.py文件 3.在项目的urls文件中导入应用的urls文件，如下： 1
+2
+3
+4
+5
+6
+7
+from django.contrib import &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +73,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-视图与url</h1>
+
+<p>在把Django项目创建完成之后</p>
+
+<p>1.打开settings文件，把应用配置到项目上去</p>
+
+<p>2.在应用中创建一个urls.py文件</p>
+
+<p>3.在项目的urls文件中导入应用的urls文件，如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from django.contrib import admin
+</span><span class='line'>from django.urls import path,include
+</span><span class='line'>
+</span><span class='line'>urlpatterns = [
+</span><span class='line'>       path('admin/', admin.site.urls),
+</span><span class='line'>     path('food/', include('food.urls')),  #这一行
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4.编入应用自己的urls文件，如下：
+from django.urls import path
+from food.views import *</p>
+
+<p>urlpatterns = [
+    path(&lsquo;hello/&rsquo;,hello,name=&lsquo;hello&rsquo;),
+    path(&lsquo;time/&rsquo;,time,name=&lsquo;time&rsquo;),
+]</p>
+
+<p>5.编写应用自己的views文件，</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>from django.shortcuts import render,HttpResponse
+</span><span class='line'>
+</span><span class='line'># Create your views here.
+</span><span class='line'>
+</span><span class='line'>def hello(request):
+</span><span class='line'>    return HttpResponse('1234')
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>render,HttpResponse？</p>
+
+<p>render是在使用模板渲染html的时候使用，例如我们把从数据库中取到的数据显示到页面上，java使用的JSP技术
+Django使用的模板（template），最总render还是调用HttpResponse，把html读取出来返回到浏览器（也可以说
+render是HttpResponse的封装，功能强大而已），HttpResponse只能返回字符串，不能循环数据放到html中
+所以使用render。</p>
+
+<p>render为什么？一定要传入request呢？
+1.request中存储的浏览器请求的数据类型
+2.我们在模板中使用request这个对象，如：</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>

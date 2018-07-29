@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | 夕阳还是很红]]></title>
+  <link href="http://shangyajun6943.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://shangyajun6943.github.io/"/>
+  <updated>2018-07-29T22:06:58+08:00</updated>
+  <id>http://shangyajun6943.github.io/</id>
+  <author>
+    <name><![CDATA[尚亚军]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Git简介]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_git</id>
+    <content type="html"><![CDATA[<h1>git简介</h1>
+
+<hr />
+
+<h3>1.git历史</h3>
+
+<h4>Git是一款代码管理工具（Version Control System)，无疑对比现在市面上的VCS，“Git”绝对是最牛逼的。深层次的讲，在公司的时候，某大神曾讲：“Git的出现，使得其他国家和美国的计算机水平差距拉近了30年！！！”，也是从那个时候起，小生励志要好好学习Git，造福网友。</h4>
+
+<h4>这段历史，我在网上的资料中看的也是如痴如醉，首先Git的创始人是“Linus Torvalds”，如果你不知道他是何许人也，我想也就没有必要再贵圈混下去了，爆照：（帅锅程序猿一枚）</h4>
+
+<p><img src="/images/git/git5.png" alt="image" /></p>
+
+<h4>如图，是Linus年轻时候的照片，没错，这就是Linux的创始人， 网上有很多“Git十年访谈”的访谈帖子，放个链接（<a href="http://geek.csdn.net/news/detail/30067%EF%BC%89%E6%84%9F%E5%85%B4%E8%B6%A3%E7%9A%84%E6%9C%8B%E5%8F%8B%E5%8F%AF%E4%BB%A5%E5%8E%BB%E6%90%9C%E6%90%9C%E7%9C%8B%E3%80%82">http://geek.csdn.net/news/detail/30067%EF%BC%89%E6%84%9F%E5%85%B4%E8%B6%A3%E7%9A%84%E6%9C%8B%E5%8F%8B%E5%8F%AF%E4%BB%A5%E5%8E%BB%E6%90%9C%E6%90%9C%E7%9C%8B%E3%80%82</a></h4>
+
+<h4>言归正传，起初参与Linux开源项目的代码是由Linus本人通过“diff”和“patch”命令来手动为别人整合代码的，之后正如在《Pro Git》这本书中所讲到的，随着项目越做越大，代码库之大让Linus很难继续通过手工方式管理了，社区的弟兄们也对这种方式表达了强烈不满，于是Linus选择了一个商业的版本控制系统BitKeeper，BitKeeper的东家BitMover公司出于人道主义精神，授权Linux社区免费使用这个版本控制系统。直到2005年，Linux社区牛人聚集，不免沾染了一些梁山好汉的江湖习气。开发Samba的Andrew试图破解BitKeeper的协议（这么干的其实也不只他一个），被BitMover公司发现了（监控工作做得不错！），于是BitMover公司怒了，要收回Linux社区的免费使用权。Linus可以向BitMover公司道个歉，保证以后严格管教弟兄们，嗯，这是不可能的。实际情况是这样的：Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！一个月之内，Linux系统的源码已经由Git管理了！Git也由此诞生了。然而牛逼的人生从来不需要解释这句话被Linus展现的淋漓尽致……</h4>
+
+<h4>就这样子，又10年过去了，Git越来越成熟，小生在北京工作的时候第一次安装Git Extention和Git Bash的时候，就被其强大的功能所折服了，Git绝对不是一个简单的工具，是开源精神的产物，人类进步的见证！！！</h4>
+
+<hr />
+
+<h3>2.git与svn的对比</h3>
+
+<h4>SVN集中式版本控制</h4>
+
+<p><img src="/images/git/git1.png" alt="image" /></p>
+
+<h5>如上图所示，是集中式版本控制的原理图。比较流行的工具有CVS，Subversion(SVN)以及Perferce等，他们都有一个单一的几种管理的服务器，保存所有文件的修订版本，协同工作的人（如图中的Computer A、Computer B）通过客户端连接到Central VCS Server这台服务器上，取出或者提交文件，而这也成为了版本控制系统的标准做法。</h5>
+
+<h5>相比老式的VCS，每个人能看到项目中其他人在干嘛，管理员也可以控制每个开发者的权限，但是一个致命的缺点就是中央服务器的单点故障。如果发生，谁都无法提交更新，无法协同工作，甚至有丢失数据的风险。至此，后来产生了“分布式版本控制工具”。</h5>
+
+<h4>git分布式版本控制</h4>
+
+<p><img src="/images/git/git2.png" alt="image" /></p>
+
+<h5>如图，是分布式版本控制的示意图，比较火的有Git，Bazaar等，原理在于：“客户端并不是提取最新版本的文件快照，而是把原始的代码仓库完整地镜像下来”，这样一来，任何一处协同工作的服务器发生故障，事后可以使用任何一个镜像出来的本地仓库恢复，因为每一次提取操作，都是对镜像的完整备份。</h5>
+
+<h5>由此便对版本控制的历史进行了回顾，对于“分布式版本控制”中的Git，除了有上述的有点之外，还有相对于其他“分布式版本控制”的独特之处，后边给予分析，至此，VCS的宏观概念就建立了。</h5>
+
+<h3>Svn与git的另一个区别？版本存储差异！</h3>
+
+<h5>SVN如图：每次版本的存储，只是存储版本之间的差异。如果想要过去版本2的代办，只有从版本1中查找与版本2之间的差异，再合成代码</h5>
+
+<p><img src="/images/git/git3.png" alt="image" /></p>
+
+<h5>Git如图：每次的版本的存储都是存储的每次版本的代码，而不是差异，所以想要获取每次版本的代码，直接获取即可。</h5>
+
+<p><img src="/images/git/git4.png" alt="image" /></p>
+
+<hr />
+
+<h3>3.为什么要使用git？</h3>
+
+<ol>
+<li>git的是分布式的，SVN是集中式的</li>
+<li>git存储的历史版本是完整的，SVN是存储之间的差异</li>
+<li>git可离线完成大部分工作，SVN只能在线完成</li>
+<li>git有更优雅的分支和合并的实现</li>
+<li>git有更强的撤销修改和修改版本历史的能力</li>
+<li>git速度更快、效率更高</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
