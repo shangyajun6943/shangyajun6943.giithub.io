@@ -4,7 +4,7 @@
   <title><![CDATA[夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-29T23:17:49+08:00</updated>
+  <updated>2018-07-30T23:17:34+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -1071,6 +1071,211 @@
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[Bash_shell]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_bash_sell/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_bash_sell</id>
+    <content type="html"><![CDATA[<hr />
+
+<h1>1.bash shell 的概述</h1>
+
+<h2>1. 什么是bash？</h2>
+
+<h5>bash是Bourne Again Shell的简称，是从unix系统中的sh发展而来，是用户和Linux内核交互的工具，用户通过bash操作内核完成系统的使用和管理</h5>
+
+<h2>2.shell的种类</h2>
+
+<h5>/bin/sh(已经被/bin/bash替代)</h5>
+
+<h5>/bin/bash（默认的shell）</h5>
+
+<h5>/bin/ksh(贝尔实验室开发，兼容bash)</h5>
+
+<h5>/bin/tcsh（整合C shell，功能更为强大）</h5>
+
+<h5>/bin/csh(已经被tcsh取代)</h5>
+
+<h5>/bin/zsh（源自ksh功能更为强大）</h5>
+
+<h5>其实每种shell的功能比较类似，都是方便用户使用linux内核，向内核发出指令，但是语法稍有不同。</h5>
+
+<h2>3. bash的历史和发展</h2>
+
+<p><img src="http://shangyajun6943.github.io/images/shell/shell1.png" alt="image" /></p>
+
+<hr />
+
+<h1>2.bash shell 的配置</h1>
+
+<h2>1.bash shell 的变量</h2>
+
+<h5>变量就是代表一些值的符号</h5>
+
+<ul>
+<li>可以通过变量来设置shell或者其他程序</li>
+<li>变量存在于内存中</li>
+<li>Linux有自定义变量（local）和环境变量（environment）</li>
+<li>自定义变量和环境变量作用范围不同。</li>
+<li>可以使用下列指令查看所有变量</li>
+<li>set可以查看所有变量</li>
+<li>env只能查看环境变量</li>
+</ul>
+
+
+<h4>bash shell有以下几种设置变量的方式</h4>
+
+<ul>
+<li>通过自定义变量量设置</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>key=value  设置变量的值
+</span><span class='line'>echo $key  查看指定变量的值
+</span><span class='line'>key2=test one 错误
+</span><span class='line'>key2="test one" 成功
+</span><span class='line'>key2='test two' 也可以
+</span><span class='line'>key3="$key2 three" 成功
+</span><span class='line'>key3='$key2 three' 不能显示key2的值
+</span><span class='line'>key=$key1==== 可以
+</span><span class='line'>变量名不能以特殊字符/数字开头
+</span><span class='line'>uset key 删除变量</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>常见的变量</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HISTFILESIZE：记录历史指令保存的最大值
+</span><span class='line'>COLUMNS:终端窗口显示额宽度
+</span><span class='line'>LINES：终端窗口显示的高度
+</span><span class='line'>PS1：设置提示符号前面的内容样式（\d,\h,\t,\u,\w,\!,\$,\l）。</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过别名（Aliases）设置</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias cls=clear
+</span><span class='line'>type cls
+</span><span class='line'>alias 可以查看所有的别名
+</span><span class='line'>alias cls 查看别名
+</span><span class='line'>type -a alias名称 查看别名
+</span><span class='line'>unalias 删除别名</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过set指令设置</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>设置shell内部的属性值（set -o noclobber,set -o vi）
+</span><span class='line'>重定向输出结果会覆盖里面的内容
+</span><span class='line'>touch test
+</span><span class='line'>ll &gt;list
+</span><span class='line'>vim list
+</span><span class='line'>cal &gt;list
+</span><span class='line'>vim list
+</span><span class='line'>set -o noclobber
+</span><span class='line'>cal &gt;list 报错
+</span><span class='line'>cal &gt;&gt;list 追加</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过环境变量设置</li>
+<li>自定义变量只能在当前的shell环境中有效</li>
+<li>环境变量会在整个主机下的shell环境中生效。</li>
+<li>使用$export[variable name]来设置自定义变量成环境变量</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HOME:指向当前用户的家目录
+</span><span class='line'>LANG:语言，编码（可以解决乱码）
+</span><span class='line'>PWD:指向当前的路径</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>PATH环境变量：</li>
+<li>系统预设的环境变量</li>
+<li>执行一些没有制定路径的指令时回去该路径中找</li>
+<li>修改PATH=$PATH:路径，带来安全问题
+
+<ul>
+<li>找命令的路径 which ls</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h1>3.shell startup scripts的学习</h1>
+
+<h2>1.shell startup scripts概述</h2>
+
+<h4>用户登录或其他用户非登录动作时会自动执行的一些shell脚本：</h4>
+
+<ul>
+<li>建立自定义变量或者这行set指令设置shell</li>
+<li>建立环境变量，设置其他程序</li>
+<li>使用alias，简化后续的操作</li>
+<li>登录的时候执行那些程序</li>
+<li>分为login和non-login脚本</li>
+</ul>
+
+
+<h4>login  shell脚本</h4>
+
+<ul>
+<li>通过完整的登录流程运行的shell命令</li>
+<li>首先会读取/etc/profile(PATH/USER/HOSTNAME/HISTSIZE等)</li>
+<li>然后读取/etc/profile.d/*.sh 下的所有的.sh脚本（颜色，语言，指令别名等）</li>
+</ul>
+
+
+<h2>2.login和non-login shell的学习</h2>
+
+<hr />
+
+<h1>4.数据流重定向和管道命令</h1>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Memcached在window下安装]]></title>
     <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Memcached_2/"/>
     <updated>2018-07-03T15:11:11+08:00</updated>
@@ -1419,135 +1624,6 @@
 <p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
 
 <ul>
-<li>get_context_object_name
-返回上下文的名称，context_object_name的值。默认为’数据对象’_list
--dispatch
-返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
-</ul>
-
-
-<p>-render_to_response
-调用response_class返回渲染后的模板。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Django-通用视图ListView]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_3/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Django_3</id>
-    <content type="html"><![CDATA[<h1>Django-通用视图ListView</h1>
-
-<h3>类图</h3>
-
-<p><img src="http://shangyajun6943.github.io/images/lsitviewimage.png" alt="image" /></p>
-
-<ul>
-<li>url.py</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>urlpatterns = [
-</span><span class='line'>    path('list/',ProductList.as_view()),
-</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>view.py</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductList(ListView):
-</span><span class='line'>    model=Product
-</span><span class='line'>    queryset=Product.products.filter(pk__lt=3)
-</span><span class='line'>    template_name='product/listpro1.html'
-</span><span class='line'>    context_object_name='pro_lists'
-</span><span class='line'>    ordering=('-id',)
-</span><span class='line'>    paginate_by=2</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>常用参数</strong></p>
-
-<p>model  必须指定模型，但会是这个模型下的所有的数据
-queryset=？  指定的通过模型语言返回指定的QuerySet集合
-template_name 指定返回的模板的地址
-context_object_name 指定模板语言中返回的变量名称，默认是object_list
-ording 返回的数据集合按照什么排序（元组数据）
-paginate_by 分页的参数，指定后会返回指定数量的数据
-http_method_names   http访问方式。包含了GET、POST等
-<strong>常重写的方法</strong>
-- 额外的添加数据get_context_data方法</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
-</span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
-</span><span class='line'>        context['author_list']=Author.authors.all()
-</span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>返回的数据集get_queryset</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
-</span><span class='line'>         return Product.products.filter(pk__gt=3)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
-
-<ul>
-<li>从url中获取参数，返回指定的数据集
-<strong>url.py</strong></li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>view.py</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class ProductOne(ListView):
-</span><span class='line'>    # model=Product
-</span><span class='line'>    template_name='product/Onepro1.html'
-</span><span class='line'>    context_object_name='pro_one' 
-</span><span class='line'>    def get_queryset(self):
-</span><span class='line'>        print(self.args)
-</span><span class='line'>        print(int(self.args[0]))
-</span><span class='line'>        return Product.products.filter(pk__gt=int(self.args[0]))</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
-
-<ul>
-<li>get_ordering 方法重写
-返回指定的排序，ordering的值</li>
-<li>get_allow_empty
-返回get_allow_empty的值，True或False。默认为True</li>
 <li>get_context_object_name
 返回上下文的名称，context_object_name的值。默认为’数据对象’_list
 -dispatch
