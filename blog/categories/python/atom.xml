@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-30T23:17:34+08:00</updated>
+  <updated>2018-08-12T23:27:56+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -12,39 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[面试总结]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_面试1</id>
-    <content type="html"><![CDATA[<h1>面试总结</h1>
-
-<hr />
-
-<h5>1.list删除中pop、remove、del有什么区别？</h5>
-
-<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
-
-<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
-
-<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
-
-<h5>del list1 和list.clear()?</h5>
-
-<hr />
-
-<h5>2.map运行机制？</h5>
-
-<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
-
-<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
-
-<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
-
-<hr />
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Django-Django全文搜索]]></title>
@@ -245,6 +212,39 @@ urlpatterns = [
 <h2>4.    Ruby与Devkit关联</h2>
 
 <h2>5.安装octopress并设置默认主题</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[面试总结]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_mianshi1/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_mianshi1</id>
+    <content type="html"><![CDATA[<h1>面试总结</h1>
+
+<hr />
+
+<h5>1.list删除中pop、remove、del有什么区别？</h5>
+
+<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
+
+<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
+
+<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
+
+<h5>del list1 和list.clear()?</h5>
+
+<hr />
+
+<h5>2.map运行机制？</h5>
+
+<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
+
+<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
+
+<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
+
+<hr />
 ]]></content>
   </entry>
   

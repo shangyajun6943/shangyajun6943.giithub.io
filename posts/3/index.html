@@ -9,18 +9,8 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="Django-通用视图ListView 类图 url.py 1
-2
-3
-urlpatterns = [ path('list/',ProductList.as_view()),
-] view.py 1
-2
-3
-4
-5
-6
-7
-class ProductList(ListView): model= &hellip;">
+  <meta name="description" content="Memcached介绍 Memcached是一个自由开源的，高性能，分布式内存对象缓存系统。
+Memcached是以LiveJournal旗下Danga Interactive公司的Brad Fitzpatric为首开发的一款软件。现在已成为mixi、hatena、Facebook、Vox、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +67,396 @@ class ProductList(ListView): model= &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Memcached_1/">Memcached介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Memcached介绍</h1>
+
+<ul>
+<li>Memcached是一个自由开源的，高性能，分布式内存对象缓存系统。</li>
+<li>Memcached是以LiveJournal旗下Danga Interactive公司的Brad Fitzpatric为首开发的一款软件。现在已成为mixi、hatena、Facebook、Vox、LiveJournal等众多服务中提高Web应用扩展性的重要因素。</li>
+<li>Memcached是一种基于内存的key-value存储，用来存储小块的任意数据（字符串、对象）。这些数据可以是数据库调用、API调用或者是页面渲染的结果。</li>
+<li>Memcached简洁而强大。它的简洁设计便于快速开发，减轻开发难度，解决了大数据量缓存的很多问题。它的API兼容大部分流行的开发语言。</li>
+<li><p>本质上，它是一个简洁的key-value存储系统。</p></li>
+<li><p>一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、提高可扩展性。</p></li>
+</ul>
+
+
+<p><img src="http://www.runoob.com/wp-content/uploads/2015/08/web_6.jpg" alt="image" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Docker/">Docker介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Docker是什么？</h1>
+
+<h5>Docker的思想来自于集装箱，集装箱解决了什么问题？在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。</h5>
+
+<h4>docker就是类似的理念。现在都流行云计算了，云计算就好比大货轮。docker就是集装箱。</h4>
+
+<h4>1.不同的应用程序可能会有不同的应用环境，比如.net开发的网站和php开发的网站依赖的软件就不一样，如果把他们依赖的软件都安装在一个服务器上就要调试很久，而且很麻烦，还会造成一些冲突。比如IIS和Apache访问端口冲突。这个时候你就要隔离.net开发的网站和php开发的网站。常规来讲，我们可以在服务器上创建不同的虚拟机在不同的虚拟机上放置不同的应用，但是虚拟机开销比较高。docker可以实现虚拟机隔离应用环境的功能，并且开销比虚拟机小，小就意味着省钱了。</h4>
+
+<h4>2.你开发软件的时候用的是Ubuntu，但是运维管理的都是centos，运维在把你的软件从开发环境转移到生产环境的时候就会遇到一些Ubuntu转centos的问题，比如：有个特殊版本的数据库，只有Ubuntu支持，centos不支持，在转移的过程当中运维就得想办法解决这样的问题。这时候要是有docker你就可以把开发环境直接封装转移给运维，运维直接部署你给他的docker就可以了。而且部署速度快。</h4>
+
+<h5>3.在服务器负载方面，如果你单独开一个虚拟机，那么虚拟机会占用空闲内存的，docker部署的话，这些内存就会利用起来。</h5>
+
+<hr />
+
+<h1>用Docker能做什么？</h1>
+
+<ul>
+<li><p>Web 应用的自动化打包和发布。</p></li>
+<li><p>自动化测试和持续集成、发布。</p></li>
+<li><p>在服务型环境中部署和调整数据库或其他的后台应用。</p></li>
+<li><p>从头编译或者扩展现有的OpenShift或Cloud Foundry平台来搭建自己的PaaS环境。</p></li>
+</ul>
+
+
+<hr />
+
+<h1>用Docker的优点？</h1>
+
+<h3>1、简化程序：</h3>
+
+<h4>Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，便可以实现虚拟化。Docker改变了虚拟化的方式，使开发者可以直接将自己的成果放入Docker中进行管理。方便快捷已经是 Docker的最大优势，过去需要用数天乃至数周的    任务，在Docker容器的处理下，只需要数秒就能完成。</h4>
+
+<h3>2、避免选择恐惧症：</h3>
+
+<h4>如果你有选择恐惧症，还是资深患者。Docker 帮你    打包你的纠结！比如 Docker 镜像；Docker 镜像中包含了运行环境和配置，所以 Docker 可以简化部署多种应用实例工作。比如 Web 应用、后台应用、数据库应用、大数据应用比如 Hadoop 集群、消息队列等等都可以打包成一个镜像部署。</h4>
+
+<h3>3、节省开支：</h3>
+
+<h4>一方面，云计算时代到来，使开发者不必为了追求效果而配置高额的硬件，Docker 改变了高性能必然高价格的思维定势。Docker 与云的结合，让云空间得到更充分的利用。不仅解决了硬件管理的问题，也改变了虚拟化的方式。</h4>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_7/">Django-Memcached使用配置</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django Cache缓存系统介绍及Memcached使用配置</h1>
+
+<h3>在动态网站中，用户每次请求一个页面，服务器都会执行以下操作：查询数据库，渲染模板，执行业务逻辑，最后生成用户可查看的页面。</h3>
+
+<h3>这会消耗大量的资源，当访问用户量非常大时，就要考虑这个问题了。缓存就是为了防止重复计算，把那些消耗了大量资源的结果保存起来，下次访问时就不用再次计算了。缓存的逻辑：</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>given a URL, try finding that page in the cache
+</span><span class='line'>if the page is in the cache:
+</span><span class='line'>    return the cached page
+</span><span class='line'>else:
+</span><span class='line'>    generate the page
+</span><span class='line'>    save the generated page in the cache (for next time)
+</span><span class='line'>    return the generated page</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Django提供了不同粒度的缓存：你可以缓存某个页面，也可以只缓存很难计算、很消耗资源的某个部分，或者直接缓存整个网站。</h3>
+
+<h3>Django也可以和一些”下游”缓存一起协作，例如Squid和基于浏览器的缓存，这些类型的缓存你不直接控制，但是你可以提供给他们站点哪部分应该被缓存和怎样被缓存(通过HTTP headers)。</h3>
+
+<hr />
+
+<h2>设置缓存</h2>
+
+<h3>在settings中的CACHES中设置缓存，下面是几个可用的缓存选项：</h3>
+
+<h3>1.安装Memcached</h3>
+
+<h3>2.安装绑定python-memcached或pylibmc</h3>
+
+<h4>然后设置BACKEND为django.core.cache.backends.memcached.MemcachedCache(使用python-memcached时)或者django.core.cache.backends.memcached.PyLibMCCache(使用pylibmc时)。（我们使用那个绑定）</h4>
+
+<h4>设置LOCATION为ip:port或者unix:path。例如</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CACHES = {
+</span><span class='line'>    'default': {
+</span><span class='line'>        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+</span><span class='line'>        'LOCATION': '127.0.0.1:11211',
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>还可以在多台机器上运行Memcached进程，程序将会把这组机器当作一个单独的缓存，而不需要在每台机器上复制缓存值：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CACHES = {
+</span><span class='line'>    'default': {
+</span><span class='line'>        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+</span><span class='line'>        'LOCATION': [
+</span><span class='line'>            '172.19.26.240:11211',
+</span><span class='line'>            '172.19.26.242:11212',
+</span><span class='line'>            '172.19.26.244:11213',
+</span><span class='line'>        ]
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>由于Memcached是基于内存的缓存，数据只存储在内存中，如果服务器死机的话数据会丢失，所以不要把内存缓存作为唯一的数据存储方法。</h3>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_5/">Django-request对象</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-Django-request对象属性</h1>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_4/">Django-通用视图DetailView</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Django-通用视图DetailView</h1>
+
+<h3>类图</h3>
+
+<ul>
+<li>url.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>urlpatterns = [
+</span><span class='line'>    re_path('getone/(?P&lt;id3&gt;[0-9]{1,10})',GetOneProduct.as_view()),
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>view.py</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class GetOneProduct(DetailView):
+</span><span class='line'>    model=Product
+</span><span class='line'>    template_name='product/showone.html'
+</span><span class='line'>    context_object_name='pro_one'
+</span><span class='line'>    pk_url_kwarg='id3'</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>常用参数</strong></p>
+
+<ul>
+<li>model  必须指定模型，但会是这个模型下的所有的数据</li>
+<li>queryset=？  指定的通过模型语言返回指定的QuerySet集合</li>
+<li>template_name 指定返回的模板的地址</li>
+<li>context_object_name 指定模板语言中返回的变量名称，默认是object_list</li>
+<li>slug_url_kwarg = &lsquo;slug&rsquo; 指定url中配置中的名称</li>
+<li>pk_url_kwarg = &lsquo;pk'指定url配置中的的名称</li>
+<li><strong>因为DetailView只能返回一条数据，所以必须接受url传来的数据，默认数据的名称只能是pk或sulg，写成其他会报错，若果想用其他名称 重写get_object方法</strong></li>
+<li>query_pk_and_slug = False 是否使用上面两个名称</li>
+<li>http_method_names   http访问方式。包含了GET、POST等
+<strong>常重写的方法</strong></li>
+<li>额外的添加数据get_context_data方法</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def  get_context_data(self,**kwargs):
+</span><span class='line'>        
+</span><span class='line'>        context=super(ProductList,self).get_context_data(**kwargs)
+</span><span class='line'>
+</span><span class='line'>        context['author_list']=Author.authors.all()
+</span><span class='line'>
+</span><span class='line'>        return context</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>返回的数据集get_queryset（如果想快速查找必须重写这个方法，若果你看了get_object源码你就必须重写）</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
+</span><span class='line'>         return Product.products.filter(pk__gt=3)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个方法重写就不用写model和queryset的中的值,但是要是排序时候这个方法不能重写</p>
+
+<ul>
+<li>从url中获取参数，返回指定的数据集
+<strong>url.py</strong></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>re_path('list/([0-9]+)/([0-9]+)/([0-9]+)',ProductOne.as_view()),</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>view.py</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def get_queryset(self):
+</span><span class='line'>  print(self.args)
+</span><span class='line'>  return Product.products.get(pk=int(self.args[0]))
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中：self.args存放的就是url（get方法）传送到服务器上的值</p>
+
+<ul>
+<li>get_context_object_name
+返回上下文的名称，context_object_name的值。默认为’数据对象’_list
+-dispatch
+返回处理请求的函数，此函数为继承后用户定义，匹配http_method_names中声明的名称。如果对应请求类型的函数不存在，则触发http_method_not_allowed函数，返回状态吗405</li>
+</ul>
+
+
+<p>-render_to_response
+调用response_class返回渲染后的模板。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1156,80 +1536,9 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog/">Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>初识octopress</h1>
-
-<h2>1.    Octopress的基础知识</h2>
-
-<h3>1.1Octopress是什么？</h3>
-
-<ul>
-<li>Octopress是一个基于Jekyll的静态的博客站点生成系统，它很大程度上简化了Jekyll的搭建博客的过程
-
-<h3>为什么要使用Octopress？</h3>
-
-<h3>我们说一下WordPress的缺点</h3></li>
-<li>我们得买主机（空间）、域名</li>
-<li>OverFeatured</li>
-<li><code>动态网站</code>下载速度慢</li>
-<li>过渡的<code>依赖数据库</code></li>
-<li>可控性差</li>
-<li>容错性差</li>
-<li>迁移成本高</li>
-<li><code>网页编辑器写博客</code>耗费时间多
-
-<h3>Octopress优点</h3></li>
-<li>命令行操作</li>
-<li>存文本写博客</li>
-<li>定制性高</li>
-<li>纯静态页面</li>
-<li>版本化管理</li>
-<li>迁移成本低</li>
-<li>简介的Ruby框架</li>
-<li>markdown语法
-
-<h2>2.    Octopress的目录结构</h2></li>
-<li>主题插件等->自定义博客</li>
-<li>source->存放程序、博客源码（rake generate后生成public静态网页）</li>
-<li>public->存放生成的静态网站
-
-<h2>3.    Octopress的使用流程</h2></li>
-<li>搭建环境</li>
-<li>纯文本书写博客</li>
-<li>生成静态网页</li>
-<li>本地预览</li>
-<li>部署github</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/4">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1244,11 +1553,11 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%952/">面试总结2</a>
+        <a href="/blog/2018/08/12/shangyajunblog_docker_2/">Docker容器</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a>
+        <a href="/blog/2018/08/12/shangyajunblog_docker_1/">Docker安装</a>
       </li>
     
       <li class="post">

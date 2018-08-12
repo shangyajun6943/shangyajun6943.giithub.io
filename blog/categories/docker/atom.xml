@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Docker | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-07-30T23:17:34+08:00</updated>
+  <updated>2018-08-12T23:27:56+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -12,6 +12,193 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Docker容器]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/08/12/shangyajunblog_docker_2/"/>
+    <updated>2018-08-12T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/08/12/shangyajunblog_docker_2</id>
+    <content type="html"><![CDATA[<h1>Docker容器</h1>
+
+<hr />
+
+<h2>1. 容器的基本操作</h2>
+
+<h4>启动容器docker</h4>
+
+<pre><code>run [OPTIONS] IMAGE [COMMAND] [ARG...]
+</code></pre>
+
+<h4>一次启动运行一次的容器，是docker中最基本的命令，运行完就结束</h4>
+
+<pre><code>sudo docker run ubuntu echo 'hello world!'
+</code></pre>
+
+<h4>启动交互式容器：</h4>
+
+<pre><code>sudo docker run -i-t IMAGE /bin/bash
+-i 为容器提供标准的输入
+-t 为容器提供一个tty终端
+</code></pre>
+
+<h4>查看我们创建的容器，和以前使用过的容器</h4>
+
+<pre><code>sudo docker ps [-a][-l]
+-a  -all 列出所有的容器
+-l  列出最新创建的容器
+
+sudo docker inspect [name|id] 可以查看指定docker的配置信息
+</code></pre>
+
+<h4>创建自己名称docker容器</h4>
+
+<pre><code>sudo docker run --name=[name] ubuntu echo 'hello world!'
+</code></pre>
+
+<h4>重新启动停止的容器：</h4>
+
+<pre><code>sudo docker start [-i] 容器名
+-i 表示重新启动停止的容器
+</code></pre>
+
+<h4>删除不需要的容器(删除停止的容器，不能删除运行中的容器)</h4>
+
+<pre><code>sudo docker rm 容器名
+</code></pre>
+
+<hr />
+
+<h2>2. 守护式容器</h2>
+
+<h4>什么是守护式容器？在我们一开始创建了容器后，都是执行完命令后就容器停止了运行。但是守护式容器，不一样！！！！</h4>
+
+<ol>
+<li>能够长期运行</li>
+<li>没有交互式会话</li>
+<li>适合运行应用程序和服务</li>
+</ol>
+
+
+<h4>如何运行守护式容器呢？</h4>
+
+<pre><code>sudo docker run -i -t ubuntu /bin/bash
+使用ctrl+q或ctrl+p退出容器后，容器就会在后台运行
+</code></pre>
+
+<h4>那么怎么再次进入运行在后台的容器呢？</h4>
+
+<pre><code>sudo docker attach [容器名]
+</code></pre>
+
+<h4>启动守护式容器：</h4>
+
+<pre><code>sudo docker run -d IMAGE [COMMAND] [ARG...]
+</code></pre>
+
+<h4>查看容器的日志</h4>
+
+<pre><code>docker logs [-f] [-t] [--tail] 容器名
+-f --follows=true|false 默认false 跟踪：一直更新日志
+-t --timestamps=true|false 默认false 显示时间戳
+--tail='all' 只显示最新的
+</code></pre>
+
+<h4>查看容器中的进程</h4>
+
+<pre><code>docker top 容器名
+</code></pre>
+
+<h4>在运行中的容器中启动新的进程</h4>
+
+<pre><code>sudo docker exec [-d][-i][-t] 容器名[COMMAND] [ARG...]
+sudo docker exec -i -d 容器名 /bin/bash
+</code></pre>
+
+<h4>停止守护式容器</h4>
+
+<pre><code>docker stop 容器名  发送一个停止的信号给容器，等待容器停止
+docker kill 容器名  直接停止容器，不用等待
+</code></pre>
+
+<hr />
+
+<h2>3. 在容器中部署静态网站</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Docker安装]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/08/12/shangyajunblog_docker_1/"/>
+    <updated>2018-08-12T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/08/12/shangyajunblog_docker_1</id>
+    <content type="html"><![CDATA[<h1>Docker安装</h1>
+
+<hr />
+
+<h2>1. 私有环境安装docker</h2>
+
+<hr />
+
+<h2>2. 公有环境安装docker</h2>
+
+<h4>安装前的检查：</h4>
+
+<h5>1.内核的检查</h5>
+
+<pre><code>uname -a
+</code></pre>
+
+<h5>2.检查Device Mapper的检查</h5>
+
+<pre><code>ls -l /sys/class/misc/device-mapper
+</code></pre>
+
+<h4>安装docker维护的版本</h4>
+
+<h5>1.检查APT的HTTPS支持查看文件是否存在</h5>
+
+<pre><code>/usr/lib/apt/methods/https
+</code></pre>
+
+<h5>不存在：</h5>
+
+<pre><code>apt-get update
+pat-get install -y apt-transport-https
+</code></pre>
+
+<h5>2.添加Docker的APT仓库</h5>
+
+<pre><code>echo deb https://getdocker.com/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list
+</code></pre>
+
+<h5>3. 添加仓库的key</h5>
+
+<pre><code>apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 
+</code></pre>
+
+<h5>4. 安装</h5>
+
+<pre><code>apt-get update
+apt-get install -y lxc-docker
+</code></pre>
+
+<h2>安装简易的命令：</h2>
+
+<pre><code>sudo apt-get update
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+</code></pre>
+
+<hr />
+
+<h2>3. 配置国内镜像仓库</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Docker介绍]]></title>

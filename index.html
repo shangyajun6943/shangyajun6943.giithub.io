@@ -9,7 +9,9 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="面试总结2 内存泄漏和内存溢出的区别和联系 1、内存泄漏memory leak :是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。 2、内存溢出 out of memory :指程序申请内存时，没有足够的内存供申请者使用，或者说， &hellip;">
+  <meta name="description" content="Docker容器 1. 容器的基本操作 启动容器docker 1
+run [OPTIONS] IMAGE [COMMAND] [ARG...] 一次启动运行一次的容器，是docker中最基本的命令，运行完就结束 1
+sudo docker run ubuntu echo 'hello world &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,7 +74,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%952/">面试总结2</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/08/12/shangyajunblog_docker_2/">Docker容器</a></h1>
     
     
       <p class="meta">
@@ -81,7 +83,7 @@
 
 
 
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+<time class='entry-date' datetime='2018-08-12T15:11:11+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
         
             
       </p>
@@ -89,64 +91,138 @@
   </header>
 
 
-  <div class="entry-content"><h1>面试总结2</h1>
+  <div class="entry-content"><h1>Docker容器</h1>
 
 <hr />
 
-<h5>内存泄漏和内存溢出的区别和联系</h5>
+<h2>1. 容器的基本操作</h2>
 
-<h5>1、内存泄漏memory leak :是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。</h5>
+<h4>启动容器docker</h4>
 
-<h5>2、内存溢出 out of memory :指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM,即所谓的内存溢出。</h5>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></code></pre></td></tr></table></div></figure>
 
-<h5>3、二者关系：</h5>
+
+<h4>一次启动运行一次的容器，是docker中最基本的命令，运行完就结束</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker run ubuntu echo 'hello world!'</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>启动交互式容器：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker run -i-t IMAGE /bin/bash
+</span><span class='line'>-i 为容器提供标准的输入
+</span><span class='line'>-t 为容器提供一个tty终端</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>查看我们创建的容器，和以前使用过的容器</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker ps [-a][-l]
+</span><span class='line'>-a  -all 列出所有的容器
+</span><span class='line'>-l  列出最新创建的容器
+</span><span class='line'>
+</span><span class='line'>sudo docker inspect [name|id] 可以查看指定docker的配置信息</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>创建自己名称docker容器</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker run --name=[name] ubuntu echo 'hello world!'</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>重新启动停止的容器：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker start [-i] 容器名
+</span><span class='line'>-i 表示重新启动停止的容器</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>删除不需要的容器(删除停止的容器，不能删除运行中的容器)</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker rm 容器名</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>2. 守护式容器</h2>
+
+<h4>什么是守护式容器？在我们一开始创建了容器后，都是执行完命令后就容器停止了运行。但是守护式容器，不一样！！！！</h4>
 
 <ol>
-<li>内存泄漏的堆积最终会导致内存溢出</li>
-<li>内存溢出就是你要的内存空间超过了系统实际分配给你的空间，此时系统相当于没法满足你的需求，就会报内存溢出的错误。</li>
-<li>内存泄漏是指你向系统申请分配内存进行使用(new)，可是使用完了以后却不归还(delete)，结果你申请到的那块内存你自己也不能再访问（也许你把它的地址给弄丢了），而系统也不能再次将它分配给需要的程序。就相当于你租了个带钥匙的柜子，你存完东西之后把柜子锁上之后，把钥匙丢了或者没有将钥匙还回去，那么结果就是这个柜子将无法供给任何人使用，也无法被垃圾回收器回收，因为找不到他的任何信息。</li>
-<li>内存溢出：一个盘子用尽各种方法只能装4个果子，你装了5个，结果掉倒地上不能吃了。这就是溢出。比方说栈，栈满时再做进栈必定产生空间溢出，叫上溢，栈空时再做退栈也产生空间溢出，称为下溢。就是分配的内存不足以放下数据项序列,称为内存溢出。说白了就是我承受不了那么多，那我就报错，
-
-<h5>4、内存泄漏的分类（按发生方式来分类）</h5></li>
-<li>常发性内存泄漏。发生内存泄漏的代码会被多次执行到，每次被执行的时候都会导致一块内存泄漏。</li>
-<li>偶发性内存泄漏。发生内存泄漏的代码只有在某些特定环境或操作过程下才会发生。常发性和偶发性是相对的。对于特定的环境，偶发性的也许就变成了常发性的。所以测试环境和测试方法对检测内存泄漏至关重要。</li>
-<li>一次性内存泄漏。发生内存泄漏的代码只会被执行一次，或者由于算法上的缺陷，导致总会有一块仅且一块内存发生泄漏。比如，在类的构造函数中分配内存，在析构函数中却没有释放该内存，所以内存泄漏只会发生一次。</li>
-<li>隐式内存泄漏。程序在运行过程中不停的分配内存，但是直到结束的时候才释放内存。严格的说这里并没有发生内存泄漏，因为最终程序释放了所有申请的内存。但是对于一个服务器程序，需要运行几天，几周甚至几个月，不及时释放内存也可能导致最终耗尽系统的所有内存。所以，我们称这类内存泄漏为隐式内存泄漏。</li>
+<li>能够长期运行</li>
+<li>没有交互式会话</li>
+<li>适合运行应用程序和服务</li>
 </ol>
 
 
-<h5>5、内存溢出的原因及解决方法：</h5>
+<h4>如何运行守护式容器呢？</h4>
 
-<h5>内存溢出原因：</h5>
-
-<ol>
-<li>内存中加载的数据量过于庞大，如一次从数据库取出过多数据；</li>
-<li>集合类中有对对象的引用，使用完后未清空，使得JVM不能回收；</li>
-<li>代码中存在死循环或循环产生过多重复的对象实体；</li>
-<li>使用的第三方软件中的BUG；</li>
-<li>启动参数内存值设定的过小
-
-<h5>内存溢出的解决方案：</h5>
-
-<h5>第一步，修改JVM启动参数，直接增加内存。(-Xms，-Xmx参数一定不要忘记加。)</h5></li>
-</ol>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker run -i -t ubuntu /bin/bash
+</span><span class='line'>使用ctrl+q或ctrl+p退出容器后，容器就会在后台运行</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>第二步，检查错误日志，查看“OutOfMemory”错误前是否有其 它异常或错误。</h5>
+<h4>那么怎么再次进入运行在后台的容器呢？</h4>
 
-<h5>第三步，对代码进行走查和分析，找出可能发生内存溢出的位置。</h5>
-
-<h4>重点排查以下几点：</h4>
-
-<ol>
-<li><p>检查对数据库查询中，是否有一次获得全部数据的查询。一般来说，如果一次取十万条记录到内存，就可能引起内存溢出。这个问题比较隐蔽，在上线前，数据库中数据较少，不容易出问题，上线后，数据库中数据多了，一次查询就有可能引起内存溢出。因此对于数据库查询尽量采用分页的方式查询。</p></li>
-<li><p>检查代码中是否有死循环或递归调用。</p></li>
-<li><p>检查是否有大循环重复产生新对象实体。</p></li>
-<li><p>检查List、MAP等集合对象是否有使用完后，未清除的问题。List、MAP等集合对象会始终存有对对象的引用，使得这些对象不能被GC回收。</p></li>
-</ol>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker attach [容器名]</span></code></pre></td></tr></table></div></figure>
 
 
-<h2><code>使用内存查看工具动态查看内存使用情况</code></h2>
+<h4>启动守护式容器：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker run -d IMAGE [COMMAND] [ARG...]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>查看容器的日志</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker logs [-f] [-t] [--tail] 容器名
+</span><span class='line'>-f --follows=true|false 默认false 跟踪：一直更新日志
+</span><span class='line'>-t --timestamps=true|false 默认false 显示时间戳
+</span><span class='line'>--tail='all' 只显示最新的</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>查看容器中的进程</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker top 容器名</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>在运行中的容器中启动新的进程</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo docker exec [-d][-i][-t] 容器名[COMMAND] [ARG...]
+</span><span class='line'>sudo docker exec -i -d 容器名 /bin/bash</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>停止守护式容器</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker stop 容器名  发送一个停止的信号给容器，等待容器停止
+</span><span class='line'>docker kill 容器名  直接停止容器，不用等待</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>3. 在容器中部署静态网站</h2>
 </div>
   
   
@@ -159,7 +235,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/08/12/shangyajunblog_docker_1/">Docker安装</a></h1>
     
     
       <p class="meta">
@@ -168,7 +244,7 @@
 
 
 
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+<time class='entry-date' datetime='2018-08-12T15:11:11+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
         
             
       </p>
@@ -176,31 +252,89 @@
   </header>
 
 
-  <div class="entry-content"><h1>面试总结</h1>
+  <div class="entry-content"><h1>Docker安装</h1>
 
 <hr />
 
-<h5>1.list删除中pop、remove、del有什么区别？</h5>
-
-<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
-
-<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
-
-<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
-
-<h5>del list1 和list.clear()?</h5>
+<h2>1. 私有环境安装docker</h2>
 
 <hr />
 
-<h5>2.map运行机制？</h5>
+<h2>2. 公有环境安装docker</h2>
 
-<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
+<h4>安装前的检查：</h4>
 
-<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
+<h5>1.内核的检查</h5>
 
-<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>uname -a</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.检查Device Mapper的检查</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l /sys/class/misc/device-mapper</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>安装docker维护的版本</h4>
+
+<h5>1.检查APT的HTTPS支持查看文件是否存在</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/usr/lib/apt/methods/https</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>不存在：</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get update
+</span><span class='line'>pat-get install -y apt-transport-https</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.添加Docker的APT仓库</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo deb https://getdocker.com/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>3. 添加仓库的key</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys </span></code></pre></td></tr></table></div></figure>
+
+
+<h5>4. 安装</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get update
+</span><span class='line'>apt-get install -y lxc-docker</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>安装简易的命令：</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install \
+</span><span class='line'>    apt-transport-https \
+</span><span class='line'>    ca-certificates \
+</span><span class='line'>    curl \
+</span><span class='line'>    software-properties-common
+</span><span class='line'>curl -fsSL https://get.docker.com -o get-docker.sh
+</span><span class='line'>sudo sh get-docker.sh</span></code></pre></td></tr></table></div></figure>
+
 
 <hr />
+
+<h2>3. 配置国内镜像仓库</h2>
 </div>
   
   
@@ -714,6 +848,147 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_mianshi2/">面试总结2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>面试总结2</h1>
+
+<hr />
+
+<h5>内存泄漏和内存溢出的区别和联系</h5>
+
+<h5>1、内存泄漏memory leak :是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。</h5>
+
+<h5>2、内存溢出 out of memory :指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM,即所谓的内存溢出。</h5>
+
+<h5>3、二者关系：</h5>
+
+<ol>
+<li>内存泄漏的堆积最终会导致内存溢出</li>
+<li>内存溢出就是你要的内存空间超过了系统实际分配给你的空间，此时系统相当于没法满足你的需求，就会报内存溢出的错误。</li>
+<li>内存泄漏是指你向系统申请分配内存进行使用(new)，可是使用完了以后却不归还(delete)，结果你申请到的那块内存你自己也不能再访问（也许你把它的地址给弄丢了），而系统也不能再次将它分配给需要的程序。就相当于你租了个带钥匙的柜子，你存完东西之后把柜子锁上之后，把钥匙丢了或者没有将钥匙还回去，那么结果就是这个柜子将无法供给任何人使用，也无法被垃圾回收器回收，因为找不到他的任何信息。</li>
+<li>内存溢出：一个盘子用尽各种方法只能装4个果子，你装了5个，结果掉倒地上不能吃了。这就是溢出。比方说栈，栈满时再做进栈必定产生空间溢出，叫上溢，栈空时再做退栈也产生空间溢出，称为下溢。就是分配的内存不足以放下数据项序列,称为内存溢出。说白了就是我承受不了那么多，那我就报错，
+
+<h5>4、内存泄漏的分类（按发生方式来分类）</h5></li>
+<li>常发性内存泄漏。发生内存泄漏的代码会被多次执行到，每次被执行的时候都会导致一块内存泄漏。</li>
+<li>偶发性内存泄漏。发生内存泄漏的代码只有在某些特定环境或操作过程下才会发生。常发性和偶发性是相对的。对于特定的环境，偶发性的也许就变成了常发性的。所以测试环境和测试方法对检测内存泄漏至关重要。</li>
+<li>一次性内存泄漏。发生内存泄漏的代码只会被执行一次，或者由于算法上的缺陷，导致总会有一块仅且一块内存发生泄漏。比如，在类的构造函数中分配内存，在析构函数中却没有释放该内存，所以内存泄漏只会发生一次。</li>
+<li>隐式内存泄漏。程序在运行过程中不停的分配内存，但是直到结束的时候才释放内存。严格的说这里并没有发生内存泄漏，因为最终程序释放了所有申请的内存。但是对于一个服务器程序，需要运行几天，几周甚至几个月，不及时释放内存也可能导致最终耗尽系统的所有内存。所以，我们称这类内存泄漏为隐式内存泄漏。</li>
+</ol>
+
+
+<h5>5、内存溢出的原因及解决方法：</h5>
+
+<h5>内存溢出原因：</h5>
+
+<ol>
+<li>内存中加载的数据量过于庞大，如一次从数据库取出过多数据；</li>
+<li>集合类中有对对象的引用，使用完后未清空，使得JVM不能回收；</li>
+<li>代码中存在死循环或循环产生过多重复的对象实体；</li>
+<li>使用的第三方软件中的BUG；</li>
+<li>启动参数内存值设定的过小
+
+<h5>内存溢出的解决方案：</h5>
+
+<h5>第一步，修改JVM启动参数，直接增加内存。(-Xms，-Xmx参数一定不要忘记加。)</h5></li>
+</ol>
+
+
+<h5>第二步，检查错误日志，查看“OutOfMemory”错误前是否有其 它异常或错误。</h5>
+
+<h5>第三步，对代码进行走查和分析，找出可能发生内存溢出的位置。</h5>
+
+<h4>重点排查以下几点：</h4>
+
+<ol>
+<li><p>检查对数据库查询中，是否有一次获得全部数据的查询。一般来说，如果一次取十万条记录到内存，就可能引起内存溢出。这个问题比较隐蔽，在上线前，数据库中数据较少，不容易出问题，上线后，数据库中数据多了，一次查询就有可能引起内存溢出。因此对于数据库查询尽量采用分页的方式查询。</p></li>
+<li><p>检查代码中是否有死循环或递归调用。</p></li>
+<li><p>检查是否有大循环重复产生新对象实体。</p></li>
+<li><p>检查List、MAP等集合对象是否有使用完后，未清除的问题。List、MAP等集合对象会始终存有对对象的引用，使得这些对象不能被GC回收。</p></li>
+</ol>
+
+
+<h2><code>使用内存查看工具动态查看内存使用情况</code></h2>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_mianshi1/">面试总结</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>面试总结</h1>
+
+<hr />
+
+<h5>1.list删除中pop、remove、del有什么区别？</h5>
+
+<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
+
+<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
+
+<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
+
+<h5>del list1 和list.clear()?</h5>
+
+<hr />
+
+<h5>2.map运行机制？</h5>
+
+<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
+
+<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
+
+<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
+
+<hr />
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux3/">TCP详解</a></h1>
     
     
@@ -767,227 +1042,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux2/">TCP/IP协议族概述</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>TCP/IP</h1>
-
-<hr />
-
-<h2>TCP/IP协议的体系结构</h2>
-
-<ol>
-<li><p>TCP/IP协议族四层模型和OSI七层模型</p>
-
-<h5>OSI七层模型，物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</h5>
-
-<h5>TCP/IP协议四层模型，链路层、网络层、传输层、应用层</h5>
-
-<p><img src="/images/tcp_6.png" alt="image" /></p></li>
-<li><p>四层模型中层次的作用和特点</p>
-
-<h5>链路层：物理连接与传输(不同的类型？以太网，令牌)</h5>
-
-<h5>网络层：数据包的选路与转发（IP层，数据包的选路和转发）</h5>
-
-<h5>传输层：为两台机器提供了端到端的通信，关心传输的起始端和目标端，不在乎中专过程，主要完成数据分发，数据重传的任务</h5>
-
-<p><img src="/images/tcp_7.png" alt="image" /></p></li>
-<li><p>四层模型中层次中对应的协议</p>
-
-<h5>链路层协议：1.ARP协议地址解析协议。2.RARP协议逆地址解析协议。已上两个实现了IP地址和物理地址的转换。</h5></li>
-</ol>
-
-
-<h5>网络层协议（必须把IP地址转化成物理地址才能使用链路层的服务）：1：IP协议：根据数据包的目的IP地址决定如何投递数据包，如果数据包不能直接发送给目标主机，IP协议会为数据包寻找合适的路由器，并把数据包给了路由器进行转发，一直重复，直到到大目的端或发送失败对齐数据包</h5>
-
-<h5>2.ICMP协议：intel网控制报文协议，IP协议的重要补充，主要用于网络连接</h5>
-
-<h5>3.IGMP</h5>
-
-<h5>传输层协议：1.TCP协议，传中控制协议，它为应用层提供的可靠的、面向连接的、面向流的服务</h5>
-
-<h5>2.UDP协议：为应用层提供不可靠的（无法保证正确的从发送端发送到目标端）、无连接的（不保持长久链接）、数据包（有长度，一次性读出）服务</h5>
-
-<h5>3.SCTP协议：流控制传输协议，新的传输协议，控制intel网上电话信号设计的</h5>
-
-<h5>应用层协议：1.telnet协议：远程登录协议</h5>
-
-<h5>2.OSPF协议：开放路径最短优先协议，路由器更新协议，主要路由器之间的通信来告知对方各自的路由信息</h5>
-
-<h5>3.DNS协议：提供机器域名到IP地址转换</h5>
-
-<h5>ping</h5>
-
-<hr />
-
-<h2>数据的封装和分用</h2>
-
-<ol>
-<li>数据的封装形式</li>
-</ol>
-
-
-<p><img src="/images/tcp_1.png" alt="image" /></p>
-
-<ol>
-<li>TCP报文段的传输过程</li>
-</ol>
-
-
-<p><img src="/images/tcp_2.png" alt="image" /></p>
-
-<ol>
-<li>最大传送单元（MTU
-
-<h5>在数据链路层传输的数据包称为帧，帧的最大单位称为MTU（Max Transmit Unit），以太网1500K，令牌1492K，超过最大单位就分片</h5></li>
-<li>以太网帧格式</li>
-</ol>
-
-
-<p><img src="/images/tcp_3.png" alt="image" /></p>
-
-<ol>
-<li>数据分用的过程</li>
-</ol>
-
-
-<p><img src="/images/tcp_4.png" alt="image" /></p>
-
-<h5>1.以太网帧在复杂的网络中如何选路？</h5>
-
-<h5>2.网络协议怎么确保传输的数据准确无误的传输？</h5>
-
-<hr />
-
-<h2>ARP协议的工作原理</h2>
-
-<ol>
-<li>ARP的用途
-
-<h5>1.ARP协议是地址解析协议</h5>
-
-<h5>2.ARP协议作用：能实现网络地址到任意物理地址的转换</h5>
-
-<h5>3.ARP工作原理：首先主机在自己所在的网络广播一个ARP请求，改请求包含目标机器的网络地址，同时网络上的其他机器都收到这个请求，但是只有被请求的目标机器回应一个ARP应答,其中包含了自己的物理地址</h5></li>
-<li>ARP请求/应答报文详解</li>
-</ol>
-
-
-<p><img src="/images/tcp_5.png" alt="image" /></p>
-
-<h2>3. ARP通信过程</h2>
-
-<h2>DNS协议工作原理</h2>
-
-<ol>
-<li>DNS的用途和工作原理
-
-<h5>DNS的作用：将机器的域名转换成IP地址（有很多方法转换，不至DNS一种）</h5>
-
-<h5>DNS的工作原理：我们应用程序发送网址之前（使用的是TCP协议），必须将域名请求DNS服务器（端口53）找到域名对应的IP，才能使用TCP服务进行网络请求。DNS服务器就是一个分布式的IP存储系统。</h5></li>
-<li>DNS查询和应答报文详解</li>
-<li>Linux访问DNS服务</li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux1/">Linux介绍</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Linux</h1>
-
-<hr />
-
-<h2>1.什么是Linux</h2>
-
-<h5>1.关于Unux</h5>
-
-<h5>2.什么是GNU和GPL</h5>
-
-<h5>3.Linux起源</h5>
-
-<hr />
-
-<h2>2.Linux版本</h2>
-
-<h5>1.Ubuntu，2004年9月发布，最为流行的<code>桌面</code>的Linux发行版。(个人)</h5>
-
-<h5>2.RedHat,使用最广，性能稳定</h5>
-
-<h5>3.CenOS，2003年底推出，rhel的重新编译版，免费（RedHat克隆出来的）服务器发行版</h5>
-
-<hr />
-
-<h2>Linux优缺点</h2>
-
-<h5>优点</h5>
-
-<ul>
-<li>性能稳定()</li>
-<li>较高的安全性和Bug的快速修复</li>
-<li>支持多用户多任务</li>
-<li>完善的用户和群组策略</li>
-<li>资源好没底</li>
-<li>适合嵌入式应用</li>
-<li>免费或费用低廉
-
-<h5>缺点</h5></li>
-<li>专业软件支持不够</li>
-<li>厂商的支持度不够</li>
-<li>标准化不足</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -1003,11 +1057,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%952/">面试总结2</a>
+        <a href="/blog/2018/08/12/shangyajunblog_docker_2/">Docker容器</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/07/03/shangyajunblog_%E9%9D%A2%E8%AF%951/">面试总结</a>
+        <a href="/blog/2018/08/12/shangyajunblog_docker_1/">Docker安装</a>
       </li>
     
       <li class="post">
