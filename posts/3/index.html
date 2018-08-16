@@ -9,8 +9,7 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="Memcached介绍 Memcached是一个自由开源的，高性能，分布式内存对象缓存系统。
-Memcached是以LiveJournal旗下Danga Interactive公司的Brad Fitzpatric为首开发的一款软件。现在已成为mixi、hatena、Facebook、Vox、 &hellip;">
+  <meta name="description" content="什么是动态规划？ 动态规划的概念： 每次决策依赖于当前状态，有随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划。 动态规划的基本思想和策略： 将待求决的问题分解为若干个子问题，按顺序求解子阶段，前一个问题的解， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +66,396 @@ Memcached是以LiveJournal旗下Danga Interactive公司的Brad Fitzpatric为首�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_dp1/">动态规划介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>什么是动态规划？</h1>
+
+<hr />
+
+<h4>动态规划的概念：</h4>
+
+<h5>每次决策依赖于当前状态，有随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划。</h5>
+
+<hr />
+
+<h4>动态规划的基本思想和策略：</h4>
+
+<h5>将待求决的问题分解为若干个子问题，按顺序求解子阶段，前一个问题的解，为和一个子问题的求解提供了有用的信息。</h5>
+
+<h5>适用于动态划法求决的问题，经分解后得到的子问题往往不是互相独立的。下个子问题求解往往是建立在上个子问题求解的基础之上的。</h5>
+
+<hr />
+
+<h4>能采用动态求解的问题一般具有是哪个性质：</h4>
+
+<ol>
+<li>最优化原理</li>
+<li>无后效性</li>
+<li>有重叠子问题</li>
+</ol>
+
+
+<hr />
+
+<h4>动态规划求解的基本步骤：</h4>
+
+<ol>
+<li>划分阶段</li>
+<li>确定状态和状态变量</li>
+<li>确定决策并写出状态转移方程式</li>
+<li>寻找边界条件</li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_bash_sell/">Bash_shell</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><hr />
+
+<h1>1.bash shell 的概述</h1>
+
+<h2>1. 什么是bash？</h2>
+
+<h5>bash是Bourne Again Shell的简称，是从unix系统中的sh发展而来，是用户和Linux内核交互的工具，用户通过bash操作内核完成系统的使用和管理</h5>
+
+<h2>2.shell的种类</h2>
+
+<h5>/bin/sh(已经被/bin/bash替代)</h5>
+
+<h5>/bin/bash（默认的shell）</h5>
+
+<h5>/bin/ksh(贝尔实验室开发，兼容bash)</h5>
+
+<h5>/bin/tcsh（整合C shell，功能更为强大）</h5>
+
+<h5>/bin/csh(已经被tcsh取代)</h5>
+
+<h5>/bin/zsh（源自ksh功能更为强大）</h5>
+
+<h5>其实每种shell的功能比较类似，都是方便用户使用linux内核，向内核发出指令，但是语法稍有不同。</h5>
+
+<h2>3. bash的历史和发展</h2>
+
+<p><img src="/images/shell/shell1.png" alt="image" /></p>
+
+<hr />
+
+<h1>2.bash shell 的配置</h1>
+
+<h2>1.bash shell 的变量</h2>
+
+<h5>变量就是代表一些值的符号</h5>
+
+<ul>
+<li>可以通过变量来设置shell或者其他程序</li>
+<li>变量存在于内存中</li>
+<li>Linux有自定义变量（local）和环境变量（environment）</li>
+<li>自定义变量和环境变量作用范围不同。</li>
+<li>可以使用下列指令查看所有变量</li>
+<li>set可以查看所有变量</li>
+<li>env只能查看环境变量</li>
+</ul>
+
+
+<h4>bash shell有以下几种设置变量的方式</h4>
+
+<ul>
+<li>通过自定义变量量设置</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>key=value  设置变量的值
+</span><span class='line'>echo $key  查看指定变量的值
+</span><span class='line'>key2=test one 错误
+</span><span class='line'>key2="test one" 成功
+</span><span class='line'>key2='test two' 也可以
+</span><span class='line'>key3="$key2 three" 成功
+</span><span class='line'>key3='$key2 three' 不能显示key2的值
+</span><span class='line'>key=$key1==== 可以
+</span><span class='line'>变量名不能以特殊字符/数字开头
+</span><span class='line'>uset key 删除变量</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>常见的变量</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HISTFILESIZE：记录历史指令保存的最大值
+</span><span class='line'>COLUMNS:终端窗口显示额宽度
+</span><span class='line'>LINES：终端窗口显示的高度
+</span><span class='line'>PS1：设置提示符号前面的内容样式（\d,\h,\t,\u,\w,\!,\$,\l）。</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过别名（Aliases）设置</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias cls=clear
+</span><span class='line'>type cls
+</span><span class='line'>alias 可以查看所有的别名
+</span><span class='line'>alias cls 查看别名
+</span><span class='line'>type -a alias名称 查看别名
+</span><span class='line'>unalias 删除别名</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过set指令设置</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>设置shell内部的属性值（set -o noclobber,set -o vi）
+</span><span class='line'>重定向输出结果会覆盖里面的内容
+</span><span class='line'>touch test
+</span><span class='line'>ll &gt;list
+</span><span class='line'>vim list
+</span><span class='line'>cal &gt;list
+</span><span class='line'>vim list
+</span><span class='line'>set -o noclobber
+</span><span class='line'>cal &gt;list 报错
+</span><span class='line'>cal &gt;&gt;list 追加</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过环境变量设置</li>
+<li>自定义变量只能在当前的shell环境中有效</li>
+<li>环境变量会在整个主机下的shell环境中生效。</li>
+<li>使用$export[variable name]来设置自定义变量成环境变量</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HOME:指向当前用户的家目录
+</span><span class='line'>LANG:语言，编码（可以解决乱码）
+</span><span class='line'>PWD:指向当前的路径</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>PATH环境变量：</li>
+<li>系统预设的环境变量</li>
+<li>执行一些没有制定路径的指令时回去该路径中找</li>
+<li>修改PATH=$PATH:路径，带来安全问题
+
+<ul>
+<li>找命令的路径 which ls</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h1>3.shell startup scripts的学习</h1>
+
+<h2>1.shell startup scripts概述</h2>
+
+<h4>用户登录或其他用户非登录动作时会自动执行的一些shell脚本：</h4>
+
+<ul>
+<li>建立自定义变量或者这行set指令设置shell</li>
+<li>建立环境变量，设置其他程序</li>
+<li>使用alias，简化后续的操作</li>
+<li>登录的时候执行那些程序</li>
+<li>分为login和non-login脚本</li>
+</ul>
+
+
+<h4>login  shell脚本</h4>
+
+<ul>
+<li>通过完整的登录流程运行的shell命令</li>
+<li>首先会读取/etc/profile(PATH/USER/HOSTNAME/HISTSIZE等)</li>
+<li>然后读取/etc/profile.d/*.sh 下的所有的.sh脚本（颜色，语言，指令别名等）</li>
+</ul>
+
+
+<h2>2.login和non-login shell的学习</h2>
+
+<hr />
+
+<h1>4.数据流重定向和管道命令</h1>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Memcached_2/">Memcached在window下安装</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Memcached在window下安装</h1>
+
+<ul>
+<li>32位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win32-1.4.4-14.zip">http://static.runoob.com/download/memcached-win32-1.4.4-14.zip</a></li>
+<li>64位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win64-1.4.4-14.zip">http://static.runoob.com/download/memcached-win64-1.4.4-14.zip</a></li>
+<li>32位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-x86.zip">http://static.runoob.com/download/memcached-1.4.5-x86.zip</a></li>
+<li>64位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-amd64.zip">http://static.runoob.com/download/memcached-1.4.5-amd64.zip</a></li>
+</ul>
+
+
+<hr />
+
+<h3>memcached &lt;1.4.5 版本安装</h3>
+
+<p>1、解压下载的安装包到指定目录。
+2、在 1.4.5 版本以前 memcached 可以作为一个服务安装，使用管理员权限运行以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。
+3、然后我们可以使用以下命令来启动和关闭 memcached 服务：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d start
+</span><span class='line'>c:\memcached\memcached.exe -d stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4、如果要修改 memcached 的配置项, 可以在命令行中执行 regedit.exe 命令打开注册表并找到 &ldquo;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\memcached&rdquo; 来进行修改。</p>
+
+<p>如果要提供 memcached 使用的缓存配置 可以修改 ImagePath 为:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>"c:\memcached\memcached.exe" -d runservice -m 512</span></code></pre></td></tr></table></div></figure>
+
+
+<p>5、如果我们需要卸载 memcached ，可以使用以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d uninstall</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>memcached >= 1.4.5 版本安装</h3>
+
+<p>1、解压下载的安装包到指定目录。
+2、在 memcached1.4.5 版本之后，memcached 不能作为服务来运行，需要使用任务计划中来开启一个普通的进程，在 window 启动时设置 memcached自动执行。</p>
+
+<p>我们使用管理员身份执行以下命令将 memcached 添加来任务计划表中：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /create /sc onstart /tn memcached /tr "'c:\memcached\memcached.exe' -m 512"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。</p>
+
+<p>注意：-m 512 意思是设置 memcached 最大的缓存配置为512M。</p>
+
+<p>注意：我们可以通过使用 &ldquo;c:\memcached\memcached.exe -h&rdquo; 命令查看更多的参数配置。</p>
+
+<p>3、如果需要删除 memcached 的任务计划可以执行以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /delete /tn memcached</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -826,709 +1215,6 @@ Django-2.0.1.tar.gz</li>
 TIME_ZONE = &lsquo;Asia/Shanghai’</li>
 </ul>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Django_1/">Django-视图url</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Django-视图与url</h1>
-
-<p>在把Django项目创建完成之后</p>
-
-<p>1.打开settings文件，把应用配置到项目上去</p>
-
-<p>2.在应用中创建一个urls.py文件</p>
-
-<p>3.在项目的urls文件中导入应用的urls文件，如下：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>from django.contrib import admin
-</span><span class='line'>from django.urls import path,include
-</span><span class='line'>
-</span><span class='line'>urlpatterns = [
-</span><span class='line'>       path('admin/', admin.site.urls),
-</span><span class='line'>     path('food/', include('food.urls')),  #这一行
-</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>4.编入应用自己的urls文件，如下：
-from django.urls import path
-from food.views import *</p>
-
-<p>urlpatterns = [
-    path(&lsquo;hello/&rsquo;,hello,name=&lsquo;hello&rsquo;),
-    path(&lsquo;time/&rsquo;,time,name=&lsquo;time&rsquo;),
-]</p>
-
-<p>5.编写应用自己的views文件，</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>from django.shortcuts import render,HttpResponse
-</span><span class='line'>
-</span><span class='line'># Create your views here.
-</span><span class='line'>
-</span><span class='line'>def hello(request):
-</span><span class='line'>    return HttpResponse('1234')
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>render,HttpResponse？</p>
-
-<p>render是在使用模板渲染html的时候使用，例如我们把从数据库中取到的数据显示到页面上，java使用的JSP技术
-Django使用的模板（template），最总render还是调用HttpResponse，把html读取出来返回到浏览器（也可以说
-render是HttpResponse的封装，功能强大而已），HttpResponse只能返回字符串，不能循环数据放到html中
-所以使用render。</p>
-
-<p>render为什么？一定要传入request呢？
-1.request中存储的浏览器请求的数据类型
-2.我们在模板中使用request这个对象，如：</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Designpattern2/">工厂模式</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>工厂模式（创建型模式）</h1>
-
-<hr />
-
-<hr />
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Designpattern1/">单例模式</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>单例模式（创建型模式）</h1>
-
-<hr />
-
-<hr />
-
-<h4>1.Python 的模块就是天然的单例模式因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc 文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了。如果我们真的想要一个单例类，可以考虑这样做：</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Singleton(object):
-</span><span class='line'>    def foo(self):
-</span><span class='line'>        pass
-</span><span class='line'>singleton=Singleton()</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>使用：</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>from single.py import singleton</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h5>使用装饰器</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if cls not in _instance:
-</span><span class='line'>            _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    stu2=Student()
-</span><span class='line'>    stu3=Student()
-</span><span class='line'>    stu4=Student()
-</span><span class='line'>    t1=Teacher()
-</span><span class='line'>    t2=Teacher()
-</span><span class='line'>    t3=Teacher()
-</span><span class='line'>    t4=Teacher()
-</span><span class='line'>    print(id(stu1)) //39393040
-</span><span class='line'>    print(id(stu2)) //39393040
-</span><span class='line'>    print(id(stu3)) //39393040
-</span><span class='line'>    print(id(stu4)) //39393040
-</span><span class='line'>    print(id(t1)) //39393072
-</span><span class='line'>    print(id(t2)) //39393072
-</span><span class='line'>    print(id(t3)) //39393072
-</span><span class='line'>    print(id(t4)) //39393072</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>支持多线程-不</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if cls not in _instance:
-</span><span class='line'>            _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    import threading
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>39590352
-</span><span class='line'>40240400
-</span><span class='line'>39908464</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>解决办法：加锁！未加锁部分并发执行,加锁部分串行执行,速度降低,但是保证了数据安全</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if lock1.acquire():
-</span><span class='line'>            if cls not in _instance:
-</span><span class='line'>                _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>        lock1.release()
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>41935856
-</span><span class='line'>41935856
-</span><span class='line'>41935856</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>优化,因为线程是并发执行的，当一个线程加锁后，其他线程不能使用此资源，只有当所释放的时候才可能执行，有这样一种情况，某一个线程执行完了，锁也释放了，但是第二个线程才开始执行，<code>又一次加锁</code>这样不可以，资源浪费较大，所以我们在不定时的并发执行中，先判断在加锁后，某一个线程执行完成，另一个线程就不需要加锁。资源利用率高</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if cls not in _instance:
-</span><span class='line'>            if lock1.acquire():
-</span><span class='line'>                if cls not in _instance:
-</span><span class='line'>                    _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>            lock1.release()
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h5>使用类方法@classmethod</h5>
-
-<h5>classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    st1=Student.instance()
-</span><span class='line'>    st2=Student.instance()
-</span><span class='line'>    st3=Student.instance()
-</span><span class='line'>    print(id(st1))
-</span><span class='line'>    print(id(st2))
-</span><span class='line'>    print(id(st3))</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>是否支持多线程-不</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    import threading
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>36049744
-</span><span class='line'>36049744
-</span><span class='line'>36049744</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>这样写看不出什么，因为运行太快，效果不明显,看下面</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    import threading
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>36182224
-</span><span class='line'>36836304
-</span><span class='line'>36496208</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>解决办法：加锁！未加锁部分并发执行,加锁部分串行执行,速度降低,但是保证了数据安全</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if lock1.acquire():
-</span><span class='line'>            if not hasattr(Student,'_instance'):
-</span><span class='line'>                Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        lock1.release()
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>优化</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            with lock1:
-</span><span class='line'>                if not hasattr(Student,'_instance'):
-</span><span class='line'>                    Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h5>使用<strong>new</strong>方法</h5>
-
-<h5>我们知道，当我们实例化一个对象时，是先执行了类的<strong>new</strong>方法（我们没写时，默认调用object.<strong>new</strong>），实例化对象；然后再执行类的<strong>init</strong>方法，对这个对象进行初始化，所有我们可以基于这个，实现单例模式</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>class Student(object):
-</span><span class='line'>    _lock=threading.Lock()
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    def __new__(cls,*args,**kwargs):
-</span><span class='line'>        if not hasattr(cls,'_instance'):
-</span><span class='line'>            with cls._lock:
-</span><span class='line'>                if not hasattr(Student,'_instance'):
-</span><span class='line'>                    Student._instance=object.__new__(cls,*args,**kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))      
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(5):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>6652528
-</span><span class='line'>6652528
-</span><span class='line'>6652528
-</span><span class='line'>6652528
-</span><span class='line'>6652528</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h3>5.基于metaclass方式实现</h3>
 </div>
   
   

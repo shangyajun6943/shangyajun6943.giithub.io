@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python_NumPy - NumPy - 数据类型② - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="NumPy - 数据类型 bool_ 存储为一个字节的布尔值(真或假)
+int_ 默认整数，相当于 C 的long，通常为int32或int64
+intc 相当于 C 的int，通常为int32或int64
+intp 用于索引的整数，相当于 C 的size_t，通常为int32或int64
+int &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">python_NumPy - NumPy - 数据类型②</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>NumPy - 数据类型</h1>
+
+<ol>
+<li>bool_   存储为一个字节的布尔值(真或假)</li>
+<li>int_    默认整数，相当于 C 的long，通常为int32或int64</li>
+<li>intc    相当于 C 的int，通常为int32或int64</li>
+<li>intp    用于索引的整数，相当于 C 的size_t，通常为int32或int64</li>
+<li>int     8字节(-128 ~ 127)</li>
+<li>int16   16位整数(-32768 ~ 32767)</li>
+<li>int32   32位整数(-2147483648 ~ 2147483647)</li>
+<li>int64   64位整数(-9223372036854775808 ~ 9223372036854775807)</li>
+<li>uint8   8位无符号整数(0 ~ 255)</li>
+<li>uint16  16位无符号整数(0 ~ 65535)</li>
+<li>uint32  32位无符号整数(0 ~ 4294967295)</li>
+<li>uint64  64位无符号整数(0 ~ 18446744073709551615)</li>
+<li>float_  float64的简写</li>
+<li>float16 半精度浮点：符号位，5 位指数，10 位尾数</li>
+<li>float32 单精度浮点：符号位，8 位指数，23 位尾数</li>
+<li>float64 双精度浮点：符号位，11 位指数，52 位尾数</li>
+<li>complex_complex 128的简写</li>
+<li>complex64   复数，由两个 32 位浮点表示(实部和虚部)</li>
+<li>complex128  复数，由两个 64 位浮点表示(实部和虚部)
+
+<h4>NumPy 数字类型是dtype(数据类型)对象的实例，每个对象具有唯一的特征。 这些类型可以是np.bool_，np.float32等。</h4></li>
+</ol>
+
+
+<hr />
+
+<h3>数据类型对象 (dtype)</h3>
+
+<h4>数据类型对象描述了对应于数组的固定内存块的解释，取决于以下方面：</h4>
+
+<ul>
+<li><p>数据类型(整数、浮点或者 Python 对象)</p></li>
+<li><p>数据大小</p></li>
+<li><p>字节序(小端或大端)</p></li>
+<li><p>在结构化类型的情况下，字段的名称，每个字段的数据类型，和每个字段占用的内存块部分。</p></li>
+<li><p>如果数据类型是子序列，它的形状和数据类型。</p></li>
+<li><p>字节顺序取决于数据类型的前缀&lt;或>。&lt;意味着编码是小端(最小有效字节存储在最小地址中)。>意味着编码是大端(最大有效字节存储在最小地址中)。</p></li>
+</ul>
+
+
+<h4>dtype可由一下语法构造：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.dtype(object, align, copy)</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参数为：</h4>
+
+<ul>
+<li><p>Object：被转换为数据类型的对象。</p></li>
+<li><p>Align：如果为true，则向字段添加间隔，使其类似 C 的结构体。</p></li>
+<li><p>Copy? 生成dtype对象的新副本，如果为flase，结果是内建数据类型对象的引用。</p></li>
+</ul>
+
+
+<h3>示例 像创建列名一样创建数组</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dt = np.dtype([('age',bool)])
+</span><span class='line'>a = np.array([12,13,14],dtype=dt)
+</span><span class='line'>print(a)
+</span><span class='line'>[( True,) ( True,) ( True,)]
+</span><span class='line'>print(a['age'])
+</span><span class='line'>[ True  True  True]
+</span><span class='line'>dt = np.dtype([('age',int),('name',str)])
+</span><span class='line'>a = np.array([(12,'a'),(13,'b')],dtype=dt)
+</span><span class='line'>print(a)
+</span><span class='line'>[(12, '') (13, '')]
+</span><span class='line'>dt = np.dtype(('age',bool))
+</span><span class='line'>student = np.dtype([('name','S20'),  ('age',  'i1'),  ('marks',  'f4')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'abc', 21, 50.) (b'xyz', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','str'),  ('age',  int),  ('marks',  float)])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[('', 21, 50.) ('', 18, 75.)]
+</span><span class='line'> student = np.dtype([('name',str),  ('age',  int),  ('marks',  float)])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[('', 21, 50.) ('', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','a'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'', 21, 50.) (b'', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','S'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'', 21, 50.) (b'', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','S20'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([[('abc',  21,  50),('xyz',  18,  75)],[('fff',  21,  50),('eee',  18,  75)]], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[[(b'abc', 21, 50.) (b'xyz', 18, 75.)]
+</span><span class='line'> [(b'fff', 21, 50.) (b'eee', 18, 75.)]]
+</span><span class='line'>print(a['name'])
+</span><span class='line'>[[b'abc' b'xyz']
+</span><span class='line'> [b'fff' b'eee']]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>每个内建类型都有一个唯一定义它的字符代码：</h4>
+
+<ul>
+<li><p>&lsquo;b'：布尔值</p></li>
+<li><p>&lsquo;i'：符号整数</p></li>
+<li><p>&lsquo;u'：无符号整数</p></li>
+<li><p>&lsquo;f'：浮点</p></li>
+<li><p>&lsquo;c'：复数浮点</p></li>
+<li><p>&rsquo;m'：时间间隔</p></li>
+<li><p>&rsquo;M'：日期时间</p></li>
+<li><p>&lsquo;O'：Python 对象</p></li>
+<li><p>&rsquo;S', &lsquo;a'：字节串</p></li>
+<li><p>&lsquo;U'：Unicode</p></li>
+<li><p>&lsquo;V'：原始数据(void)</p></li>
+</ul>
+
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/numpy/'>numpy</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy3/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy3/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_numpy2/" title="Previous Post: python_NumPy - Ndarray 对象①">&laquo; python_NumPy - Ndarray 对象①</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_octopress2/" title="Next Post: octopress环境的搭建">octopress环境的搭建 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_2/">Docker容器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_1/">Docker安装</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os2/">Os处理器状态</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

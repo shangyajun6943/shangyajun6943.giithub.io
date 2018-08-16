@@ -4,7 +4,7 @@
   <title><![CDATA[夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-08-12T23:27:56+08:00</updated>
+  <updated>2018-08-16T23:47:42+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -637,6 +637,337 @@
 <h2>4.    Ruby与Devkit关联</h2>
 
 <h2>5.安装octopress并设置默认主题</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python_NumPy - NumPy - 数据类型②]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy3/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy3</id>
+    <content type="html"><![CDATA[<h1>NumPy - 数据类型</h1>
+
+<ol>
+<li>bool_   存储为一个字节的布尔值(真或假)</li>
+<li>int_    默认整数，相当于 C 的long，通常为int32或int64</li>
+<li>intc    相当于 C 的int，通常为int32或int64</li>
+<li>intp    用于索引的整数，相当于 C 的size_t，通常为int32或int64</li>
+<li>int     8字节(-128 ~ 127)</li>
+<li>int16   16位整数(-32768 ~ 32767)</li>
+<li>int32   32位整数(-2147483648 ~ 2147483647)</li>
+<li>int64   64位整数(-9223372036854775808 ~ 9223372036854775807)</li>
+<li>uint8   8位无符号整数(0 ~ 255)</li>
+<li>uint16  16位无符号整数(0 ~ 65535)</li>
+<li>uint32  32位无符号整数(0 ~ 4294967295)</li>
+<li>uint64  64位无符号整数(0 ~ 18446744073709551615)</li>
+<li>float_  float64的简写</li>
+<li>float16 半精度浮点：符号位，5 位指数，10 位尾数</li>
+<li>float32 单精度浮点：符号位，8 位指数，23 位尾数</li>
+<li>float64 双精度浮点：符号位，11 位指数，52 位尾数</li>
+<li>complex_complex 128的简写</li>
+<li>complex64   复数，由两个 32 位浮点表示(实部和虚部)</li>
+<li>complex128  复数，由两个 64 位浮点表示(实部和虚部)
+
+<h4>NumPy 数字类型是dtype(数据类型)对象的实例，每个对象具有唯一的特征。 这些类型可以是np.bool_，np.float32等。</h4></li>
+</ol>
+
+
+<hr />
+
+<h3>数据类型对象 (dtype)</h3>
+
+<h4>数据类型对象描述了对应于数组的固定内存块的解释，取决于以下方面：</h4>
+
+<ul>
+<li><p>数据类型(整数、浮点或者 Python 对象)</p></li>
+<li><p>数据大小</p></li>
+<li><p>字节序(小端或大端)</p></li>
+<li><p>在结构化类型的情况下，字段的名称，每个字段的数据类型，和每个字段占用的内存块部分。</p></li>
+<li><p>如果数据类型是子序列，它的形状和数据类型。</p></li>
+<li><p>字节顺序取决于数据类型的前缀&lt;或>。&lt;意味着编码是小端(最小有效字节存储在最小地址中)。>意味着编码是大端(最大有效字节存储在最小地址中)。</p></li>
+</ul>
+
+
+<h4>dtype可由一下语法构造：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.dtype(object, align, copy)</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参数为：</h4>
+
+<ul>
+<li><p>Object：被转换为数据类型的对象。</p></li>
+<li><p>Align：如果为true，则向字段添加间隔，使其类似 C 的结构体。</p></li>
+<li><p>Copy? 生成dtype对象的新副本，如果为flase，结果是内建数据类型对象的引用。</p></li>
+</ul>
+
+
+<h3>示例 像创建列名一样创建数组</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dt = np.dtype([('age',bool)])
+</span><span class='line'>a = np.array([12,13,14],dtype=dt)
+</span><span class='line'>print(a)
+</span><span class='line'>[( True,) ( True,) ( True,)]
+</span><span class='line'>print(a['age'])
+</span><span class='line'>[ True  True  True]
+</span><span class='line'>dt = np.dtype([('age',int),('name',str)])
+</span><span class='line'>a = np.array([(12,'a'),(13,'b')],dtype=dt)
+</span><span class='line'>print(a)
+</span><span class='line'>[(12, '') (13, '')]
+</span><span class='line'>dt = np.dtype(('age',bool))
+</span><span class='line'>student = np.dtype([('name','S20'),  ('age',  'i1'),  ('marks',  'f4')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'abc', 21, 50.) (b'xyz', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','str'),  ('age',  int),  ('marks',  float)])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[('', 21, 50.) ('', 18, 75.)]
+</span><span class='line'> student = np.dtype([('name',str),  ('age',  int),  ('marks',  float)])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[('', 21, 50.) ('', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','a'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'', 21, 50.) (b'', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','S'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'', 21, 50.) (b'', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','S20'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([[('abc',  21,  50),('xyz',  18,  75)],[('fff',  21,  50),('eee',  18,  75)]], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[[(b'abc', 21, 50.) (b'xyz', 18, 75.)]
+</span><span class='line'> [(b'fff', 21, 50.) (b'eee', 18, 75.)]]
+</span><span class='line'>print(a['name'])
+</span><span class='line'>[[b'abc' b'xyz']
+</span><span class='line'> [b'fff' b'eee']]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>每个内建类型都有一个唯一定义它的字符代码：</h4>
+
+<ul>
+<li><p>&lsquo;b'：布尔值</p></li>
+<li><p>&lsquo;i'：符号整数</p></li>
+<li><p>&lsquo;u'：无符号整数</p></li>
+<li><p>&lsquo;f'：浮点</p></li>
+<li><p>&lsquo;c'：复数浮点</p></li>
+<li><p>&rsquo;m'：时间间隔</p></li>
+<li><p>&rsquo;M'：日期时间</p></li>
+<li><p>&lsquo;O'：Python 对象</p></li>
+<li><p>&rsquo;S', &lsquo;a'：字节串</p></li>
+<li><p>&lsquo;U'：Unicode</p></li>
+<li><p>&lsquo;V'：原始数据(void)</p></li>
+</ul>
+
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python_NumPy - Ndarray 对象①]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy2/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy2</id>
+    <content type="html"><![CDATA[<h1>Ndarray 对象</h1>
+
+<h4>NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于<code>零</code>的索引访问集合中的项目。</h4>
+
+<h4>ndarray中的每个元素在内存中使用相同大小的块。 ndarray中的每个元素是数据类型对象的对象(称为 dtype)。</h4>
+
+<h4>从ndarray对象提取的任何元素(通过切片)由一个数组标量类型的 Python 对象表示。 下图显示了ndarray，数据类型对象(dtype)和数组标量类型之间的关系。</h4>
+
+<p><img src="http://shangyajun6943.github.io/images/np/430090425_51678.jpg" alt="images" /></p>
+
+<h4>基本的ndarray是使用 NumPy 中的数组函数创建的，如下所示：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.array</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>它从<code>任何暴露数组接口的对象</code>，或从返回数组的任何方法创建一个ndarray。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>object 任何暴露数组接口方法的对象都会返回一个数组或任何(嵌套)序列。</li>
+<li>dtype 数组的所需数据类型，可选。</li>
+<li>copy 可选，默认为true，对象是否被复制。</li>
+<li>order C(按行)、F(按列)或A(任意，默认)。</li>
+<li>subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。</li>
+<li>ndimin 指定返回数组的最小维数。</li>
+</ol>
+
+
+<h4>示例 1 一维数组</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([1,2,3])
+</span><span class='line'>print(a)
+</span><span class='line'>[1 2 3]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>示例 2 多维数组</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([[1,2,3],[4,5,6],[7,8,9]])
+</span><span class='line'>print(a)
+</span><span class='line'>[[1 2 3]
+</span><span class='line'>[4 5 6]
+</span><span class='line'>[7 8 9]]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>示例 3 最小维度</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([1,2,3],ndmin=1)
+</span><span class='line'>print(a)
+</span><span class='line'>[1 2 3]
+</span><span class='line'>a = np.array([1,2,3],ndmin=2)
+</span><span class='line'>print(a)
+</span><span class='line'>[[1 2 3]]
+</span><span class='line'>a = np.array([1,2,3],ndmin=3)
+</span><span class='line'>print(a)
+</span><span class='line'>[[[1 2 3]]]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>示例 4 dtype 参数</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([1,2,3],dtype=complex)
+</span><span class='line'>print(a)
+</span><span class='line'>[1.+0.j 2.+0.j 3.+0.j]
+</span><span class='line'>a = np.array([1,2,3],dtype=int)
+</span><span class='line'>print(a)
+</span><span class='line'>[1 2 3]
+</span><span class='line'>a = np.array([1,2,3],dtype=str)
+</span><span class='line'> print(a)
+</span><span class='line'>['1' '2' '3']
+</span><span class='line'>a = np.array([1,2,3],dtype=bool)
+</span><span class='line'>print(a)
+</span><span class='line'>[ True  True  True]</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ndarray 对象由计算机内存中的一维连续区域组成，带有将每个元素映射到内存块中某个位置的索引方案。 内存块以按行(C 风格)或按列(FORTRAN 或 MatLab 风格)的方式保存元素。</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Python_numpy介绍与安装]]></title>
+    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy1/"/>
+    <updated>2018-07-03T15:11:11+08:00</updated>
+    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy1</id>
+    <content type="html"><![CDATA[<h1>NumPy</h1>
+
+<hr />
+
+<h2>NumPy - 简介</h2>
+
+<h4>NumPy 是一个 Python 包。 它代表 “Numeric Python”。 它是一个由<code>多维数组对象和用于处理数组的例程集合组成的库</code>。</h4>
+
+<hr />
+
+<h2>NumPy 操作</h2>
+
+<h4>使用NumPy，开发人员可以执行以下操作：</h4>
+
+<ul>
+<li><p>数组的算数和逻辑运算。</p></li>
+<li><p>傅立叶变换和用于图形操作的例程。</p></li>
+<li><p>与线性代数有关的操作。 NumPy 拥有线性代数和随机数生成的内置函数。</p></li>
+</ul>
+
+
+<hr />
+
+<h2>NumPy环境安装配置</h2>
+
+<h4>NumPy - 环境</h4>
+
+<h4>启用 NumPy 的最佳方法是使用特定于您的操作系统的可安装的二进制包。 这些二进制包含完整的 SciPy 技术栈(包括 NumPy，SciPy，matplotlib，IPython，SymPy 以及 Python 核心自带的其它包)。</h4>
+
+<h5>window安装</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install numpy</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>linux 安装</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-numpy </span></code></pre></td></tr></table></div></figure>
+
+
+
 ]]></content>
   </entry>
   
@@ -1340,333 +1671,6 @@
 <hr />
 
 <hr />
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[动态规划介绍]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_dp1/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_dp1</id>
-    <content type="html"><![CDATA[<h1>什么是动态规划？</h1>
-
-<hr />
-
-<h4>动态规划的概念：</h4>
-
-<h5>每次决策依赖于当前状态，有随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划。</h5>
-
-<hr />
-
-<h4>动态规划的基本思想和策略：</h4>
-
-<h5>将待求决的问题分解为若干个子问题，按顺序求解子阶段，前一个问题的解，为和一个子问题的求解提供了有用的信息。</h5>
-
-<h5>适用于动态划法求决的问题，经分解后得到的子问题往往不是互相独立的。下个子问题求解往往是建立在上个子问题求解的基础之上的。</h5>
-
-<hr />
-
-<h4>能采用动态求解的问题一般具有是哪个性质：</h4>
-
-<ol>
-<li>最优化原理</li>
-<li>无后效性</li>
-<li>有重叠子问题</li>
-</ol>
-
-
-<hr />
-
-<h4>动态规划求解的基本步骤：</h4>
-
-<ol>
-<li>划分阶段</li>
-<li>确定状态和状态变量</li>
-<li>确定决策并写出状态转移方程式</li>
-<li>寻找边界条件</li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Bash_shell]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_bash_sell/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_bash_sell</id>
-    <content type="html"><![CDATA[<hr />
-
-<h1>1.bash shell 的概述</h1>
-
-<h2>1. 什么是bash？</h2>
-
-<h5>bash是Bourne Again Shell的简称，是从unix系统中的sh发展而来，是用户和Linux内核交互的工具，用户通过bash操作内核完成系统的使用和管理</h5>
-
-<h2>2.shell的种类</h2>
-
-<h5>/bin/sh(已经被/bin/bash替代)</h5>
-
-<h5>/bin/bash（默认的shell）</h5>
-
-<h5>/bin/ksh(贝尔实验室开发，兼容bash)</h5>
-
-<h5>/bin/tcsh（整合C shell，功能更为强大）</h5>
-
-<h5>/bin/csh(已经被tcsh取代)</h5>
-
-<h5>/bin/zsh（源自ksh功能更为强大）</h5>
-
-<h5>其实每种shell的功能比较类似，都是方便用户使用linux内核，向内核发出指令，但是语法稍有不同。</h5>
-
-<h2>3. bash的历史和发展</h2>
-
-<p><img src="http://shangyajun6943.github.io/images/shell/shell1.png" alt="image" /></p>
-
-<hr />
-
-<h1>2.bash shell 的配置</h1>
-
-<h2>1.bash shell 的变量</h2>
-
-<h5>变量就是代表一些值的符号</h5>
-
-<ul>
-<li>可以通过变量来设置shell或者其他程序</li>
-<li>变量存在于内存中</li>
-<li>Linux有自定义变量（local）和环境变量（environment）</li>
-<li>自定义变量和环境变量作用范围不同。</li>
-<li>可以使用下列指令查看所有变量</li>
-<li>set可以查看所有变量</li>
-<li>env只能查看环境变量</li>
-</ul>
-
-
-<h4>bash shell有以下几种设置变量的方式</h4>
-
-<ul>
-<li>通过自定义变量量设置</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>key=value  设置变量的值
-</span><span class='line'>echo $key  查看指定变量的值
-</span><span class='line'>key2=test one 错误
-</span><span class='line'>key2="test one" 成功
-</span><span class='line'>key2='test two' 也可以
-</span><span class='line'>key3="$key2 three" 成功
-</span><span class='line'>key3='$key2 three' 不能显示key2的值
-</span><span class='line'>key=$key1==== 可以
-</span><span class='line'>变量名不能以特殊字符/数字开头
-</span><span class='line'>uset key 删除变量</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>常见的变量</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>HISTFILESIZE：记录历史指令保存的最大值
-</span><span class='line'>COLUMNS:终端窗口显示额宽度
-</span><span class='line'>LINES：终端窗口显示的高度
-</span><span class='line'>PS1：设置提示符号前面的内容样式（\d,\h,\t,\u,\w,\!,\$,\l）。</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>通过别名（Aliases）设置</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>alias cls=clear
-</span><span class='line'>type cls
-</span><span class='line'>alias 可以查看所有的别名
-</span><span class='line'>alias cls 查看别名
-</span><span class='line'>type -a alias名称 查看别名
-</span><span class='line'>unalias 删除别名</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>通过set指令设置</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>设置shell内部的属性值（set -o noclobber,set -o vi）
-</span><span class='line'>重定向输出结果会覆盖里面的内容
-</span><span class='line'>touch test
-</span><span class='line'>ll &gt;list
-</span><span class='line'>vim list
-</span><span class='line'>cal &gt;list
-</span><span class='line'>vim list
-</span><span class='line'>set -o noclobber
-</span><span class='line'>cal &gt;list 报错
-</span><span class='line'>cal &gt;&gt;list 追加</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>通过环境变量设置</li>
-<li>自定义变量只能在当前的shell环境中有效</li>
-<li>环境变量会在整个主机下的shell环境中生效。</li>
-<li>使用$export[variable name]来设置自定义变量成环境变量</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>HOME:指向当前用户的家目录
-</span><span class='line'>LANG:语言，编码（可以解决乱码）
-</span><span class='line'>PWD:指向当前的路径</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>PATH环境变量：</li>
-<li>系统预设的环境变量</li>
-<li>执行一些没有制定路径的指令时回去该路径中找</li>
-<li>修改PATH=$PATH:路径，带来安全问题
-
-<ul>
-<li>找命令的路径 which ls</li>
-</ul>
-</li>
-</ul>
-
-
-<hr />
-
-<h1>3.shell startup scripts的学习</h1>
-
-<h2>1.shell startup scripts概述</h2>
-
-<h4>用户登录或其他用户非登录动作时会自动执行的一些shell脚本：</h4>
-
-<ul>
-<li>建立自定义变量或者这行set指令设置shell</li>
-<li>建立环境变量，设置其他程序</li>
-<li>使用alias，简化后续的操作</li>
-<li>登录的时候执行那些程序</li>
-<li>分为login和non-login脚本</li>
-</ul>
-
-
-<h4>login  shell脚本</h4>
-
-<ul>
-<li>通过完整的登录流程运行的shell命令</li>
-<li>首先会读取/etc/profile(PATH/USER/HOSTNAME/HISTSIZE等)</li>
-<li>然后读取/etc/profile.d/*.sh 下的所有的.sh脚本（颜色，语言，指令别名等）</li>
-</ul>
-
-
-<h2>2.login和non-login shell的学习</h2>
-
-<hr />
-
-<h1>4.数据流重定向和管道命令</h1>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Memcached在window下安装]]></title>
-    <link href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Memcached_2/"/>
-    <updated>2018-07-03T15:11:11+08:00</updated>
-    <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_Memcached_2</id>
-    <content type="html"><![CDATA[<h1>Memcached在window下安装</h1>
-
-<ul>
-<li>32位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win32-1.4.4-14.zip">http://static.runoob.com/download/memcached-win32-1.4.4-14.zip</a></li>
-<li>64位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win64-1.4.4-14.zip">http://static.runoob.com/download/memcached-win64-1.4.4-14.zip</a></li>
-<li>32位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-x86.zip">http://static.runoob.com/download/memcached-1.4.5-x86.zip</a></li>
-<li>64位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-amd64.zip">http://static.runoob.com/download/memcached-1.4.5-amd64.zip</a></li>
-</ul>
-
-
-<hr />
-
-<h3>memcached &lt;1.4.5 版本安装</h3>
-
-<p>1、解压下载的安装包到指定目录。
-2、在 1.4.5 版本以前 memcached 可以作为一个服务安装，使用管理员权限运行以下命令：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。
-3、然后我们可以使用以下命令来启动和关闭 memcached 服务：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d start
-</span><span class='line'>c:\memcached\memcached.exe -d stop</span></code></pre></td></tr></table></div></figure>
-
-
-<p>4、如果要修改 memcached 的配置项, 可以在命令行中执行 regedit.exe 命令打开注册表并找到 &ldquo;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\memcached&rdquo; 来进行修改。</p>
-
-<p>如果要提供 memcached 使用的缓存配置 可以修改 ImagePath 为:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>"c:\memcached\memcached.exe" -d runservice -m 512</span></code></pre></td></tr></table></div></figure>
-
-
-<p>5、如果我们需要卸载 memcached ，可以使用以下命令：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d uninstall</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>memcached >= 1.4.5 版本安装</h3>
-
-<p>1、解压下载的安装包到指定目录。
-2、在 memcached1.4.5 版本之后，memcached 不能作为服务来运行，需要使用任务计划中来开启一个普通的进程，在 window 启动时设置 memcached自动执行。</p>
-
-<p>我们使用管理员身份执行以下命令将 memcached 添加来任务计划表中：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /create /sc onstart /tn memcached /tr "'c:\memcached\memcached.exe' -m 512"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。</p>
-
-<p>注意：-m 512 意思是设置 memcached 最大的缓存配置为512M。</p>
-
-<p>注意：我们可以通过使用 &ldquo;c:\memcached\memcached.exe -h&rdquo; 命令查看更多的参数配置。</p>
-
-<p>3、如果需要删除 memcached 的任务计划可以执行以下命令：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /delete /tn memcached</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   

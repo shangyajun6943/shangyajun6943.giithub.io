@@ -848,7 +848,7 @@ sudo docker run ubuntu echo 'hello world &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_mianshi2/">面试总结2</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_numpy3/">python_NumPy - NumPy - 数据类型②</a></h1>
     
     
       <p class="meta">
@@ -865,176 +865,371 @@ sudo docker run ubuntu echo 'hello world &hellip;">
   </header>
 
 
-  <div class="entry-content"><h1>面试总结2</h1>
-
-<hr />
-
-<h5>内存泄漏和内存溢出的区别和联系</h5>
-
-<h5>1、内存泄漏memory leak :是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。</h5>
-
-<h5>2、内存溢出 out of memory :指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM,即所谓的内存溢出。</h5>
-
-<h5>3、二者关系：</h5>
+  <div class="entry-content"><h1>NumPy - 数据类型</h1>
 
 <ol>
-<li>内存泄漏的堆积最终会导致内存溢出</li>
-<li>内存溢出就是你要的内存空间超过了系统实际分配给你的空间，此时系统相当于没法满足你的需求，就会报内存溢出的错误。</li>
-<li>内存泄漏是指你向系统申请分配内存进行使用(new)，可是使用完了以后却不归还(delete)，结果你申请到的那块内存你自己也不能再访问（也许你把它的地址给弄丢了），而系统也不能再次将它分配给需要的程序。就相当于你租了个带钥匙的柜子，你存完东西之后把柜子锁上之后，把钥匙丢了或者没有将钥匙还回去，那么结果就是这个柜子将无法供给任何人使用，也无法被垃圾回收器回收，因为找不到他的任何信息。</li>
-<li>内存溢出：一个盘子用尽各种方法只能装4个果子，你装了5个，结果掉倒地上不能吃了。这就是溢出。比方说栈，栈满时再做进栈必定产生空间溢出，叫上溢，栈空时再做退栈也产生空间溢出，称为下溢。就是分配的内存不足以放下数据项序列,称为内存溢出。说白了就是我承受不了那么多，那我就报错，
+<li>bool_   存储为一个字节的布尔值(真或假)</li>
+<li>int_    默认整数，相当于 C 的long，通常为int32或int64</li>
+<li>intc    相当于 C 的int，通常为int32或int64</li>
+<li>intp    用于索引的整数，相当于 C 的size_t，通常为int32或int64</li>
+<li>int     8字节(-128 ~ 127)</li>
+<li>int16   16位整数(-32768 ~ 32767)</li>
+<li>int32   32位整数(-2147483648 ~ 2147483647)</li>
+<li>int64   64位整数(-9223372036854775808 ~ 9223372036854775807)</li>
+<li>uint8   8位无符号整数(0 ~ 255)</li>
+<li>uint16  16位无符号整数(0 ~ 65535)</li>
+<li>uint32  32位无符号整数(0 ~ 4294967295)</li>
+<li>uint64  64位无符号整数(0 ~ 18446744073709551615)</li>
+<li>float_  float64的简写</li>
+<li>float16 半精度浮点：符号位，5 位指数，10 位尾数</li>
+<li>float32 单精度浮点：符号位，8 位指数，23 位尾数</li>
+<li>float64 双精度浮点：符号位，11 位指数，52 位尾数</li>
+<li>complex_complex 128的简写</li>
+<li>complex64   复数，由两个 32 位浮点表示(实部和虚部)</li>
+<li>complex128  复数，由两个 64 位浮点表示(实部和虚部)
 
-<h5>4、内存泄漏的分类（按发生方式来分类）</h5></li>
-<li>常发性内存泄漏。发生内存泄漏的代码会被多次执行到，每次被执行的时候都会导致一块内存泄漏。</li>
-<li>偶发性内存泄漏。发生内存泄漏的代码只有在某些特定环境或操作过程下才会发生。常发性和偶发性是相对的。对于特定的环境，偶发性的也许就变成了常发性的。所以测试环境和测试方法对检测内存泄漏至关重要。</li>
-<li>一次性内存泄漏。发生内存泄漏的代码只会被执行一次，或者由于算法上的缺陷，导致总会有一块仅且一块内存发生泄漏。比如，在类的构造函数中分配内存，在析构函数中却没有释放该内存，所以内存泄漏只会发生一次。</li>
-<li>隐式内存泄漏。程序在运行过程中不停的分配内存，但是直到结束的时候才释放内存。严格的说这里并没有发生内存泄漏，因为最终程序释放了所有申请的内存。但是对于一个服务器程序，需要运行几天，几周甚至几个月，不及时释放内存也可能导致最终耗尽系统的所有内存。所以，我们称这类内存泄漏为隐式内存泄漏。</li>
+<h4>NumPy 数字类型是dtype(数据类型)对象的实例，每个对象具有唯一的特征。 这些类型可以是np.bool_，np.float32等。</h4></li>
 </ol>
 
 
-<h5>5、内存溢出的原因及解决方法：</h5>
-
-<h5>内存溢出原因：</h5>
-
-<ol>
-<li>内存中加载的数据量过于庞大，如一次从数据库取出过多数据；</li>
-<li>集合类中有对对象的引用，使用完后未清空，使得JVM不能回收；</li>
-<li>代码中存在死循环或循环产生过多重复的对象实体；</li>
-<li>使用的第三方软件中的BUG；</li>
-<li>启动参数内存值设定的过小
-
-<h5>内存溢出的解决方案：</h5>
-
-<h5>第一步，修改JVM启动参数，直接增加内存。(-Xms，-Xmx参数一定不要忘记加。)</h5></li>
-</ol>
-
-
-<h5>第二步，检查错误日志，查看“OutOfMemory”错误前是否有其 它异常或错误。</h5>
-
-<h5>第三步，对代码进行走查和分析，找出可能发生内存溢出的位置。</h5>
-
-<h4>重点排查以下几点：</h4>
-
-<ol>
-<li><p>检查对数据库查询中，是否有一次获得全部数据的查询。一般来说，如果一次取十万条记录到内存，就可能引起内存溢出。这个问题比较隐蔽，在上线前，数据库中数据较少，不容易出问题，上线后，数据库中数据多了，一次查询就有可能引起内存溢出。因此对于数据库查询尽量采用分页的方式查询。</p></li>
-<li><p>检查代码中是否有死循环或递归调用。</p></li>
-<li><p>检查是否有大循环重复产生新对象实体。</p></li>
-<li><p>检查List、MAP等集合对象是否有使用完后，未清除的问题。List、MAP等集合对象会始终存有对对象的引用，使得这些对象不能被GC回收。</p></li>
-</ol>
-
-
-<h2><code>使用内存查看工具动态查看内存使用情况</code></h2>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_mianshi1/">面试总结</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>面试总结</h1>
-
 <hr />
 
-<h5>1.list删除中pop、remove、del有什么区别？</h5>
+<h3>数据类型对象 (dtype)</h3>
 
-<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
-
-<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
-
-<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
-
-<h5>del list1 和list.clear()?</h5>
-
-<hr />
-
-<h5>2.map运行机制？</h5>
-
-<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
-
-<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
-
-<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
-
-<hr />
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux3/">TCP详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>TCP协议详解</h1>
-
-<hr />
-
-<h3>1.   传输层概述</h3>
+<h4>数据类型对象描述了对应于数组的固定内存块的解释，取决于以下方面：</h4>
 
 <ul>
-<li><p>TCP服务特点:面向连接、字节流、可靠传输</p>
+<li><p>数据类型(整数、浮点或者 Python 对象)</p></li>
+<li><p>数据大小</p></li>
+<li><p>字节序(小端或大端)</p></li>
+<li><p>在结构化类型的情况下，字段的名称，每个字段的数据类型，和每个字段占用的内存块部分。</p></li>
+<li><p>如果数据类型是子序列，它的形状和数据类型。</p></li>
+<li><p>字节顺序取决于数据类型的前缀&lt;或>。&lt;意味着编码是小端(最小有效字节存储在最小地址中)。>意味着编码是大端(最大有效字节存储在最小地址中)。</p></li>
+</ul>
 
-<h5>TCP面向连接是什么意思？双方在同时使用TCP协议通信，必须先建立连接，然后才开始数据的读写，双发必须为这次连接分配必要的内核资源，以管理连接的状态和数据的传输，同时TCP协议模式是：全双工的，双方的多次读写可以使用一次连接进行，交换数据后双方必须断开连接，释放系统资源，TCP协议针对的是一对一的，基于广播，多播的应用，不能使用TCP，而使用UDP</h5></li>
-<li><p>TCP头部信息</p></li>
+
+<h4>dtype可由一下语法构造：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.dtype(object, align, copy)</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参数为：</h4>
+
+<ul>
+<li><p>Object：被转换为数据类型的对象。</p></li>
+<li><p>Align：如果为true，则向字段添加间隔，使其类似 C 的结构体。</p></li>
+<li><p>Copy? 生成dtype对象的新副本，如果为flase，结果是内建数据类型对象的引用。</p></li>
+</ul>
+
+
+<h3>示例 像创建列名一样创建数组</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dt = np.dtype([('age',bool)])
+</span><span class='line'>a = np.array([12,13,14],dtype=dt)
+</span><span class='line'>print(a)
+</span><span class='line'>[( True,) ( True,) ( True,)]
+</span><span class='line'>print(a['age'])
+</span><span class='line'>[ True  True  True]
+</span><span class='line'>dt = np.dtype([('age',int),('name',str)])
+</span><span class='line'>a = np.array([(12,'a'),(13,'b')],dtype=dt)
+</span><span class='line'>print(a)
+</span><span class='line'>[(12, '') (13, '')]
+</span><span class='line'>dt = np.dtype(('age',bool))
+</span><span class='line'>student = np.dtype([('name','S20'),  ('age',  'i1'),  ('marks',  'f4')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'abc', 21, 50.) (b'xyz', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','str'),  ('age',  int),  ('marks',  float)])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[('', 21, 50.) ('', 18, 75.)]
+</span><span class='line'> student = np.dtype([('name',str),  ('age',  int),  ('marks',  float)])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[('', 21, 50.) ('', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','a'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'', 21, 50.) (b'', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','S'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([('abc',  21,  50),('xyz',  18,  75)], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[(b'', 21, 50.) (b'', 18, 75.)]
+</span><span class='line'>student = np.dtype([('name','S20'),  ('age',  'i'),  ('marks',  'f')])
+</span><span class='line'>a = np.array([[('abc',  21,  50),('xyz',  18,  75)],[('fff',  21,  50),('eee',  18,  75)]], dtype = student)
+</span><span class='line'>print(a)
+</span><span class='line'>[[(b'abc', 21, 50.) (b'xyz', 18, 75.)]
+</span><span class='line'> [(b'fff', 21, 50.) (b'eee', 18, 75.)]]
+</span><span class='line'>print(a['name'])
+</span><span class='line'>[[b'abc' b'xyz']
+</span><span class='line'> [b'fff' b'eee']]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>每个内建类型都有一个唯一定义它的字符代码：</h4>
+
+<ul>
+<li><p>&lsquo;b'：布尔值</p></li>
+<li><p>&lsquo;i'：符号整数</p></li>
+<li><p>&lsquo;u'：无符号整数</p></li>
+<li><p>&lsquo;f'：浮点</p></li>
+<li><p>&lsquo;c'：复数浮点</p></li>
+<li><p>&rsquo;m'：时间间隔</p></li>
+<li><p>&rsquo;M'：日期时间</p></li>
+<li><p>&lsquo;O'：Python 对象</p></li>
+<li><p>&rsquo;S', &lsquo;a'：字节串</p></li>
+<li><p>&lsquo;U'：Unicode</p></li>
+<li><p>&lsquo;V'：原始数据(void)</p></li>
+</ul>
+
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_numpy2/">python_NumPy - Ndarray 对象①</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Ndarray 对象</h1>
+
+<h4>NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于<code>零</code>的索引访问集合中的项目。</h4>
+
+<h4>ndarray中的每个元素在内存中使用相同大小的块。 ndarray中的每个元素是数据类型对象的对象(称为 dtype)。</h4>
+
+<h4>从ndarray对象提取的任何元素(通过切片)由一个数组标量类型的 Python 对象表示。 下图显示了ndarray，数据类型对象(dtype)和数组标量类型之间的关系。</h4>
+
+<p><img src="/images/np/430090425_51678.jpg" alt="images" /></p>
+
+<h4>基本的ndarray是使用 NumPy 中的数组函数创建的，如下所示：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.array</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>它从<code>任何暴露数组接口的对象</code>，或从返回数组的任何方法创建一个ndarray。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>object 任何暴露数组接口方法的对象都会返回一个数组或任何(嵌套)序列。</li>
+<li>dtype 数组的所需数据类型，可选。</li>
+<li>copy 可选，默认为true，对象是否被复制。</li>
+<li>order C(按行)、F(按列)或A(任意，默认)。</li>
+<li>subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。</li>
+<li>ndimin 指定返回数组的最小维数。</li>
+</ol>
+
+
+<h4>示例 1 一维数组</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([1,2,3])
+</span><span class='line'>print(a)
+</span><span class='line'>[1 2 3]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>示例 2 多维数组</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([[1,2,3],[4,5,6],[7,8,9]])
+</span><span class='line'>print(a)
+</span><span class='line'>[[1 2 3]
+</span><span class='line'>[4 5 6]
+</span><span class='line'>[7 8 9]]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>示例 3 最小维度</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([1,2,3],ndmin=1)
+</span><span class='line'>print(a)
+</span><span class='line'>[1 2 3]
+</span><span class='line'>a = np.array([1,2,3],ndmin=2)
+</span><span class='line'>print(a)
+</span><span class='line'>[[1 2 3]]
+</span><span class='line'>a = np.array([1,2,3],ndmin=3)
+</span><span class='line'>print(a)
+</span><span class='line'>[[[1 2 3]]]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>示例 4 dtype 参数</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([1,2,3],dtype=complex)
+</span><span class='line'>print(a)
+</span><span class='line'>[1.+0.j 2.+0.j 3.+0.j]
+</span><span class='line'>a = np.array([1,2,3],dtype=int)
+</span><span class='line'>print(a)
+</span><span class='line'>[1 2 3]
+</span><span class='line'>a = np.array([1,2,3],dtype=str)
+</span><span class='line'> print(a)
+</span><span class='line'>['1' '2' '3']
+</span><span class='line'>a = np.array([1,2,3],dtype=bool)
+</span><span class='line'>print(a)
+</span><span class='line'>[ True  True  True]</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ndarray 对象由计算机内存中的一维连续区域组成，带有将每个元素映射到内存块中某个位置的索引方案。 内存块以按行(C 风格)或按列(FORTRAN 或 MatLab 风格)的方式保存元素。</h2>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_numpy1/">Python_numpy介绍与安装</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>NumPy</h1>
+
+<hr />
+
+<h2>NumPy - 简介</h2>
+
+<h4>NumPy 是一个 Python 包。 它代表 “Numeric Python”。 它是一个由<code>多维数组对象和用于处理数组的例程集合组成的库</code>。</h4>
+
+<hr />
+
+<h2>NumPy 操作</h2>
+
+<h4>使用NumPy，开发人员可以执行以下操作：</h4>
+
+<ul>
+<li><p>数组的算数和逻辑运算。</p></li>
+<li><p>傅立叶变换和用于图形操作的例程。</p></li>
+<li><p>与线性代数有关的操作。 NumPy 拥有线性代数和随机数生成的内置函数。</p></li>
 </ul>
 
 
 <hr />
 
-<h3>2.   TCP状态转移详解</h3>
+<h2>NumPy环境安装配置</h2>
 
-<hr />
+<h4>NumPy - 环境</h4>
 
-<h3>3.   TCP简历简介和关闭连接的过程</h3>
+<h4>启用 NumPy 的最佳方法是使用特定于您的操作系统的可安装的二进制包。 这些二进制包含完整的 SciPy 技术栈(包括 NumPy，SciPy，matplotlib，IPython，SymPy 以及 Python 核心自带的其它包)。</h4>
 
-<hr />
+<h5>window安装</h5>
 
-<h3>4.   RST复位报文段</h3>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install numpy</span></code></pre></td></tr></table></div></figure>
 
-<hr />
 
-<h3>5.   TCP可靠性传输机制</h3>
+<h5>linux 安装</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-numpy </span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
   
   
