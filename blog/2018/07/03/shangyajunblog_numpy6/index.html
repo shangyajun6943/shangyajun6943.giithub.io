@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python_NumPy - NumPy - 来自现有数据的数组⑤ - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="NumPy - 来自现有数据的数组-从现有数据创建数组。 numpy.asarray：此函数类似于numpy.array，除了它有较少的参数。 这个例程对于将 Python 序列转换为ndarray非常有用。 1
+numpy.asarray(a, dtype = None, order = &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy6/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">python_NumPy - NumPy - 来自现有数据的数组⑤</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>NumPy - 来自现有数据的数组-从现有数据创建数组。</h1>
+
+<hr />
+
+<ul>
+<li>numpy.asarray：此函数类似于numpy.array，除了它有较少的参数。 这个例程对于将 Python 序列转换为ndarray非常有用。</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.asarray(a, dtype = None, order = None)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>a 任意形式的输入参数，比如列表、列表的元组、元组、元组的元组、元组的列表</li>
+<li>dtype 通常，输入数据的类型会应用到返回的ndarray</li>
+<li>order &lsquo;C'为按行的 C 风格数组，'F'为按列的 Fortran 风格数组</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>x=[(1,2,3),(4,5,6)]
+</span><span class='line'>a= np.asarray(x,dtype=np.float32,order='C')
+</span><span class='line'>print(a)
+</span><span class='line'>[[1. 2. 3.]
+</span><span class='line'> [4. 5. 6.]]
+</span><span class='line'>y=[['1','2','3'],[1,2,3]]
+</span><span class='line'>print(y)
+</span><span class='line'>[['1', '2', '3'], [1, 2, 3]]
+</span><span class='line'>a = np.asarray(y,dtype=np.float32,order='C')
+</span><span class='line'>print(a)
+</span><span class='line'>[[1. 2. 3.]
+</span><span class='line'> [1. 2. 3.]]
+</span><span class='line'>a = np.asarray(y,dtype=np.float32,order='F')
+</span><span class='line'>print(a)
+</span><span class='line'>[[1. 2. 3.]
+</span><span class='line'> [1. 2. 3.]]</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>numpy.frombuffer:此函数将缓冲区解释为一维数组。 暴露缓冲区接口的任何对象都用作参数来返回ndarray</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.frombuffer(buffer, dtype = float, count = -1, offset = 0)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>buffer 任何暴露缓冲区接口的对象</li>
+<li>dtype 返回数组的数据类型，默认为float</li>
+<li>count 需要读取的数据数量，默认为-1，读取所有数据</li>
+<li>offset 需要读取的起始位置，默认为0</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import numpy as np 
+</span><span class='line'>s =  'Hello World' 
+</span><span class='line'>a = np.frombuffer(s, dtype =  'S1')  
+</span><span class='line'>print a
+</span><span class='line'>['H'  'e'  'l'  'l'  'o'  ' '  'W'  'o'  'r'  'l'  'd']
+</span><span class='line'>注意：python中没实现，必须把str变成byte后就可以了</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<ul>
+<li>numpy.fromiter：任何可迭代对象构建一个ndarray对象，返回一个新的一维数组。</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.fromiter(iterable, dtype, count = -1)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>iterable 任何可迭代对象</li>
+<li>dtype 返回数组的数据类型</li>
+<li>count 需要读取的数据数量，默认为-1，读取所有数据</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b=[i for i in range(10)]
+</span><span class='line'>b
+</span><span class='line'>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</span><span class='line'>b= iter(b)
+</span><span class='line'>print(b)
+</span><span class='line'>&lt;list_iterator object at 0x04BFC770&gt;
+</span><span class='line'>a = np.fromiter(b,dtype=int)
+</span><span class='line'>a
+</span><span class='line'>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+</span><span class='line'>print(a)
+</span><span class='line'>[0 1 2 3 4 5 6 7 8 9]
+</span><span class='line'>c=[i for i in range(10)]
+</span><span class='line'>a = np.fromiter(c,dtype=int)
+</span><span class='line'>print(a)
+</span><span class='line'>[0 1 2 3 4 5 6 7 8 9]
+</span><span class='line'>注意：str，list，tuple，dict，set都是可迭代对象所以都可以使用</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<ul>
+<li>fromstring：从字符串中读取元素组成数组</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fromstring(string, dtype=float, count=-1, sep='')</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>string 字符串对象</li>
+<li>dtype 返回数组的数据类型</li>
+<li>count 读取几个 -1 去读</li>
+<li>sep 用什么分隔</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>np.fromstring('1 2', dtype=int, sep=' ')
+</span><span class='line'>array([1, 2])
+</span><span class='line'>np.fromstring('1, 2', dtype=int, sep=',')
+</span><span class='line'>array([1, 2])
+</span><span class='line'>注意：目前只能是这样的字符串，其他没试验成功
+</span><span class='line'>c= '1 2 3'
+</span><span class='line'>a = np.fromstring(c,dtype=int,count=2,sep=' ')
+</span><span class='line'>array([1, 2])</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>np.fromfile 从文件中读，生成数组</li>
+<li>np.fromfunction 从函数中读，生成数组</li>
+<li>np.fromregex 从正则表达式读，生成数组
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/numpy/'>numpy</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy6/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy6/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_numpy5/" title="Previous Post: python_NumPy - NumPy - 数组创建例程④">&laquo; python_NumPy - NumPy - 数组创建例程④</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_numpy7/" title="Next Post: python_NumPy - NumPy - 来自数值范围的数组⑥">python_NumPy - NumPy - 来自数值范围的数组⑥ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_2/">Docker容器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_1/">Docker安装</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os2/">Os处理器状态</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

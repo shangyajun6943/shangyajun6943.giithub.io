@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopress环境的搭建 - 夕阳还是很红</title>
+  <title>python_NumPy - NumPy - 数组创建例程④ - 夕阳还是很红</title>
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="octopress环境的搭建 git、ruby、Devkit、markdownPad的安装与配置 git：版本管理工具，将代码托管到github上
-Ruby+Devkit：生成静态的页面
-MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &hellip;">
+  <meta name="description" content="NumPy - 数组创建例程 numpy.empty 它创建指定形状和dtype的未初始化数组。 它使用以下构造函数： 1
+numpy.empty(shape, dtype = float, order = 'C') Shape 空数组的形状，整数或整数元组
+Dtype 所需的输出数组类型，可选 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2/">
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy5/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
@@ -71,7 +71,7 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
   
   <header>
     
-      <h1 class="entry-title">Octopress环境的搭建</h1>
+      <h1 class="entry-title">python_NumPy - NumPy - 数组创建例程④</h1>
     
     
       <p class="meta">
@@ -88,26 +88,83 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
   </header>
 
 
-<div class="entry-content"><h1>octopress环境的搭建</h1>
+<div class="entry-content"><h1>NumPy - 数组创建例程</h1>
 
-<h3>git、ruby、Devkit、markdownPad的安装与配置</h3>
+<hr />
 
 <ul>
-<li>git：版本管理工具，将代码托管到github上</li>
-<li>Ruby+Devkit：生成静态的页面</li>
-<li>MarkdwonPad:z在window下Markdown语法编辑器</li>
+<li>numpy.empty</li>
 </ul>
 
 
-<h2>1.    git安装与配置</h2>
+<h5>它创建指定形状和dtype的未初始化数组。 它使用以下构造函数：</h5>
 
-<h2>2.    ruby安装与配置</h2>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.empty(shape, dtype = float, order = 'C')</span></code></pre></td></tr></table></div></figure>
 
-<h2>3.    Devkit安装与配置</h2>
 
-<h2>4.    Ruby与Devkit关联</h2>
+<ol>
+<li>Shape 空数组的形状，整数或整数元组</li>
+<li>Dtype 所需的输出数组类型，可选</li>
+<li>Order &lsquo;C'为按行的 C 风格数组，'F'为按列的 Fortran 风格数组</li>
+</ol>
 
-<h2>5.安装octopress并设置默认主题</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.empty((3,3),dtype=int)
+</span><span class='line'>print(a)
+</span><span class='line'>[[  2   0   0]
+</span><span class='line'> [  0   0   0]
+</span><span class='line'> [464   0   0]]
+</span><span class='line'>注意：数组元素为随机值，因为它们未初始化。</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<ul>
+<li>numpy.zeros返回特定大小，以 0 填充的新数组</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.zeros(shape, dtype = float, order = 'C')
+</span><span class='line'>a= np.zeros((3,3),dtype=int)
+</span><span class='line'>print(a)
+</span><span class='line'>[[0 0 0]
+</span><span class='line'> [0 0 0]
+</span><span class='line'> [0 0 0]]
+</span><span class='line'>注意：创建全为0的3*3的数组</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>numpy.ones返回特定大小，以 1 填充的新数组。</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.ones((3,3),dtype=int)
+</span><span class='line'>print(a)
+</span><span class='line'>[[1 1 1]
+</span><span class='line'> [1 1 1]
+</span><span class='line'> [1 1 1]]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
 </div>
 
 
@@ -128,7 +185,7 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/octopress/'>octopress</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/numpy/'>numpy</a>, <a class='category' href='/blog/categories/python/'>python</a>
   
 </span>
 
@@ -137,7 +194,7 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_octopress2/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy5/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy5/" >Tweet</a>
   
   
   
@@ -146,10 +203,10 @@ MarkdwonPad:z在window下Markdown语法编辑器 1. git安装与配置 2. &helli
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_numpy9/" title="Previous Post: python_NumPy - NumPy - 高级索引⑧">&laquo; python_NumPy - NumPy - 高级索引⑧</a>
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_numpy4/" title="Previous Post: python_NumPy - NumPy - 数组属性③">&laquo; python_NumPy - NumPy - 数组属性③</a>
       
       
-        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_os1/" title="Next Post: 操作系统">操作系统 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_numpy6/" title="Next Post: python_NumPy - NumPy - 来自现有数据的数组⑤">python_NumPy - NumPy - 来自现有数据的数组⑤ &raquo;</a>
       
     </p>
   </footer>

@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python_NumPy - NumPy - 来自数值范围的数组⑥ - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="NumPy - 来自数值范围的数组 numpy.arange：包含给定范围内的等间隔值。 1
+numpy.arange(start, stop, step, dtype) start 范围的起始值，默认为0
+stop 范围的终止值(不包含)
+step 两个值的间隔，默认为1
+dtype &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy7/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">python_NumPy - NumPy - 来自数值范围的数组⑥</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>NumPy - 来自数值范围的数组</h1>
+
+<hr />
+
+<ul>
+<li>numpy.arange：包含给定范围内的等间隔值。</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.arange(start, stop, step, dtype)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>start 范围的起始值，默认为0</li>
+<li>stop 范围的终止值(不包含)</li>
+<li>step 两个值的间隔，默认为1</li>
+<li>dtype 返回ndarray的数据类型，如果没有提供，则会使用输入数据的类型。</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.arange(0,100,2,dtype=float)
+</span><span class='line'>a
+</span><span class='line'>array([ 0.,  2.,  4.,  6.,  8., 10., 12., 14., 16., 18., 20., 22., 24.,
+</span><span class='line'>       26., 28., 30., 32., 34., 36., 38., 40., 42., 44., 46., 48., 50.,
+</span><span class='line'>       52., 54., 56., 58., 60., 62., 64., 66., 68., 70., 72., 74., 76.,
+</span><span class='line'>       78., 80., 82., 84., 86., 88., 90., 92., 94., 96., 98.])</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<ul>
+<li>numpy.linspace 此函数类似于arange()函数。 在此函数中，指定了范围之间的均匀间隔数量，而不是步长</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.linspace(start, stop, num, endpoint, retstep, dtype)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>start 序列的起始值</li>
+<li>stop 序列的终止值，如果endpoint为true，该值包含于序列中</li>
+<li>num 要生成的等间隔样例数量，默认为50</li>
+<li>endpoint 序列中是否包含stop值，默认为ture</li>
+<li>retstep 如果为true，返回样例，以及连续数字之间的步长</li>
+<li>dtype 输出ndarray的数据类型</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.linspace(10,20,5) #10/5-1 5个数
+</span><span class='line'>a
+</span><span class='line'>array([10. , 12.5, 15. , 17.5, 20. ])
+</span><span class='line'>a = np.linspace(10,20,6) #10/6-1 6个数
+</span><span class='line'>a
+</span><span class='line'>array([10., 12., 14., 16., 18., 20.])
+</span><span class='line'>a = np.linspace(10,20,7) #10/7 7个数
+</span><span class='line'>a
+</span><span class='line'>array([10.        , 11.66666667, 13.33333333, 15.        , 16.66666667,
+</span><span class='line'>       18.33333333, 20.        ])</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.linspace(10,20,5,endpoint=False) #10/5  5个数不包含20
+</span><span class='line'>a
+</span><span class='line'>array([10., 12., 14., 16., 18.])
+</span><span class='line'>a = np.linspace(10,20,5,retstep=True)
+</span><span class='line'>a
+</span><span class='line'>(array([10. , 12.5, 15. , 17.5, 20. ]), 2.5)</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<ul>
+<li>numpy.logspace:此函数返回一个ndarray对象，其中包含在对数刻度上均匀分布的数字。 刻度的开始和结束端点是某个底数的幂，通常为 10。</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>numpy.logspace(start, stop, num, endpoint, base, dtype)</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>start 起始值是base ** start</li>
+<li>stop 终止值是base ** stop</li>
+<li>num 范围内的数值数量，默认为50</li>
+<li>endpoint 如果为true，终止值包含在输出数组当中</li>
+<li>base 对数空间的底数，默认为10</li>
+<li>dtype 输出数组的数据类型，如果没有提供，则取决于其它参数</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.logspace(1.0,  2.0, num =  10) #1=log10  2=log10^2
+</span><span class='line'>a
+</span><span class='line'>array([ 10.        ,  12.91549665,  16.68100537,  21.5443469 ,
+</span><span class='line'>        27.82559402,  35.93813664,  46.41588834,  59.94842503,
+</span><span class='line'>        77.42636827, 100.        ])
+</span><span class='line'>a = np.logspace(1,10,num =  10,  base  =  2)
+</span><span class='line'>a
+</span><span class='line'>array([   2.,    4.,    8.,   16.,   32.,   64.,  128.,  256.,  512.,
+</span><span class='line'>       1024.])</span></code></pre></td></tr></table></div></figure>
+
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/numpy/'>numpy</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy7/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy7/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_numpy6/" title="Previous Post: python_NumPy - NumPy - 来自现有数据的数组⑤">&laquo; python_NumPy - NumPy - 来自现有数据的数组⑤</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_numpy8/" title="Next Post: python_NumPy - NumPy - 切片和索引⑦">python_NumPy - NumPy - 切片和索引⑦ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_2/">Docker容器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_1/">Docker安装</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os2/">Os处理器状态</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
