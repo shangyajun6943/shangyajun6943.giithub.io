@@ -9,8 +9,7 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="NumPy - 高级索引 https://www.yiibai.com/numpy/numpy_array_attributes.html
-">
+  <meta name="description" content="NumPy - 高级索引 如果一个ndarray是非元组序列，数据类型为整数或布尔值的ndarray，或者至少一个元素为序列对象的元组，我们就能够用它来索引ndarray。高级索引始终返回数据的副本。 与此相反，切片只提供了一个视图。 有两种类型的高级索引：整数和布尔值。 整数索引 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +87,194 @@
 
 
 <div class="entry-content"><h1>NumPy - 高级索引</h1>
+
+<h4>如果一个ndarray是非元组序列，数据类型为整数或布尔值的ndarray，或者至少一个元素为序列对象的元组，我们就能够用它来索引ndarray。高级索引始终返回数据的副本。 与此相反，切片只提供了一个视图。</h4>
+
+<h4>有两种类型的高级索引：整数和布尔值。</h4>
+
+<hr />
+
+<h3>整数索引</h3>
+
+<h4>这种机制有助于基于 N 维索引来获取数组中任意元素。 每个整数数组表示该维度的下标值。 当索引的元素个数就是目标ndarray的维度时，会变得相当直接。</h4>
+
+<h4>以下示例获取了ndarray对象中每一行指定列的一个元素。 因此，行索引包含所有行号，列索引指定要选择的元素。 也就是矩阵的下表取值。X（i，j）</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import numpy as np
+</span><span class='line'>a = np.array([[1,2,3,4],[5,6,7,8],[9,6,4,7]])
+</span><span class='line'>a
+</span><span class='line'>array([[1, 2, 3, 4],
+</span><span class='line'>       [5, 6, 7, 8],
+</span><span class='line'>       [9, 6, 4, 7]])
+</span><span class='line'>a[[0,0,2,2],[0,3,0,3]]
+</span><span class='line'>array([1, 4, 9, 7])
+</span><span class='line'>分别取4个角的点(0,0),(0,3),(2,0),(2,3)的元素组成一个数组</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])
+</span><span class='line'>x
+</span><span class='line'>array([[ 0,  1,  2],
+</span><span class='line'>       [ 3,  4,  5],
+</span><span class='line'>       [ 6,  7,  8],
+</span><span class='line'>       [ 9, 10, 11]])
+</span><span class='line'>rows = np.array([[0,0],[3,3]])
+</span><span class='line'>cols = np.array([[0,2],[0,2]])
+</span><span class='line'>x[rows,cols]
+</span><span class='line'>array([[ 0,  2],
+</span><span class='line'>       [ 9, 11]])
+</span><span class='line'>分别取4个角的点(0,0),(0,2),(3,0),(3,2)的元素组成一个2维的数组，所以以后我们可以选取任何几个元素组成几维数组，例如：以下</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rows = np.array([[0,0],[2,2]])
+</span><span class='line'>cols = np.array([[1,2],[1,2]])
+</span><span class='line'>x[rows,cols]
+</span><span class='line'>array([[1, 2],
+</span><span class='line'>       [7, 8]])</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>高级和基本索引可以通过使用切片:或省略号&hellip;与索引数组组合。 以下示例使用slice作为列索引和高级索引。 当切片用于两者时，结果是相同的。 但高级索引会导致复制，并且可能有不同的内存布局。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])  
+</span><span class='line'>print  '我们的数组是：'  
+</span><span class='line'>print x 
+</span><span class='line'>print  '\n'  
+</span><span class='line'>切片
+</span><span class='line'>z = x[1:4,1:3]  
+</span><span class='line'>print  '切片之后，我们的数组变为：'  
+</span><span class='line'>print z 
+</span><span class='line'>print  '\n'  
+</span><span class='line'>对列使用高级索引 
+</span><span class='line'>y = x[1:4,[1,2]] 
+</span><span class='line'>print  '对列使用高级索引来切片：'  
+</span><span class='line'>print y</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>结果</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>我们的数组是：
+</span><span class='line'>[[ 0  1  2] 
+</span><span class='line'> [ 3  4  5] 
+</span><span class='line'> [ 6  7  8]
+</span><span class='line'> [ 9 10 11]]
+</span><span class='line'>切片之后，我们的数组变为：
+</span><span class='line'>[[ 4  5]
+</span><span class='line'> [ 7  8]
+</span><span class='line'> [10 11]]
+</span><span class='line'>对列使用高级索引来切片：
+</span><span class='line'>[[ 4  5]
+</span><span class='line'> [ 7  8]
+</span><span class='line'> [10 11]]</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>布尔索引</h3>
+
+<h4>当结果对象是布尔运算(例如比较运算符)的结果时，将使用此类型的高级索引。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])
+</span><span class='line'>x
+</span><span class='line'>array([[ 0,  1,  2],
+</span><span class='line'>       [ 3,  4,  5],
+</span><span class='line'>       [ 6,  7,  8],
+</span><span class='line'>       [ 9, 10, 11]])
+</span><span class='line'>x[x &gt; 5]
+</span><span class='line'>array([ 6,  7,  8,  9, 10, 11])</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>这个例子使用了~(取补运算符)来过滤NaN。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([np.nan,  1,2,np.nan,3,4,5])
+</span><span class='line'>a
+</span><span class='line'>array([nan,  1.,  2., nan,  3.,  4.,  5.])
+</span><span class='line'>a[np.isnan(a)]
+</span><span class='line'>array([nan, nan])
+</span><span class='line'>a[~np.isnan(a)]
+</span><span class='line'>array([1., 2., 3., 4., 5.])</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a = np.array([1,  2+6j,  5,  3.5+5j])
+</span><span class='line'>a[np.iscomplex(a)]
+</span><span class='line'>array([2. +6.j, 3.5+5.j])</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>还有很多is的内置函数可以再IDE中查询</h4>
 
 <h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
 </div>

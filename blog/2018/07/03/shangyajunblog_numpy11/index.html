@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python_NumPy -NumPy -数组上的迭代⑩ - 夕阳还是很红</title>
+  <meta name="author" content="尚亚军">
+
+  
+  <meta name="description" content="NumPy - 数组上的迭代 NumPy 包包含一个迭代器对象numpy.nditer。 它是一个有效的多维迭代器对象，可以用于在数组上进行迭代。 数组的每个元素可使用 Python 的标准Iterator接口来访问。让我们使用arange()函数创建一个 3X4 数组， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy11/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="夕阳还是很红" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">夕阳还是很红</a></h1>
+  
+    <h2>向前一小步，文明一大步</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="shangyajun6943.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/othew">othew</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">python_NumPy -NumPy -数组上的迭代⑩</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>NumPy - 数组上的迭代</h1>
+
+<h4>NumPy 包包含一个迭代器对象numpy.nditer。 它是一个有效的多维迭代器对象，可以用于在数组上进行迭代。 数组的每个元素可使用 Python 的标准Iterator接口来访问。让我们使用arange()函数创建一个 3X4 数组，并使用nditer对它进行迭代。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a=np.arange(0,60,5)
+</span><span class='line'>a
+</span><span class='line'>array([ 0,  5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
+</span><span class='line'>a.reshape(4,3)
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>for i in np.nditer(a):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>迭代的顺序匹配数组的内容布局，而不考虑特定的排序。 这可以通过迭代上述数组的转置来看到。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b = a.reshape(4,3)
+</span><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>c = b.T
+</span><span class='line'>c
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>for i in np.nditer(c):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>迭代顺序-不同的存储分格，迭代的顺序不同</h2>
+
+<h4>如果相同元素使用 F 风格顺序存储，则迭代器选择以更有效的方式对数组进行迭代。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b = a.reshape(4,3)
+</span><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>c = b.all
+</span><span class='line'>c
+</span><span class='line'>&lt;built-in method all of numpy.ndarray object at 0x06217520&gt;
+</span><span class='line'>c = b.any
+</span><span class='line'>c
+</span><span class='line'>&lt;built-in method any of numpy.ndarray object at 0x06217520&gt;
+</span><span class='line'>c = b.T
+</span><span class='line'>c
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>d = c.copy(order='C')
+</span><span class='line'>d
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>for i in np.nditer(d):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>15
+</span><span class='line'>30
+</span><span class='line'>45
+</span><span class='line'>5
+</span><span class='line'>20
+</span><span class='line'>35
+</span><span class='line'>50
+</span><span class='line'>10
+</span><span class='line'>25
+</span><span class='line'>40
+</span><span class='line'>55
+</span><span class='line'>e = c.copy(order='F')
+</span><span class='line'>e
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>for i in np.nditer(e):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>可以通过显式提醒，来强制nditer对象使用某种顺序：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>for i in np.nditer(b,order='C'):
+</span><span class='line'>  print(i)
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55
+</span><span class='line'>for i in np.nditer(b,order='F'):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>15
+</span><span class='line'>30
+</span><span class='line'>45
+</span><span class='line'>5
+</span><span class='line'>20
+</span><span class='line'>35
+</span><span class='line'>50
+</span><span class='line'>10
+</span><span class='line'>25
+</span><span class='line'>40
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>修改数组的值</h2>
+
+<h4>nditer对象有另一个可选参数op_flags。 其默认值为只读，但可以设置为读写或只写模式。 这将允许使用此迭代器修改数组元素。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>b[0,0]
+</span><span class='line'>0
+</span><span class='line'>b[0,0] = 20
+</span><span class='line'>b
+</span><span class='line'>array([[20,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>for i in np.nditer(b,op_flags=['readwrite']):
+</span><span class='line'>  i[...] = i*2
+</span><span class='line'>b
+</span><span class='line'>array([[ 40,  10,  20],
+</span><span class='line'>       [ 30,  40,  50],
+</span><span class='line'>       [ 60,  70,  80],
+</span><span class='line'>       [ 90, 100, 110]])</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>外部循环</h2>
+
+<h4>nditer类的构造器拥有flags参数，它可以接受下列值：</h4>
+
+<ol>
+<li>c_index 可以跟踪 C 顺序的索引</li>
+<li>f_index 可以跟踪 Fortran 顺序的索引</li>
+<li>multi-index 每次迭代可以跟踪一种索引类型</li>
+<li>external_loop 给出的值是具有多个值的一维数组，而不是零维数组</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b
+</span><span class='line'>array([[ 40,  10,  20],
+</span><span class='line'>       [ 30,  40,  50],
+</span><span class='line'>       [ 60,  70,  80],
+</span><span class='line'>       [ 90, 100, 110]])
+</span><span class='line'>for i in np.nditer(b,flags= ['external_loop'],order='F'):
+</span><span class='line'>  print(i)
+</span><span class='line'>[40 30 60 90]
+</span><span class='line'>[ 10  40  70 100]
+</span><span class='line'>[ 20  50  80 110]
+</span><span class='line'>for i in np.nditer(b,flags= ['external_loop'],order='C'):
+</span><span class='line'>  print(i)
+</span><span class='line'>[ 40  10  20  30  40  50  60  70  80  90 100 110]</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>广播迭代</h2>
+
+<h4>如果两个数组是可广播的，nditer组合对象能够同时迭代它们。 假设数组a具有维度 3X4，并且存在维度为 1X4 的另一个数组b，则使用以下类型的迭代器(数组b被广播到a的大小)。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt;&gt;&gt; a = a.reshape(3,4)
+</span><span class='line'>&gt;&gt;&gt; a
+</span><span class='line'>array([[ 40,  10,  20,  30],
+</span><span class='line'>       [ 40,  50,  60,  70],
+</span><span class='line'>       [ 80,  90, 100, 110]])
+</span><span class='line'>&gt;&gt;&gt; b = np.array([1,  2,  3,  4], dtype =  int)
+</span><span class='line'>&gt;&gt;&gt; b
+</span><span class='line'>array([1, 2, 3, 4])
+</span><span class='line'>&gt;&gt;&gt; for x,y in np.nditer([a,b]):
+</span><span class='line'>  print('%d,%d'%(x,y))
+</span><span class='line'>40,1
+</span><span class='line'>10,2
+</span><span class='line'>20,3
+</span><span class='line'>30,4
+</span><span class='line'>40,1
+</span><span class='line'>50,2
+</span><span class='line'>60,3
+</span><span class='line'>70,4
+</span><span class='line'>80,1
+</span><span class='line'>90,2
+</span><span class='line'>100,3
+</span><span class='line'>110,4</span></code></pre></td></tr></table></div></figure>
+
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">尚亚军</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/numpy/'>numpy</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy11/" data-via="" data-counturl="http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy11/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/07/03/shangyajunblog_numpy10/" title="Previous Post: python_NumPy -NumPy - 广播⑨">&laquo; python_NumPy -NumPy - 广播⑨</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/07/03/shangyajunblog_numpy2/" title="Next Post: python_NumPy - Ndarray 对象①">python_NumPy - Ndarray 对象① &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_2/">Docker容器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/08/12/shangyajunblog_docker_1/">Docker安装</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_2/">Django-Django全文搜索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_quanwen_1/">Django-全文检索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/07/03/shangyajunblog_os2/">Os处理器状态</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - 尚亚军 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

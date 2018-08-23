@@ -926,6 +926,608 @@ numpy.asarray(a, dtype = None, order = &hellip;">
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_numpy11/">python_NumPy -NumPy -数组上的迭代⑩</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>NumPy - 数组上的迭代</h1>
+
+<h4>NumPy 包包含一个迭代器对象numpy.nditer。 它是一个有效的多维迭代器对象，可以用于在数组上进行迭代。 数组的每个元素可使用 Python 的标准Iterator接口来访问。让我们使用arange()函数创建一个 3X4 数组，并使用nditer对它进行迭代。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>a=np.arange(0,60,5)
+</span><span class='line'>a
+</span><span class='line'>array([ 0,  5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
+</span><span class='line'>a.reshape(4,3)
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>for i in np.nditer(a):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>迭代的顺序匹配数组的内容布局，而不考虑特定的排序。 这可以通过迭代上述数组的转置来看到。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b = a.reshape(4,3)
+</span><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>c = b.T
+</span><span class='line'>c
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>for i in np.nditer(c):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>迭代顺序-不同的存储分格，迭代的顺序不同</h2>
+
+<h4>如果相同元素使用 F 风格顺序存储，则迭代器选择以更有效的方式对数组进行迭代。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b = a.reshape(4,3)
+</span><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>c = b.all
+</span><span class='line'>c
+</span><span class='line'>&lt;built-in method all of numpy.ndarray object at 0x06217520&gt;
+</span><span class='line'>c = b.any
+</span><span class='line'>c
+</span><span class='line'>&lt;built-in method any of numpy.ndarray object at 0x06217520&gt;
+</span><span class='line'>c = b.T
+</span><span class='line'>c
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>d = c.copy(order='C')
+</span><span class='line'>d
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>for i in np.nditer(d):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>15
+</span><span class='line'>30
+</span><span class='line'>45
+</span><span class='line'>5
+</span><span class='line'>20
+</span><span class='line'>35
+</span><span class='line'>50
+</span><span class='line'>10
+</span><span class='line'>25
+</span><span class='line'>40
+</span><span class='line'>55
+</span><span class='line'>e = c.copy(order='F')
+</span><span class='line'>e
+</span><span class='line'>array([[ 0, 15, 30, 45],
+</span><span class='line'>       [ 5, 20, 35, 50],
+</span><span class='line'>       [10, 25, 40, 55]])
+</span><span class='line'>for i in np.nditer(e):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>可以通过显式提醒，来强制nditer对象使用某种顺序：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>for i in np.nditer(b,order='C'):
+</span><span class='line'>  print(i)
+</span><span class='line'>0
+</span><span class='line'>5
+</span><span class='line'>10
+</span><span class='line'>15
+</span><span class='line'>20
+</span><span class='line'>25
+</span><span class='line'>30
+</span><span class='line'>35
+</span><span class='line'>40
+</span><span class='line'>45
+</span><span class='line'>50
+</span><span class='line'>55
+</span><span class='line'>for i in np.nditer(b,order='F'):
+</span><span class='line'>  print(i)    
+</span><span class='line'>0
+</span><span class='line'>15
+</span><span class='line'>30
+</span><span class='line'>45
+</span><span class='line'>5
+</span><span class='line'>20
+</span><span class='line'>35
+</span><span class='line'>50
+</span><span class='line'>10
+</span><span class='line'>25
+</span><span class='line'>40
+</span><span class='line'>55</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>修改数组的值</h2>
+
+<h4>nditer对象有另一个可选参数op_flags。 其默认值为只读，但可以设置为读写或只写模式。 这将允许使用此迭代器修改数组元素。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b
+</span><span class='line'>array([[ 0,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>b[0,0]
+</span><span class='line'>0
+</span><span class='line'>b[0,0] = 20
+</span><span class='line'>b
+</span><span class='line'>array([[20,  5, 10],
+</span><span class='line'>       [15, 20, 25],
+</span><span class='line'>       [30, 35, 40],
+</span><span class='line'>       [45, 50, 55]])
+</span><span class='line'>for i in np.nditer(b,op_flags=['readwrite']):
+</span><span class='line'>  i[...] = i*2
+</span><span class='line'>b
+</span><span class='line'>array([[ 40,  10,  20],
+</span><span class='line'>       [ 30,  40,  50],
+</span><span class='line'>       [ 60,  70,  80],
+</span><span class='line'>       [ 90, 100, 110]])</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>外部循环</h2>
+
+<h4>nditer类的构造器拥有flags参数，它可以接受下列值：</h4>
+
+<ol>
+<li>c_index 可以跟踪 C 顺序的索引</li>
+<li>f_index 可以跟踪 Fortran 顺序的索引</li>
+<li>multi-index 每次迭代可以跟踪一种索引类型</li>
+<li>external_loop 给出的值是具有多个值的一维数组，而不是零维数组</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>b
+</span><span class='line'>array([[ 40,  10,  20],
+</span><span class='line'>       [ 30,  40,  50],
+</span><span class='line'>       [ 60,  70,  80],
+</span><span class='line'>       [ 90, 100, 110]])
+</span><span class='line'>for i in np.nditer(b,flags= ['external_loop'],order='F'):
+</span><span class='line'>  print(i)
+</span><span class='line'>[40 30 60 90]
+</span><span class='line'>[ 10  40  70 100]
+</span><span class='line'>[ 20  50  80 110]
+</span><span class='line'>for i in np.nditer(b,flags= ['external_loop'],order='C'):
+</span><span class='line'>  print(i)
+</span><span class='line'>[ 40  10  20  30  40  50  60  70  80  90 100 110]</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>广播迭代</h2>
+
+<h4>如果两个数组是可广播的，nditer组合对象能够同时迭代它们。 假设数组a具有维度 3X4，并且存在维度为 1X4 的另一个数组b，则使用以下类型的迭代器(数组b被广播到a的大小)。</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt;&gt;&gt; a = a.reshape(3,4)
+</span><span class='line'>&gt;&gt;&gt; a
+</span><span class='line'>array([[ 40,  10,  20,  30],
+</span><span class='line'>       [ 40,  50,  60,  70],
+</span><span class='line'>       [ 80,  90, 100, 110]])
+</span><span class='line'>&gt;&gt;&gt; b = np.array([1,  2,  3,  4], dtype =  int)
+</span><span class='line'>&gt;&gt;&gt; b
+</span><span class='line'>array([1, 2, 3, 4])
+</span><span class='line'>&gt;&gt;&gt; for x,y in np.nditer([a,b]):
+</span><span class='line'>  print('%d,%d'%(x,y))
+</span><span class='line'>40,1
+</span><span class='line'>10,2
+</span><span class='line'>20,3
+</span><span class='line'>30,4
+</span><span class='line'>40,1
+</span><span class='line'>50,2
+</span><span class='line'>60,3
+</span><span class='line'>70,4
+</span><span class='line'>80,1
+</span><span class='line'>90,2
+</span><span class='line'>100,3
+</span><span class='line'>110,4</span></code></pre></td></tr></table></div></figure>
+
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_numpy10/">python_NumPy -NumPy - 广播⑨</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>NumPy - 广播</h1>
+
+<h4>术语广播是指 NumPy 在算术运算期间处理不同形状的数组的能力。 对数组的算术运算通常在相应的元素上进行。 如果两个阵列具有完全相同的形状，则这些操作被无缝执行。</h4>
+
+<h4>如果两个数组的维数不相同，则元素到元素的操作是不可能的。 然而，在 NumPy 中仍然可以对形状不相似的数组进行操作，因为它拥有广播功能。 较小的数组会广播到较大数组的大小，以便使它们的形状可兼容。</h4>
+
+<hr />
+
+<h2>其实就是矩阵相加就是广播，但是矩阵只能是相同维数的相加，但是广播可以扩散到每一行上。</h2>
+
+<hr />
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import numpy as np
+</span><span class='line'>a = np.array([[0.0,0.0,0.0],[10.0,10.0,10.0],[20.0,20.0,20.0],[30.0,30.0,30.0]])
+</span><span class='line'>a
+</span><span class='line'>array([[ 0.,  0.,  0.],
+</span><span class='line'>       [10., 10., 10.],
+</span><span class='line'>       [20., 20., 20.],
+</span><span class='line'>       [30., 30., 30.]])
+</span><span class='line'>b = np.array([1.0,2.0])
+</span><span class='line'>b
+</span><span class='line'>array([1., 2.])
+</span><span class='line'>a+b
+</span><span class='line'>Traceback (most recent call last):
+</span><span class='line'>  File "&lt;pyshell#6&gt;", line 1, in &lt;module&gt;
+</span><span class='line'>    a+b
+</span><span class='line'>ValueError: operands could not be broadcast together with shapes (4,3) (2,) 
+</span><span class='line'>b = np.array([1.0,2.0,3.0])
+</span><span class='line'>a+b
+</span><span class='line'>array([[ 1.,  2.,  3.],
+</span><span class='line'>       [11., 12., 13.],
+</span><span class='line'>       [21., 22., 23.],
+</span><span class='line'>       [31., 32., 33.]])
+</span><span class='line'>c=np.array([[1.0],[2.0],[3.0]])
+</span><span class='line'>c
+</span><span class='line'>array([[1.],
+</span><span class='line'>       [2.],
+</span><span class='line'>       [3.]])
+</span><span class='line'>a
+</span><span class='line'>array([[ 0.,  0.,  0.],
+</span><span class='line'>       [10., 10., 10.],
+</span><span class='line'>       [20., 20., 20.],
+</span><span class='line'>       [30., 30., 30.]])
+</span><span class='line'>a+c
+</span><span class='line'>Traceback (most recent call last):
+</span><span class='line'>  File "&lt;pyshell#13&gt;", line 1, in &lt;module&gt;
+</span><span class='line'>    a+c
+</span><span class='line'>ValueError: operands could not be broadcast together with shapes (4,3) (3,1) 
+</span><span class='line'>c=np.array([[1.0],[2.0],[3.0],[4.0]])
+</span><span class='line'>c
+</span><span class='line'>array([[1.],
+</span><span class='line'>       [2.],
+</span><span class='line'>       [3.],
+</span><span class='line'>       [4.]])
+</span><span class='line'>a+c
+</span><span class='line'>array([[ 1.,  1.,  1.],
+</span><span class='line'>       [12., 12., 12.],
+</span><span class='line'>       [23., 23., 23.],
+</span><span class='line'>       [34., 34., 34.]])</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>所以广播，一定要与维数较大的数组，如（A m<em>n），较小数组，要么行=m</em>1，要么列=1<em>n，只能是1维的，或者都相等m</em>n。</h4>
+
+<h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_numpy1/">Python_numpy介绍与安装</a></h1>
     
     
@@ -1126,213 +1728,6 @@ numpy.asarray(a, dtype = None, order = &hellip;">
 <h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
 
 <hr />
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux3/">TCP详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>TCP协议详解</h1>
-
-<hr />
-
-<h3>1.   传输层概述</h3>
-
-<ul>
-<li><p>TCP服务特点:面向连接、字节流、可靠传输</p>
-
-<h5>TCP面向连接是什么意思？双方在同时使用TCP协议通信，必须先建立连接，然后才开始数据的读写，双发必须为这次连接分配必要的内核资源，以管理连接的状态和数据的传输，同时TCP协议模式是：全双工的，双方的多次读写可以使用一次连接进行，交换数据后双方必须断开连接，释放系统资源，TCP协议针对的是一对一的，基于广播，多播的应用，不能使用TCP，而使用UDP</h5></li>
-<li><p>TCP头部信息</p></li>
-</ul>
-
-
-<hr />
-
-<h3>2.   TCP状态转移详解</h3>
-
-<hr />
-
-<h3>3.   TCP简历简介和关闭连接的过程</h3>
-
-<hr />
-
-<h3>4.   RST复位报文段</h3>
-
-<hr />
-
-<h3>5.   TCP可靠性传输机制</h3>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_linux2/">TCP/IP协议族概述</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>TCP/IP</h1>
-
-<hr />
-
-<h2>TCP/IP协议的体系结构</h2>
-
-<ol>
-<li><p>TCP/IP协议族四层模型和OSI七层模型</p>
-
-<h5>OSI七层模型，物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</h5>
-
-<h5>TCP/IP协议四层模型，链路层、网络层、传输层、应用层</h5>
-
-<p><img src="/images/tcp_6.png" alt="image" /></p></li>
-<li><p>四层模型中层次的作用和特点</p>
-
-<h5>链路层：物理连接与传输(不同的类型？以太网，令牌)</h5>
-
-<h5>网络层：数据包的选路与转发（IP层，数据包的选路和转发）</h5>
-
-<h5>传输层：为两台机器提供了端到端的通信，关心传输的起始端和目标端，不在乎中专过程，主要完成数据分发，数据重传的任务</h5>
-
-<p><img src="/images/tcp_7.png" alt="image" /></p></li>
-<li><p>四层模型中层次中对应的协议</p>
-
-<h5>链路层协议：1.ARP协议地址解析协议。2.RARP协议逆地址解析协议。已上两个实现了IP地址和物理地址的转换。</h5></li>
-</ol>
-
-
-<h5>网络层协议（必须把IP地址转化成物理地址才能使用链路层的服务）：1：IP协议：根据数据包的目的IP地址决定如何投递数据包，如果数据包不能直接发送给目标主机，IP协议会为数据包寻找合适的路由器，并把数据包给了路由器进行转发，一直重复，直到到大目的端或发送失败对齐数据包</h5>
-
-<h5>2.ICMP协议：intel网控制报文协议，IP协议的重要补充，主要用于网络连接</h5>
-
-<h5>3.IGMP</h5>
-
-<h5>传输层协议：1.TCP协议，传中控制协议，它为应用层提供的可靠的、面向连接的、面向流的服务</h5>
-
-<h5>2.UDP协议：为应用层提供不可靠的（无法保证正确的从发送端发送到目标端）、无连接的（不保持长久链接）、数据包（有长度，一次性读出）服务</h5>
-
-<h5>3.SCTP协议：流控制传输协议，新的传输协议，控制intel网上电话信号设计的</h5>
-
-<h5>应用层协议：1.telnet协议：远程登录协议</h5>
-
-<h5>2.OSPF协议：开放路径最短优先协议，路由器更新协议，主要路由器之间的通信来告知对方各自的路由信息</h5>
-
-<h5>3.DNS协议：提供机器域名到IP地址转换</h5>
-
-<h5>ping</h5>
-
-<hr />
-
-<h2>数据的封装和分用</h2>
-
-<ol>
-<li>数据的封装形式</li>
-</ol>
-
-
-<p><img src="/images/tcp_1.png" alt="image" /></p>
-
-<ol>
-<li>TCP报文段的传输过程</li>
-</ol>
-
-
-<p><img src="/images/tcp_2.png" alt="image" /></p>
-
-<ol>
-<li>最大传送单元（MTU
-
-<h5>在数据链路层传输的数据包称为帧，帧的最大单位称为MTU（Max Transmit Unit），以太网1500K，令牌1492K，超过最大单位就分片</h5></li>
-<li>以太网帧格式</li>
-</ol>
-
-
-<p><img src="/images/tcp_3.png" alt="image" /></p>
-
-<ol>
-<li>数据分用的过程</li>
-</ol>
-
-
-<p><img src="/images/tcp_4.png" alt="image" /></p>
-
-<h5>1.以太网帧在复杂的网络中如何选路？</h5>
-
-<h5>2.网络协议怎么确保传输的数据准确无误的传输？</h5>
-
-<hr />
-
-<h2>ARP协议的工作原理</h2>
-
-<ol>
-<li>ARP的用途
-
-<h5>1.ARP协议是地址解析协议</h5>
-
-<h5>2.ARP协议作用：能实现网络地址到任意物理地址的转换</h5>
-
-<h5>3.ARP工作原理：首先主机在自己所在的网络广播一个ARP请求，改请求包含目标机器的网络地址，同时网络上的其他机器都收到这个请求，但是只有被请求的目标机器回应一个ARP应答,其中包含了自己的物理地址</h5></li>
-<li>ARP请求/应答报文详解</li>
-</ol>
-
-
-<p><img src="/images/tcp_5.png" alt="image" /></p>
-
-<h2>3. ARP通信过程</h2>
-
-<h2>DNS协议工作原理</h2>
-
-<ol>
-<li>DNS的用途和工作原理
-
-<h5>DNS的作用：将机器的域名转换成IP地址（有很多方法转换，不至DNS一种）</h5>
-
-<h5>DNS的工作原理：我们应用程序发送网址之前（使用的是TCP协议），必须将域名请求DNS服务器（端口53）找到域名对应的IP，才能使用TCP服务进行网络请求。DNS服务器就是一个分布式的IP存储系统。</h5></li>
-<li>DNS查询和应答报文详解</li>
-<li>Linux访问DNS服务</li>
-</ol>
-
 </div>
   
   

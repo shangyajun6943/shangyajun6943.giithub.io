@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | 夕阳还是很红]]></title>
   <link href="http://shangyajun6943.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://shangyajun6943.github.io/"/>
-  <updated>2018-08-20T22:22:28+08:00</updated>
+  <updated>2018-08-23T23:08:52+08:00</updated>
   <id>http://shangyajun6943.github.io/</id>
   <author>
     <name><![CDATA[尚亚军]]></name>
@@ -221,6 +221,118 @@ urlpatterns = [
     <updated>2018-07-03T15:11:11+08:00</updated>
     <id>http://shangyajun6943.github.io/blog/2018/07/03/shangyajunblog_numpy9</id>
     <content type="html"><![CDATA[<h1>NumPy - 高级索引</h1>
+
+<h4>如果一个ndarray是非元组序列，数据类型为整数或布尔值的ndarray，或者至少一个元素为序列对象的元组，我们就能够用它来索引ndarray。高级索引始终返回数据的副本。 与此相反，切片只提供了一个视图。</h4>
+
+<h4>有两种类型的高级索引：整数和布尔值。</h4>
+
+<hr />
+
+<h3>整数索引</h3>
+
+<h4>这种机制有助于基于 N 维索引来获取数组中任意元素。 每个整数数组表示该维度的下标值。 当索引的元素个数就是目标ndarray的维度时，会变得相当直接。</h4>
+
+<h4>以下示例获取了ndarray对象中每一行指定列的一个元素。 因此，行索引包含所有行号，列索引指定要选择的元素。 也就是矩阵的下表取值。X（i，j）</h4>
+
+<pre><code>import numpy as np
+a = np.array([[1,2,3,4],[5,6,7,8],[9,6,4,7]])
+a
+array([[1, 2, 3, 4],
+       [5, 6, 7, 8],
+       [9, 6, 4, 7]])
+a[[0,0,2,2],[0,3,0,3]]
+array([1, 4, 9, 7])
+分别取4个角的点(0,0),(0,3),(2,0),(2,3)的元素组成一个数组
+</code></pre>
+
+<pre><code>x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])
+x
+array([[ 0,  1,  2],
+       [ 3,  4,  5],
+       [ 6,  7,  8],
+       [ 9, 10, 11]])
+rows = np.array([[0,0],[3,3]])
+cols = np.array([[0,2],[0,2]])
+x[rows,cols]
+array([[ 0,  2],
+       [ 9, 11]])
+分别取4个角的点(0,0),(0,2),(3,0),(3,2)的元素组成一个2维的数组，所以以后我们可以选取任何几个元素组成几维数组，例如：以下
+</code></pre>
+
+<pre><code>rows = np.array([[0,0],[2,2]])
+cols = np.array([[1,2],[1,2]])
+x[rows,cols]
+array([[1, 2],
+       [7, 8]])
+</code></pre>
+
+<h4>高级和基本索引可以通过使用切片:或省略号&hellip;与索引数组组合。 以下示例使用slice作为列索引和高级索引。 当切片用于两者时，结果是相同的。 但高级索引会导致复制，并且可能有不同的内存布局。</h4>
+
+<pre><code>x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])  
+print  '我们的数组是：'  
+print x 
+print  '\n'  
+切片
+z = x[1:4,1:3]  
+print  '切片之后，我们的数组变为：'  
+print z 
+print  '\n'  
+对列使用高级索引 
+y = x[1:4,[1,2]] 
+print  '对列使用高级索引来切片：'  
+print y
+</code></pre>
+
+<h4>结果</h4>
+
+<pre><code>我们的数组是：
+[[ 0  1  2] 
+ [ 3  4  5] 
+ [ 6  7  8]
+ [ 9 10 11]]
+切片之后，我们的数组变为：
+[[ 4  5]
+ [ 7  8]
+ [10 11]]
+对列使用高级索引来切片：
+[[ 4  5]
+ [ 7  8]
+ [10 11]]
+</code></pre>
+
+<hr />
+
+<h3>布尔索引</h3>
+
+<h4>当结果对象是布尔运算(例如比较运算符)的结果时，将使用此类型的高级索引。</h4>
+
+<pre><code>x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])
+x
+array([[ 0,  1,  2],
+       [ 3,  4,  5],
+       [ 6,  7,  8],
+       [ 9, 10, 11]])
+x[x &gt; 5]
+array([ 6,  7,  8,  9, 10, 11])
+</code></pre>
+
+<h4>这个例子使用了~(取补运算符)来过滤NaN。</h4>
+
+<pre><code>a = np.array([np.nan,  1,2,np.nan,3,4,5])
+a
+array([nan,  1.,  2., nan,  3.,  4.,  5.])
+a[np.isnan(a)]
+array([nan, nan])
+a[~np.isnan(a)]
+array([1., 2., 3., 4., 5.])
+</code></pre>
+
+<pre><code>a = np.array([1,  2+6j,  5,  3.5+5j])
+a[np.iscomplex(a)]
+array([2. +6.j, 3.5+5.j])
+</code></pre>
+
+<h4>还有很多is的内置函数可以再IDE中查询</h4>
 
 <h4><a href="https://www.yiibai.com/numpy/numpy_array_attributes.html">https://www.yiibai.com/numpy/numpy_array_attributes.html</a></h4>
 ]]></content>

@@ -9,7 +9,8 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="Docker是什么？ Docker的思想来自于集装箱，集装箱解决了什么问题？在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的， &hellip;">
+  <meta name="description" content="Memcached在window下安装 32位系统 1.4.4版本：http://static.runoob.com/download/memcached-win32-1.4.4-14.zip
+64位系统 1.4.4版本：http://static.runoob.com/download/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +67,145 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Memcached_2/">Memcached在window下安装</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Memcached在window下安装</h1>
+
+<ul>
+<li>32位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win32-1.4.4-14.zip">http://static.runoob.com/download/memcached-win32-1.4.4-14.zip</a></li>
+<li>64位系统 1.4.4版本：<a href="http://static.runoob.com/download/memcached-win64-1.4.4-14.zip">http://static.runoob.com/download/memcached-win64-1.4.4-14.zip</a></li>
+<li>32位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-x86.zip">http://static.runoob.com/download/memcached-1.4.5-x86.zip</a></li>
+<li>64位系统 1.4.5版本：<a href="http://static.runoob.com/download/memcached-1.4.5-amd64.zip">http://static.runoob.com/download/memcached-1.4.5-amd64.zip</a></li>
+</ul>
+
+
+<hr />
+
+<h3>memcached &lt;1.4.5 版本安装</h3>
+
+<p>1、解压下载的安装包到指定目录。
+2、在 1.4.5 版本以前 memcached 可以作为一个服务安装，使用管理员权限运行以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。
+3、然后我们可以使用以下命令来启动和关闭 memcached 服务：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d start
+</span><span class='line'>c:\memcached\memcached.exe -d stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4、如果要修改 memcached 的配置项, 可以在命令行中执行 regedit.exe 命令打开注册表并找到 &ldquo;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\memcached&rdquo; 来进行修改。</p>
+
+<p>如果要提供 memcached 使用的缓存配置 可以修改 ImagePath 为:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>"c:\memcached\memcached.exe" -d runservice -m 512</span></code></pre></td></tr></table></div></figure>
+
+
+<p>5、如果我们需要卸载 memcached ，可以使用以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>c:\memcached\memcached.exe -d uninstall</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>memcached >= 1.4.5 版本安装</h3>
+
+<p>1、解压下载的安装包到指定目录。
+2、在 memcached1.4.5 版本之后，memcached 不能作为服务来运行，需要使用任务计划中来开启一个普通的进程，在 window 启动时设置 memcached自动执行。</p>
+
+<p>我们使用管理员身份执行以下命令将 memcached 添加来任务计划表中：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /create /sc onstart /tn memcached /tr "'c:\memcached\memcached.exe' -m 512"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：你需要使用真实的路径替代 c:\memcached\memcached.exe。</p>
+
+<p>注意：-m 512 意思是设置 memcached 最大的缓存配置为512M。</p>
+
+<p>注意：我们可以通过使用 &ldquo;c:\memcached\memcached.exe -h&rdquo; 命令查看更多的参数配置。</p>
+
+<p>3、如果需要删除 memcached 的任务计划可以执行以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>schtasks /delete /tn memcached</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Memcached_1/">Memcached介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Memcached介绍</h1>
+
+<ul>
+<li>Memcached是一个自由开源的，高性能，分布式内存对象缓存系统。</li>
+<li>Memcached是以LiveJournal旗下Danga Interactive公司的Brad Fitzpatric为首开发的一款软件。现在已成为mixi、hatena、Facebook、Vox、LiveJournal等众多服务中提高Web应用扩展性的重要因素。</li>
+<li>Memcached是一种基于内存的key-value存储，用来存储小块的任意数据（字符串、对象）。这些数据可以是数据库调用、API调用或者是页面渲染的结果。</li>
+<li>Memcached简洁而强大。它的简洁设计便于快速开发，减轻开发难度，解决了大数据量缓存的很多问题。它的API兼容大部分流行的开发语言。</li>
+<li><p>本质上，它是一个简洁的key-value存储系统。</p></li>
+<li><p>一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、提高可扩展性。</p></li>
+</ul>
+
+
+<p><img src="http://www.runoob.com/wp-content/uploads/2015/08/web_6.jpg" alt="image" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -917,656 +1057,9 @@ render是HttpResponse的封装，功能强大而已），HttpResponse只能返�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_Designpattern1/">单例模式</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>单例模式（创建型模式）</h1>
-
-<hr />
-
-<hr />
-
-<h4>1.Python 的模块就是天然的单例模式因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc 文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了。如果我们真的想要一个单例类，可以考虑这样做：</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Singleton(object):
-</span><span class='line'>    def foo(self):
-</span><span class='line'>        pass
-</span><span class='line'>singleton=Singleton()</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>使用：</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>from single.py import singleton</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h5>使用装饰器</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if cls not in _instance:
-</span><span class='line'>            _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    stu2=Student()
-</span><span class='line'>    stu3=Student()
-</span><span class='line'>    stu4=Student()
-</span><span class='line'>    t1=Teacher()
-</span><span class='line'>    t2=Teacher()
-</span><span class='line'>    t3=Teacher()
-</span><span class='line'>    t4=Teacher()
-</span><span class='line'>    print(id(stu1)) //39393040
-</span><span class='line'>    print(id(stu2)) //39393040
-</span><span class='line'>    print(id(stu3)) //39393040
-</span><span class='line'>    print(id(stu4)) //39393040
-</span><span class='line'>    print(id(t1)) //39393072
-</span><span class='line'>    print(id(t2)) //39393072
-</span><span class='line'>    print(id(t3)) //39393072
-</span><span class='line'>    print(id(t4)) //39393072</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>支持多线程-不</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if cls not in _instance:
-</span><span class='line'>            _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    import threading
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>39590352
-</span><span class='line'>40240400
-</span><span class='line'>39908464</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>解决办法：加锁！未加锁部分并发执行,加锁部分串行执行,速度降低,但是保证了数据安全</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if lock1.acquire():
-</span><span class='line'>            if cls not in _instance:
-</span><span class='line'>                _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>        lock1.release()
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>41935856
-</span><span class='line'>41935856
-</span><span class='line'>41935856</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>优化,因为线程是并发执行的，当一个线程加锁后，其他线程不能使用此资源，只有当所释放的时候才可能执行，有这样一种情况，某一个线程执行完了，锁也释放了，但是第二个线程才开始执行，<code>又一次加锁</code>这样不可以，资源浪费较大，所以我们在不定时的并发执行中，先判断在加锁后，某一个线程执行完成，另一个线程就不需要加锁。资源利用率高</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>def Singleton(cls):
-</span><span class='line'>    _instance={}
-</span><span class='line'>    def inter(*args,**kwargs):
-</span><span class='line'>        if cls not in _instance:
-</span><span class='line'>            if lock1.acquire():
-</span><span class='line'>                if cls not in _instance:
-</span><span class='line'>                    _instance[cls]=cls(*args,**kwargs)
-</span><span class='line'>            lock1.release()
-</span><span class='line'>        return _instance[cls]
-</span><span class='line'>    return inter
-</span><span class='line'>@Singleton
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>@Singleton
-</span><span class='line'>class Teacher(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h5>使用类方法@classmethod</h5>
-
-<h5>classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    st1=Student.instance()
-</span><span class='line'>    st2=Student.instance()
-</span><span class='line'>    st3=Student.instance()
-</span><span class='line'>    print(id(st1))
-</span><span class='line'>    print(id(st2))
-</span><span class='line'>    print(id(st3))</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>是否支持多线程-不</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        pass
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    import threading
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>36049744
-</span><span class='line'>36049744
-</span><span class='line'>36049744</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>这样写看不出什么，因为运行太快，效果不明显,看下面</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    import threading
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>36182224
-</span><span class='line'>36836304
-</span><span class='line'>36496208</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>解决办法：加锁！未加锁部分并发执行,加锁部分串行执行,速度降低,但是保证了数据安全</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if lock1.acquire():
-</span><span class='line'>            if not hasattr(Student,'_instance'):
-</span><span class='line'>                Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        lock1.release()
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>优化</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>lock1=threading.Lock()
-</span><span class='line'>class Student(object):
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    @classmethod
-</span><span class='line'>    def instance(cls,*args, **kwargs):
-</span><span class='line'>        if not hasattr(Student,'_instance'):
-</span><span class='line'>            with lock1:
-</span><span class='line'>                if not hasattr(Student,'_instance'):
-</span><span class='line'>                    Student._instance=Student(*args, **kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student.instance()
-</span><span class='line'>    print(id(stu1))
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(3):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h5>使用<strong>new</strong>方法</h5>
-
-<h5>我们知道，当我们实例化一个对象时，是先执行了类的<strong>new</strong>方法（我们没写时，默认调用object.<strong>new</strong>），实例化对象；然后再执行类的<strong>init</strong>方法，对这个对象进行初始化，所有我们可以基于这个，实现单例模式</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import time
-</span><span class='line'>import threading
-</span><span class='line'>class Student(object):
-</span><span class='line'>    _lock=threading.Lock()
-</span><span class='line'>    def __init__(self):
-</span><span class='line'>        time.sleep(2)
-</span><span class='line'>    def __new__(cls,*args,**kwargs):
-</span><span class='line'>        if not hasattr(cls,'_instance'):
-</span><span class='line'>            with cls._lock:
-</span><span class='line'>                if not hasattr(Student,'_instance'):
-</span><span class='line'>                    Student._instance=object.__new__(cls,*args,**kwargs)
-</span><span class='line'>        return Student._instance
-</span><span class='line'>def task():
-</span><span class='line'>    stu1=Student()
-</span><span class='line'>    print(id(stu1))      
-</span><span class='line'>if __name__=='__main__':
-</span><span class='line'>    for i in range(5):
-</span><span class='line'>        t=threading.Thread(target=task)
-</span><span class='line'>        t.start()
-</span><span class='line'>6652528
-</span><span class='line'>6652528
-</span><span class='line'>6652528
-</span><span class='line'>6652528
-</span><span class='line'>6652528</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h3>5.基于metaclass方式实现</h3>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog/">Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>初识octopress</h1>
-
-<h2>1.    Octopress的基础知识</h2>
-
-<h3>1.1Octopress是什么？</h3>
-
-<ul>
-<li>Octopress是一个基于Jekyll的静态的博客站点生成系统，它很大程度上简化了Jekyll的搭建博客的过程
-
-<h3>为什么要使用Octopress？</h3>
-
-<h3>我们说一下WordPress的缺点</h3></li>
-<li>我们得买主机（空间）、域名</li>
-<li>OverFeatured</li>
-<li><code>动态网站</code>下载速度慢</li>
-<li>过渡的<code>依赖数据库</code></li>
-<li>可控性差</li>
-<li>容错性差</li>
-<li>迁移成本高</li>
-<li><code>网页编辑器写博客</code>耗费时间多
-
-<h3>Octopress优点</h3></li>
-<li>命令行操作</li>
-<li>存文本写博客</li>
-<li>定制性高</li>
-<li>纯静态页面</li>
-<li>版本化管理</li>
-<li>迁移成本低</li>
-<li>简介的Ruby框架</li>
-<li>markdown语法
-
-<h2>2.    Octopress的目录结构</h2></li>
-<li>主题插件等->自定义博客</li>
-<li>source->存放程序、博客源码（rake generate后生成public静态网页）</li>
-<li>public->存放生成的静态网站
-
-<h2>3.    Octopress的使用流程</h2></li>
-<li>搭建环境</li>
-<li>纯文本书写博客</li>
-<li>生成静态网页</li>
-<li>本地预览</li>
-<li>部署github</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/5">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
