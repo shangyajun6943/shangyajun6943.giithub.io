@@ -9,7 +9,7 @@
   <meta name="author" content="尚亚军">
 
   
-  <meta name="description" content="TCP协议详解 1. 传输层概述 TCP服务特点:面向连接、字节流、可靠传输 TCP面向连接是什么意思？双方在同时使用TCP协议通信，必须先建立连接，然后才开始数据的读写，双发必须为这次连接分配必要的内核资源，以管理连接的状态和数据的传输，同时TCP协议模式是：全双工的， &hellip;">
+  <meta name="description" content="面试总结 1.list删除中pop、remove、del有什么区别？ pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值 remove是值删除，匹配的第一个匹配的值删除，没有返回值 del按照索引删除字符，返回值不可以付给其他的变量。 del list1 和list. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_mianshi1/">面试总结</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
+        
+            
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>面试总结</h1>
+
+<hr />
+
+<h5>1.list删除中pop、remove、del有什么区别？</h5>
+
+<h5>pop是索引删除，不写参数默认是删除最后一个，返回值是删除的索引对应的值</h5>
+
+<h5>remove是值删除，匹配的第一个匹配的值删除，没有返回值</h5>
+
+<h5>del按照索引删除字符，返回值不可以付给其他的变量。</h5>
+
+<h5>del list1 和list.clear()?</h5>
+
+<hr />
+
+<h5>2.map运行机制？</h5>
+
+<h5>map()函数接受两个参数一个是函数，函数具有一个参数。一个是Iterable</h5>
+
+<h5>map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</h5>
+
+<h5>Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</h5>
+
+<hr />
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -899,232 +953,6 @@
 <li>寻找边界条件</li>
 </ol>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/07/03/shangyajunblog_bash_sell/">Bash_shell</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-07-03T15:11:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2018</span></span> <span class='time'>3:11 pm</span></time>
-        
-            
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><hr />
-
-<h1>1.bash shell 的概述</h1>
-
-<h2>1. 什么是bash？</h2>
-
-<h5>bash是Bourne Again Shell的简称，是从unix系统中的sh发展而来，是用户和Linux内核交互的工具，用户通过bash操作内核完成系统的使用和管理</h5>
-
-<h2>2.shell的种类</h2>
-
-<h5>/bin/sh(已经被/bin/bash替代)</h5>
-
-<h5>/bin/bash（默认的shell）</h5>
-
-<h5>/bin/ksh(贝尔实验室开发，兼容bash)</h5>
-
-<h5>/bin/tcsh（整合C shell，功能更为强大）</h5>
-
-<h5>/bin/csh(已经被tcsh取代)</h5>
-
-<h5>/bin/zsh（源自ksh功能更为强大）</h5>
-
-<h5>其实每种shell的功能比较类似，都是方便用户使用linux内核，向内核发出指令，但是语法稍有不同。</h5>
-
-<h2>3. bash的历史和发展</h2>
-
-<p><img src="/images/shell/shell1.png" alt="image" /></p>
-
-<hr />
-
-<h1>2.bash shell 的配置</h1>
-
-<h2>1.bash shell 的变量</h2>
-
-<h5>变量就是代表一些值的符号</h5>
-
-<ul>
-<li>可以通过变量来设置shell或者其他程序</li>
-<li>变量存在于内存中</li>
-<li>Linux有自定义变量（local）和环境变量（environment）</li>
-<li>自定义变量和环境变量作用范围不同。</li>
-<li>可以使用下列指令查看所有变量</li>
-<li>set可以查看所有变量</li>
-<li>env只能查看环境变量</li>
-</ul>
-
-
-<h4>bash shell有以下几种设置变量的方式</h4>
-
-<ul>
-<li>通过自定义变量量设置</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>key=value  设置变量的值
-</span><span class='line'>echo $key  查看指定变量的值
-</span><span class='line'>key2=test one 错误
-</span><span class='line'>key2="test one" 成功
-</span><span class='line'>key2='test two' 也可以
-</span><span class='line'>key3="$key2 three" 成功
-</span><span class='line'>key3='$key2 three' 不能显示key2的值
-</span><span class='line'>key=$key1==== 可以
-</span><span class='line'>变量名不能以特殊字符/数字开头
-</span><span class='line'>uset key 删除变量</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>常见的变量</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>HISTFILESIZE：记录历史指令保存的最大值
-</span><span class='line'>COLUMNS:终端窗口显示额宽度
-</span><span class='line'>LINES：终端窗口显示的高度
-</span><span class='line'>PS1：设置提示符号前面的内容样式（\d,\h,\t,\u,\w,\!,\$,\l）。</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>通过别名（Aliases）设置</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>alias cls=clear
-</span><span class='line'>type cls
-</span><span class='line'>alias 可以查看所有的别名
-</span><span class='line'>alias cls 查看别名
-</span><span class='line'>type -a alias名称 查看别名
-</span><span class='line'>unalias 删除别名</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>通过set指令设置</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>设置shell内部的属性值（set -o noclobber,set -o vi）
-</span><span class='line'>重定向输出结果会覆盖里面的内容
-</span><span class='line'>touch test
-</span><span class='line'>ll &gt;list
-</span><span class='line'>vim list
-</span><span class='line'>cal &gt;list
-</span><span class='line'>vim list
-</span><span class='line'>set -o noclobber
-</span><span class='line'>cal &gt;list 报错
-</span><span class='line'>cal &gt;&gt;list 追加</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>通过环境变量设置</li>
-<li>自定义变量只能在当前的shell环境中有效</li>
-<li>环境变量会在整个主机下的shell环境中生效。</li>
-<li>使用$export[variable name]来设置自定义变量成环境变量</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>HOME:指向当前用户的家目录
-</span><span class='line'>LANG:语言，编码（可以解决乱码）
-</span><span class='line'>PWD:指向当前的路径</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>PATH环境变量：</li>
-<li>系统预设的环境变量</li>
-<li>执行一些没有制定路径的指令时回去该路径中找</li>
-<li>修改PATH=$PATH:路径，带来安全问题
-
-<ul>
-<li>找命令的路径 which ls</li>
-</ul>
-</li>
-</ul>
-
-
-<hr />
-
-<h1>3.shell startup scripts的学习</h1>
-
-<h2>1.shell startup scripts概述</h2>
-
-<h4>用户登录或其他用户非登录动作时会自动执行的一些shell脚本：</h4>
-
-<ul>
-<li>建立自定义变量或者这行set指令设置shell</li>
-<li>建立环境变量，设置其他程序</li>
-<li>使用alias，简化后续的操作</li>
-<li>登录的时候执行那些程序</li>
-<li>分为login和non-login脚本</li>
-</ul>
-
-
-<h4>login  shell脚本</h4>
-
-<ul>
-<li>通过完整的登录流程运行的shell命令</li>
-<li>首先会读取/etc/profile(PATH/USER/HOSTNAME/HISTSIZE等)</li>
-<li>然后读取/etc/profile.d/*.sh 下的所有的.sh脚本（颜色，语言，指令别名等）</li>
-</ul>
-
-
-<h2>2.login和non-login shell的学习</h2>
-
-<hr />
-
-<h1>4.数据流重定向和管道命令</h1>
 </div>
   
   
